@@ -1,0 +1,12 @@
+Remove unincluded header files (e.g., "<iostream>").
+Replace "int main()" with "task main()".
+Remove braces and "if(NXT::Open(&comm))" line.
+Remove "else" line at end.
+Remove "" line.
+Remove "return 0;".
+Remove all "extern" declarations.
+Remove braces without code inbetween.
+Add code/comment ("//code") between "#ifndef" and "#endif" where prompted.
+
+
+If all else fails, resave header as type "*.nxc", but with a "*.h" extension.
