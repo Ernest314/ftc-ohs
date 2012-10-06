@@ -6,10 +6,15 @@ task main()
     SetSensorLowspeed(IN_4);
 
     OnFwd(OUT_B, 100);
-    Wait(5000);
+    Wait(3000);
     Off(OUT_ABC);
     Wait(1000);
+    
+    OnFwd(OUT_A, 20);
+    Wait(500);
+    Off(OUT_A);
+
     OnRev(OUT_B, 100);
-    Wait(5000);
+    Wait(3000);
     Off(OUT_ABC);
 }
