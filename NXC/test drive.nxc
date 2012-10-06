@@ -1,3 +1,13 @@
+// Copyright (C) 2012, Ernest Gu.
+// All Rights Reserved.
+#include "typedefs.h"
+#include "equivalent vars.h"
+#include "global vars.h"
+#include "enums.h"
+#include "structs.h"
+#include "low-level functions.h"
+#include "high-level functions.h"
+
 task main()
 {
     SetSensor(IN_1, SENSOR_TOUCH);
