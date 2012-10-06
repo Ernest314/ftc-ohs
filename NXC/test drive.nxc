@@ -15,13 +15,16 @@ task main()
     SetSensorLight(IN_3);
     SetSensorLowspeed(IN_4);
 
-    OnFwd(OUT_BC, 75);
-    while(true)
-    {
-        if( SensorUS(IN_4) < 15 )
-        {
-            Float(OUT_BC);
-        }
-    }
-    Float(OUT_ABC);
+    OnFwd(OUT_B, 100);
+    Wait(3000);
+    Off(OUT_ABC);
+    Wait(1000);
+
+    OnFwd(OUT_A, 20);
+    Wait(500);
+    Off(OUT_A);
+
+    OnRev(OUT_B, 100);
+    Wait(3000);
+    Off(OUT_ABC);
 }
