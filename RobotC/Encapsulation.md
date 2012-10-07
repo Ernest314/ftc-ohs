@@ -1,47 +1,75 @@
 # Encapsulation Scheme (RobotC)
 
 ## Original Functions/Variables
-- Motors
-    - `bool bFloatDuringInactiveMotorPWM`
-      - true is coast, false is brake
-    - `bool bMotorReflected[tMotor motor]`
-      - whether that motor is reflected or not
-    - `int motor[tMotor motor]`
-      - sets motor power level, from -100 to 100
-    - `int nMaxRegulatedSpeedNXT`
-      - max speed for PID regulation, default is 1000
-    - `long nMotorEncoder[tMotor motor]`
-      - current value of encoder, wraps after about 90 turns
-    - `long nMotorEncoderTarget[tMotor motor]`
-      - after target is reached motor will stop, 0 means never stop
-    - `TMotorRegulation nMotorPIDSpeedCtrl[tMotor motor]`
-      - whether PID is on; on by default
-    - `TNxtRunState nMotorRunState[tMotor motor]`
-      - what the motor is doing; running, stopped, etc.
-    - `int nPidUpdateInterval`
-      - default is 25; too high = unregulated; too low = unsmooth
-    - `TSynchedMotors nSyncedMotors`
-      - `=synchXY`, `X` is master, `Y` is slave
-    - `int nSyncedTurnRatio`
-      - turn ratio for slave, from -100 to 100
-- Sensors
-- Joystick
-- Buttons
-- File Access
-- Timing
-- Sound
-- Display
-- Bluetooth
-- Miscellaneous
+- __Motors__
+    - `bool bFloatDuringInactiveMotorPWM` _(var)_
+        - true is coast, false is brake
+    - `bool bMotorReflected[tMotor motor]` _(var)_
+        - whether that motor is reflected or not
+    - `int motor[tMotor motor]` _(var)_
+        - sets motor power level, from -100 to 100
+    - `int nMaxRegulatedSpeedNXT` _(var)_
+        - max speed for PID regulation, default is 1000
+    - `long nMotorEncoder[tMotor motor]` _(var)_
+        - current value of encoder, wraps after about 90 turns
+    - `long nMotorEncoderTarget[tMotor motor]` _(var)_
+        - after target is reached motor will stop, 0 means never stop
+    - `TMotorRegulation nMotorPIDSpeedCtrl[tMotor motor]` _(var)_
+        - whether PID is on; on by default
+    - `TNxtRunState nMotorRunState[tMotor motor]` _(var)_
+        - what the motor is doing; running, stopped, etc.
+    - `int nPidUpdateInterval` _(var)_
+        - default is 25; too high = unregulated; too low = unsmooth
+    - `TSynchedMotors nSyncedMotors` _(var)_
+        - `=synchXY`, `X` is master, `Y` is slave
+    - `int nSyncedTurnRatio` _(var)_
+        - turn ratio for slave, from -100 to 100
+- __Sensors__
+    - `word SensorRaw[tSensors sensor]` _(var)_
+        - returns the un-normalized value, from 0 to 1023
+    - `TSensorTypes SensorType[tSensors sensor]` _(var)_
+        - sets the sensor type; try to use Sensor Setup instead
+    - `word SensorValue[tSensors sensor]` _(var)_
+        - returns the normalized/interpreted value
+- __Joystick__
+- __Buttons__
+- __File Access__
+- __Timing__
+	- `void ClearTimer(TTimers theTimer)` _(fn)_
+		- timers auto-start, always reset them; timer can be T1 to T4
+	- `word nClockMinutes` _(var)_
+		- a read/write var from 0 to 1439, wraps at 24 hours
+	- `const long nPgmTime` _(var)_
+		- program time; starts once program starts running
+	- `const long nSysTime` _(var)_
+		- system time; starts once NXT is turned on
+	- `long time1[TTimers timer]` _(var)_
+		- value of timer (T1 to T4) in units of 1 millisecond
+	- `long time10[TTimers timer]` _(var)_
+		- value of timer (T1 to T4) in units of 10 milliseconds
+	- `long time100[TTimers timer]` _(var)_
+		- value of timer (T1 to T4) in units of 100 milliseconds
+	- `void wait1Msec(const long nMSec)` _(fn)_
+		- does not consume CPU cycles
+		- can be up to 32 milliseconds
+		- nMSec is how many MSec to wait
+	- `void wait10Msec(const long nTenMSec)` _(fn)_
+		- does not consume CPU cycles
+		- can be up to 320 milliseconds
+		- nTenMSec is how many TenMSec to wait
+- __Sound__
+- __Display__
+- __Bluetooth__
+- __Miscellaneous__
 
-## New Functions
-- Motors
-- Sensors
-- Joystick
-- Buttons
-- File Access
-- Timing
-- Sound
-- Display
-- Bluetooth
-- Miscellaneous
+## New Functions/Variables
+- __Motors__
+- __Sensors__
+- __Joystick__
+- __Buttons__
+- __File Access__
+- __Timing__
+- __Sound__
+- __Display__
+- __Bluetooth__
+- __Miscellaneous__
