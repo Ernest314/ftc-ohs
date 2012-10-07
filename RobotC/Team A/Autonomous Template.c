@@ -13,8 +13,7 @@
 void initializeRobot()
 {
   // Place code here to init servos to starting positions.
-  // Sensors are auto-config'ed and setup by ROBOTC. They may need to stabilize.
-
+  // Sensors are auto-config'ed and setup by RobotC. They may need to stabilize.
   return;
 }
 
