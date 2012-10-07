@@ -1,10 +1,6 @@
-/***************************************\
-|*    Encapsulation Scheme (RobotC)    *|
-\***************************************/
+# Encapsulation Scheme (RobotC)
 
-
-Original Functions
-~~~~~~~~~~~~~~~~~~
+## Original Functions
 	Motors
 	Sensors
 	Joystick
@@ -16,8 +12,7 @@ Original Functions
 	Bluetooth
 	Miscellaneous
 
-New Functions
-~~~~~~~~~~~~~
+## New Functions
 	Motors
 	Sensors
 	Joystick
