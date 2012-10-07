@@ -24,6 +24,16 @@
         - `=synchXY`, `X` is master, `Y` is slave
     - `int nSyncedTurnRatio` _(var)_
         - turn ratio for slave, from -100 to 100
+- __Servos__
+	- `short servoChangeRate[TServoIndex servo]` _(var)_
+		- rate at which servo is changed, 0 is max speed
+		- default is 10 positions/update
+		- 20 milliseconds/update
+	- `short servo[TServoIndex servo]` _(var)_
+		- target position from 0 to 255
+		- might take a couple updates to see effect
+	- `short ServoValue[TServoIndex servo]` _(var)_
+		- reads last position told to move to, not actual position
 - __Sensors__
     - `word SensorRaw[tSensors sensor]` _(var)_
         - returns the un-normalized value, from 0 to 1023
@@ -64,6 +74,7 @@
 
 ## New Functions/Variables
 - __Motors__
+- __Servos__
 - __Sensors__
 - __Joystick__
 - __Buttons__
