@@ -1,3 +1,5 @@
+// Copyright (C) 2012, Ernest Gu.
+// All Rights Reserved.
 #pragma config(Sensor, S1,     touch_B,        sensorTouch)
 #pragma config(Sensor, S2,     touch_A,        sensorTouch)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
@@ -6,8 +8,14 @@
 #pragma config(Motor,  motorB,          motor_L,       tmotorNXT, PIDControl, encoder)
 #pragma config(Motor,  motorC,          motor_R,       tmotorNXT, PIDControl, encoder)
 
-
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
+#include "typedefs.h"
+#include "equivalent vars.h"
+#include "global vars.h"
+#include "enums.h"
+#include "structs.h"
+#include "low-level functions.h"
+#include "high-level functions.h"
 
 
 void initializeRobot()
