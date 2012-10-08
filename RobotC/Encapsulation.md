@@ -3,27 +3,27 @@
 ## Original Functions/Variables
 - __Motors__
     - `bool bFloatDuringInactiveMotorPWM` _(var)_
-        - true is coast, false is brake
-    - `bool bMotorReflected[tMotor motor]` _(var)_
-        - whether that motor is reflected or not
-    - `int motor[tMotor motor]` _(var)_
-        - sets motor power level, from -100 to 100
-    - `int nMaxRegulatedSpeedNXT` _(var)_
-        - max speed for PID regulation, default is 1000
-    - `long nMotorEncoder[tMotor motor]` _(var)_
-        - current value of encoder, wraps after about 90 turns
-    - `long nMotorEncoderTarget[tMotor motor]` _(var)_
-        - after target is reached motor will stop, 0 means never stop
-    - `TMotorRegulation nMotorPIDSpeedCtrl[tMotor motor]` _(var)_
-        - whether PID is on; on by default
-    - `TNxtRunState nMotorRunState[tMotor motor]` _(var)_
-        - what the motor is doing; running, stopped, etc.
-    - `int nPidUpdateInterval` _(var)_
-        - default is 25; too high = unregulated; too low = unsmooth
-    - `TSynchedMotors nSyncedMotors` _(var)_
-        - `=synchXY`, `X` is master, `Y` is slave
-    - `int nSyncedTurnRatio` _(var)_
-        - turn ratio for slave, from -100 to 100
+		- true is coast, false is brake
+	- `bool bMotorReflected[tMotor motor]` _(var)_
+		- whether that motor is reflected or not
+	- `int motor[tMotor motor]` _(var)_
+		- sets motor power level, from -100 to 100
+	- `int nMaxRegulatedSpeedNXT` _(var)_
+		- max speed for PID regulation, default is 1000
+	- `long nMotorEncoder[tMotor motor]` _(var)_
+		- current value of encoder, wraps after about 90 turns
+	- `long nMotorEncoderTarget[tMotor motor]` _(var)_
+		- after target is reached motor will stop, 0 means never stop
+	- `TMotorRegulation nMotorPIDSpeedCtrl[tMotor motor]` _(var)_
+		- whether PID is on; on by default
+	- `TNxtRunState nMotorRunState[tMotor motor]` _(var)_
+		- what the motor is doing; running, stopped, etc.
+	- `int nPidUpdateInterval` _(var)_
+		- default is 25; too high = unregulated; too low = unsmooth
+	- `TSynchedMotors nSyncedMotors` _(var)_
+		- `=synchXY`, `X` is master, `Y` is slave
+	- `int nSyncedTurnRatio` _(var)_
+		- turn ratio for slave, from -100 to 100
 - __Servos__
 	- `short servoChangeRate[TServoIndex servo]` _(var)_
 		- rate at which servo is changed, 0 is max speed
@@ -35,14 +35,26 @@
 	- `short ServoValue[TServoIndex servo]` _(var)_
 		- reads last position told to move to, not actual position
 - __Sensors__
-    - `word SensorRaw[tSensors sensor]` _(var)_
-        - returns the un-normalized value, from 0 to 1023
-    - `TSensorTypes SensorType[tSensors sensor]` _(var)_
-        - sets the sensor type; try to use Sensor Setup instead
-    - `word SensorValue[tSensors sensor]` _(var)_
-        - returns the normalized/interpreted value
+	- `word SensorRaw[tSensors sensor]` _(var)_
+		- returns the un-normalized value, from 0 to 1023
+	- `TSensorTypes SensorType[tSensors sensor]` _(var)_
+		- sets the sensor type; try to use Sensor Setup instead
+	- `word SensorValue[tSensors sensor]` _(var)_
+		- returns the normalized/interpreted value
 - __Joystick__
 - __Buttons__
+	- `TButtons nNxtButtonPressed` _(var)_
+		- which button is currently pressed, only one at a time
+			* -1 = `kNoButton`
+			* 0 = `kExitButton`
+			* 1 = `kRightButton`
+			* 2 = `kLeftButton`
+			* 3 = `kEnterButton`
+	- `word nNxtButtonTask` _(var)_
+		- has something to do with the program processing buttons
+		- (no idea what this actually does)
+	- `word nNxtExitClicks` _(var)_
+		- how many "Exit Button" clicks until abort program
 - __File Access__
 - __Timing__
 	- `void ClearTimer(TTimers theTimer)` _(fn)_
@@ -72,7 +84,7 @@
 - __Bluetooth__
 - __Miscellaneous__
 
-## New Functions/Variables
+## Custom Functions/Variables
 - __Motors__
 - __Servos__
 - __Sensors__
