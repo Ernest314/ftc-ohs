@@ -53,7 +53,41 @@
 	- `word SensorValue[tSensors sensor]` _(var)_
 		- returns the normalized/interpreted value
 - __Joystick__
-- __Buttons__
+	- `getJoystickSettings(joystick)` _(fn)_
+		- gets newest data from joysticks
+		- joysticks send data every 50 to 100 ms
+		- argument is always `joystick`
+	- `TPCJoystick joy1_Buttons` _(var)_
+		- returns a "bitmap" of which buttons are pressed
+		- COMPLICATED mechanism I haven't figured out yet
+		- involves two undocumented functions
+	- `TPCJoystick joy1_TopHat` _(var)_
+		- returns octant "direction pad" is in
+		- -1 when nothing pressed, 0 to 7 for the octants
+	- `TPCJoystick joy1_x1` _(var)_
+		- value of x-axis on left joystick, from -128 to 127
+	- `TPCJoystick joy1_y1` _(var)_
+		- value of y-axis on left joystick, from -128 to 127
+	- `TPCJoystick joy1_x2` _(var)_
+		- value of x-axis on right joystick, from -128 to 127
+	- `TPCJoystick joy1_y2` _(var)_
+		- value of y-axis on right joystick, from -128 to 127
+	- `TPCJoystick joy2_Buttons` _(var)_
+		- returns a "bitmap" of which buttons are pressed
+		- COMPLICATED mechanism I haven't figured out yet
+		- involves two undocumented functions
+	- `TPCJoystick joy2_TopHat` _(var)_
+		- returns octant "direction pad" is in
+		- -1 when nothing pressed, 0 to 7 for the octants
+	- `TPCJoystick joy2_x1` _(var)_
+		- value of x-axis on left joystick, from -128 to 127
+	- `TPCJoystick joy2_y1` _(var)_
+		- value of y-axis on left joystick, from -128 to 127
+	- `TPCJoystick joy2_x2` _(var)_
+		- value of x-axis on right joystick, from -128 to 127
+	- `TPCJoystick joy2_y2` _(var)_
+		- value of y-axis on right joystick, from -128 to 127
+- __NXT Buttons__
 	- `TButtons nNxtButtonPressed` _(var)_
 		- which button is currently pressed, only one at a time
 			* -1 = `kNoButton`
@@ -100,7 +134,7 @@
 - __Servos__
 - __Sensors__
 - __Joystick__
-- __Buttons__
+- __NXT Buttons__
 - __File Access__
 - __Timing__
 - __Sound__
