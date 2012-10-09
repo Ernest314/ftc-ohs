@@ -9,17 +9,28 @@
 	- `int motor[tMotor motor]` _(var)_
 		- sets motor power level, from -100 to 100
 	- `int nMaxRegulatedSpeedNXT` _(var)_
-		- max speed for PID regulation, default is 1000
+		- max speed for PID regulation (encoder counts/sec) 
+		- default is 1000
 	- `long nMotorEncoder[tMotor motor]` _(var)_
-		- current value of encoder, wraps after about 90 turns
+		- current value of encoder
+		- wraps after about 90 turns
+		- reset as often as possible to avoid overflow
 	- `long nMotorEncoderTarget[tMotor motor]` _(var)_
 		- after target is reached motor will stop, 0 means never stop
 	- `TMotorRegulation nMotorPIDSpeedCtrl[tMotor motor]` _(var)_
 		- whether PID is on; on by default
+		- can be set in Motor & Sensor Setup
 	- `TNxtRunState nMotorRunState[tMotor motor]` _(var)_
-		- what the motor is doing; running, stopped, etc.
+		- internal state of the motor:
+			* 0x00 = `runStateIdle`
+			* 0x10 = `runStateRampUp`
+			* 0x20 = `runStateRunning`
+			* 0x40 = `runStateRampDown`
+			* 0x01 = `runStateHoldPosition`
 	- `int nPidUpdateInterval` _(var)_
-		- default is 25; too high = unregulated; too low = unsmooth
+		- interval in ms to use for PID updates; default is 25
+		- too short results in jerky motion
+		- too high will seem unregulated (lag)
 	- `TSynchedMotors nSyncedMotors` _(var)_
 		- `=synchXY`, `X` is master, `Y` is slave
 	- `int nSyncedTurnRatio` _(var)_
