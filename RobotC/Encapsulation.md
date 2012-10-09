@@ -101,6 +101,7 @@
 	- `word nNxtExitClicks` _(var)_
 		- how many "Exit Button" clicks until abort program
 - __File Access__
+	- According to what I see on the API, this is pretty unnecessary.
 - __Timing__
 	- `void ClearTimer(TTimers theTimer)` _(fn)_
 		- timers auto-start, always reset them; timer can be T1 to T4
@@ -125,6 +126,42 @@
 		- can be up to 320 milliseconds
 		- nTenMSec is how many TenMSec to wait
 - __Sound__
+	- `word bPlaySounds` _(var)_
+		- bool flag indicating whether new sounds should be accepted
+		- `true` or `false` value
+	- `const bool bSoundActive` _(var)_
+		- flag indicating if system is playing a sound
+	- `const bool bSoundQueueAvailable` _(var)_
+		- flag indicating whether sound queue space is available
+	- `void ClearSounds()` _(fn)_
+		- clears existing and buffered sound commands
+	- `void MuteSound()` _(fn)_
+		- mutes all subsequent sound commands
+	- `word nVolume` _(var)_
+		- sets volume, from 0 to 4 (loudest)
+	- `void PlayImmediateTone(const int x, const int y)` _(fn)_
+			* "x" = `frequency`
+			* "y" = `durationIn10MsecTicks`
+		- plays tone ahead of other queued requests
+	- `void PlaySound(TSounds sound)` _(fn)_
+		- plays a system predefined sound
+			* 0 = `soundBlip`
+			* 1 = `soundBeepBeep`
+			* 2 = `soundDownwardTones`
+			* 3 = `soundUpwardTones`
+			* 4 = `soundLowBuzz`
+			* 5 = `soundFastUpwardTones`
+			* 6 = `soundShortBlip`
+			* 7 = `soundException`
+			* 8 = `soundLowBuzzShort`
+	- `void PlaySoundFile(const string &sFileName)` _(fn)_
+		- plays a sound file present on the NXT file system
+	- `void PlayTone(const int x, const int y)` _(fn)_
+			* "x" = `frequency`
+			* "y" = `durationIn10MsecTicks`
+		- plays a constant tone
+	- `void UnmuteSound()` _(fn)_
+		- restores sound playback to volume before mute
 - __Display__
 - __Bluetooth__
 - __Miscellaneous__
