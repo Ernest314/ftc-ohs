@@ -140,6 +140,7 @@
 	- `word nVolume` _(var)_
 		- sets volume, from 0 to 4 (loudest)
 	- `void PlayImmediateTone(const int x, const int y)` _(fn)_
+		- _variable clarification_:
 			* "x" = `frequency`
 			* "y" = `durationIn10MsecTicks`
 		- plays tone ahead of other queued requests
@@ -157,6 +158,7 @@
 	- `void PlaySoundFile(const string &sFileName)` _(fn)_
 		- plays a sound file present on the NXT file system
 	- `void PlayTone(const int x, const int y)` _(fn)_
+		- _variable clarification_:
 			* "x" = `frequency`
 			* "y" = `durationIn10MsecTicks`
 		- plays a constant tone
