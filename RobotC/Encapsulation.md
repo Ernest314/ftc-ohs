@@ -1,5 +1,8 @@
 # Encapsulation Scheme (RobotC)
 
+NOTE: The "natural language" advertised by RobotC is actually very limited.  
+Its only useful function is the `void wait(float waitTime)` function.
+
 ## Original Functions/Variables
 - __Motors__
     - `bool bFloatDuringInactiveMotorPWM` _(var)_
