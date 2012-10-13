@@ -172,7 +172,18 @@ Its only useful function is the `void wait(float waitTime)` function.
 - __Miscellaneous__
 
 ## Custom Functions/Variables
+_These are all functions. Duh._
 - __Motors__
+	- `Motor_Forward(int port, int power=75)`
+	- `Motor_Reverse(int port, int power=75)`
+	- `Motor_Stop(int port, bool brake=true)`
+	- `Motor_ExactRotation(int port, int a, int p, bool brake=true)`
+		- variable clarification:
+			* `int a` is the angle in degrees
+			* `int p` is the power; default is 75
+	- `Motor_GetRotation(int port)`
+	- `Motor_ClearRotation(int port, bool relative)`
+		- ??? `relative` to what? program? function?
 - __Servos__
 - __Sensors__
 - __Joystick__
