@@ -84,9 +84,20 @@ void Motor_ResetRotation(int motor_name, bool relative)
 //     "namespace" Time    //
 /////////////////////////////
 
-void Time_Wait(int milliseconds)
+//breaks down time to wait into 10ms and 1ms chunks
+void Time_Wait(int ms)
 {
-	//use % to breakdown time-to-wait
+	int waitTime10ms = (ms - (ms%320)) / 320;
+	int waitTime1ms = (ms - (ms%32)) / 32;
+
+	for (int i=0; i<waitTime10ms; i++)
+	{
+		wait10Msec(320);
+	}
+	for (int i=0; i<waitTime1ms; i++)
+	{
+		wait1Msec(32);
+	}
 }
 
 
