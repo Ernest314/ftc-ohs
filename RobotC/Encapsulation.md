@@ -174,15 +174,16 @@ Its only useful function is the `void wait(float waitTime)` function.
 ## Custom Functions/Variables
 _These are all functions. Duh._
 - __Motors__
-	- `void Motor_Forward(int port, int power=75)`
-	- `void Motor_Reverse(int port, int power=75)`
-	- `void Motor_Stop(int port, bool brake=true)`
-	- `void Motor_ExactRotation(int port, int a, int p, bool brake=true)`
+	- `void Motor_Forward(int motor_name, int power=75)`
+	- `void Motor_Reverse(int motor_name, int power=75)`
+	- `void Motor_Stop(int motor_name, bool brake=true)`
+	- `void Motor_ExactRotation(int m, int a, int p, bool brake=true)`
 		- variable clarification:
+			* `int m` is `int motor_name`
 			* `int a` is the angle in degrees
 			* `int p` is the power; default is 75
-	- `void Motor_GetRotation(int port)`
-	- `void Motor_ClearRotation(int port, bool relative)`
+	- `void Motor_GetRotation(int motor_name)`
+	- `void Motor_ClearRotation(int motor_name, bool relative)`
 		- ??? `relative` to what? program? function?
 - __Servos__
 - __Sensors__
