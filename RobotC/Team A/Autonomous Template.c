@@ -16,11 +16,12 @@
 #pragma config(Servo,  srvo_S1_C2_6,    servo6,               tServoNone)
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
+#include "typedefs.h"
 #include "global vars.h"
+#include "enums.h"
 #include "structs.h"
 #include "low-level functions.h"
 #include "high-level functions.h"
-//#include "typedefs.h"
 //#include "equivalent vars.h"
 
 
