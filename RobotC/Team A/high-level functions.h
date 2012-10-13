@@ -5,7 +5,7 @@ void Move_Forward(int time, int power=100, bool brake=true)
 {
 	Motor_Forward(STEER_L, power);
 	Motor_Forward(STEER_R, power);
-	Wait(time);
+	//Wait(time);
 	Motor_Stop(STEER_L, brake);
 	Motor_Stop(STEER_R, brake);
 }
@@ -14,7 +14,7 @@ void Move_Backward(int time, int power=100, bool brake=true)
 {
 	Motor_Reverse(STEER_L, power);
 	Motor_Reverse(STEER_R, power);
-	Wait(time);
+	//Wait(time);
 	Motor_Stop(STEER_L, brake);
 	Motor_Stop(STEER_R, brake);
 }
@@ -22,7 +22,7 @@ void Move_Backward(int time, int power=100, bool brake=true)
 void Move_Timed(int port, int time, int power=100, bool brake=true)
 {
 	Motor_Forward(port, power);
-	Wait(time);
+	//Wait(time);
 	Motor_Stop(port, brake);
 }
 
@@ -34,14 +34,14 @@ void Turn_inPlace(int direction, int power=100, int degrees=90, bool brake=true)
 		case DIRECTION_L:
 			Motor_Reverse(STEER_L, power);
 			Motor_Forward(STEER_R, power);
-			Wait(wait_time);	//see definition of const
+			//Wait(wait_time);	//see definition of const
 			Motor_Stop(STEER_L, brake);
 			Motor_Stop(STEER_R, brake);
 			break;
 		case DIRECTION_R:
 			Motor_Forward(STEER_L, power);
 			Motor_Reverse(STEER_R, power);
-			Wait(wait_time);	//see definition of const
+			//Wait(wait_time);	//see definition of const
 			Motor_Stop(STEER_L, brake);
 			Motor_Stop(STEER_R, brake);
 			break;
@@ -55,12 +55,12 @@ void Turn_Moving(int direction, int power=100, int degrees=90, bool brake=true)
 	{
 		case DIRECTION_L:
 			Motor_Forward(STEER_R, power);
-			Wait(TURN_SWERVE_TIME*(power/10)*(degrees/360));	//see definition of const
+			//Wait(TURN_SWERVE_TIME*(power/10)*(degrees/360));	//see definition of const
 			Motor_Stop(STEER_R, brake);
 			break;
 		case DIRECTION_R:
 			Motor_Forward(STEER_L, power);
-			Wait(TURN_SWERVE_TIME*(power/10)*(degrees/360));	//see definition of const
+			//Wait(TURN_SWERVE_TIME*(power/10)*(degrees/360));	//see definition of const
 			Motor_Stop(STEER_L, brake);
 			break;
 	}
