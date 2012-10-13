@@ -174,15 +174,15 @@ Its only useful function is the `void wait(float waitTime)` function.
 ## Custom Functions/Variables
 _These are all functions. Duh._
 - __Motors__
-	- `Motor_Forward(int port, int power=75)`
-	- `Motor_Reverse(int port, int power=75)`
-	- `Motor_Stop(int port, bool brake=true)`
-	- `Motor_ExactRotation(int port, int a, int p, bool brake=true)`
+	- `void Motor_Forward(int port, int power=75)`
+	- `void Motor_Reverse(int port, int power=75)`
+	- `void Motor_Stop(int port, bool brake=true)`
+	- `void Motor_ExactRotation(int port, int a, int p, bool brake=true)`
 		- variable clarification:
 			* `int a` is the angle in degrees
 			* `int p` is the power; default is 75
-	- `Motor_GetRotation(int port)`
-	- `Motor_ClearRotation(int port, bool relative)`
+	- `void Motor_GetRotation(int port)`
+	- `void Motor_ClearRotation(int port, bool relative)`
 		- ??? `relative` to what? program? function?
 - __Servos__
 - __Sensors__
@@ -190,6 +190,7 @@ _These are all functions. Duh._
 - __NXT Buttons__
 - __File Access__
 - __Timing__
+	- `void Time_Wait(int milliseconds)`
 - __Sound__
 - __Display__
 - __Bluetooth__

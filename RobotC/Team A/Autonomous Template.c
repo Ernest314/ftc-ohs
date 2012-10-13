@@ -27,17 +27,17 @@
 
 void initializeRobot()
 {
-  // Place code here to init servos to starting positions.
-  // Sensors are auto-config'ed and setup by RobotC. They may need to stabilize.
-  return;
+	// Place code here to init servos to starting positions.
+	// Sensors are auto-config'ed and setup by RobotC. They may need to stabilize.
+	return;
 }
 
 
 task main()
 {
-  initializeRobot();
-  waitForStart(); // Wait for the beginning of autonomous phase.
+	initializeRobot();
+	waitForStart(); // Wait for the beginning of autonomous phase.
 
-  while (true)
-  {}
+	while (true)
+	{}
 }
