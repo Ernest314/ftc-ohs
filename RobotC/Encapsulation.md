@@ -189,6 +189,11 @@ _These are all functions. Duh._
 - __Sensors__
 - __Joystick__
 	- `void Joystick_UpdateData()`
+	- `bool Joystick_Button(JoystickButton b, JoystickController c = C)`
+	    - variable clarification:
+			* `JoystickButton b` is `JoystickButton button`
+			* `JoystickController c` is `JoystickController controller`
+			* `C` is a default value of `CONTROLLER_1`
 - __NXT Buttons__
 - __File Access__
 - __Timing__

@@ -74,6 +74,24 @@ void Joystick_UpdateData()
 	getJoystickSettings(joystick);
 }
 
+bool Joystick_Button(JoystickButton button,
+	JoystickController controller = CONTROLLER_1)
+{
+	bool isPressed = false;
+
+	switch (controller)
+	{
+		case CONTROLLER_1:
+			isPressed = joy1Btn(button);
+			break;
+		case CONTROLLER_2:
+			isPressed = joy2Btn(button);
+			break;
+	}
+
+	return isPressed;
+}
+
 
 /////////////////////////////
 //   "namespace" Buttons   //

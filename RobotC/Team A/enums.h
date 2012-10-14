@@ -23,4 +23,10 @@ typedef enum JoystickButton	//the values are tentative, esp. start, select, menu
 	BUTTON_LOGO = 12,	//the Logitech logo button-thingy
 };
 
+typedef enum JoystickController
+{
+	CONTROLLER_1 = 1,
+	CONTROLLER_2 = 2,
+};
+
 #endif
