@@ -92,17 +92,21 @@ bool Joystick_Button(	JoystickButton button,
 	return isPressed;
 }
 
-int JoyStick_Joystick(	JoystickJoystick joystick,	//best line of code ever
+// Takes an input of "Joystick" instead of "joystick" to
+// avoid conflict with name of built-in struct "joystick";
+// "TJoystick" variable type does NOT support the second controller,
+// forced to use "joystick.joy2_x1" etc. instead of "joy2_x1" etc.
+int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 						JoystickAxis axis,
 						JoystickController controller = CONTROLLER_1)
 {
 	int axisValue = 0;
-	
+
 
 	switch (controller)
 	{
 		case CONTROLLER_1:
-			switch (joystick)
+			switch (Joystick)
 			{
 				case JOYSTICK_L:
 					switch (axis)
@@ -128,26 +132,30 @@ int JoyStick_Joystick(	JoystickJoystick joystick,	//best line of code ever
 			break;
 
 		case CONTROLLER_2:
-			switch (joystick)
+			switch (joy)
 			{
 				case JOYSTICK_L:
 					switch (axis)
 					{
 						case AXIS_X:	//controller 2, joystick L, X-axis
-							axisValue = joy2_x1;
+							//"TJoystick" doesn't support "joy2..." data type
+							axisValue = joystick.joy2_x1;
 							break;
 						case AXIS_Y:	//controller 2, joystick L, Y-axis
-							axisValue = joy2_y1;
+							//"TJoystick" doesn't support "joy2..." data type
+							axisValue = joystick.joy2_y1;
 							break;
 					}
 				case JOYSTICK_R:
 					switch (axis)
 					{
 						case AXIS_X:	//controller 2, joystick L, X-axis
-							axisValue = joy2_x2;
+							//"TJoystick" doesn't support "joy2..." data type
+							axisValue = joystick.joy2_x2;
 							break;
 						case AXIS_Y:	//controller 2, joystick L, Y-axis
-							axisValue = joy2_y2;
+							//"TJoystick" doesn't support "joy2..." data type
+							axisValue = joystick.joy2_y2;
 							break;
 					}
 			}
@@ -173,7 +181,7 @@ int JoyStick_Joystick(	JoystickJoystick joystick,	//best line of code ever
 //     "namespace" Time    //
 /////////////////////////////
 
-//breaks down time to wait into 10ms and 1ms chunks
+// breaks down time to wait into 10ms and 1ms chunks
 void Time_Wait(int ms)
 {
 	int waitTime10ms = (ms - (ms%320)) / 320;
