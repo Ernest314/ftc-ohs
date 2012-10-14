@@ -16,28 +16,30 @@
 #pragma config(Servo,  srvo_S1_C2_6,    servo6,               tServoNone)
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
+#include "typedefs.h"
 #include "global vars.h"
+#include "enums.h"
 #include "structs.h"
 #include "low-level functions.h"
 #include "high-level functions.h"
-//#include "enums.h"
-//#include "typedefs.h"
 //#include "equivalent vars.h"
 
 
 void initializeRobot()
 {
-  // Place code here to init servos to starting positions.
-  // Sensors are auto-config'ed and setup by RobotC. They may need to stabilize.
-  return;
+	// Place code here to init servos to starting positions.
+	// Sensors are auto-config'ed and setup by RobotC. They may need to stabilize.
+	return;
 }
 
 
 task main()
 {
-  initializeRobot();
-  waitForStart(); // Wait for the beginning of autonomous phase.
+	initializeRobot();
+	waitForStart(); // Wait for the beginning of autonomous phase.
 
-  while (true)
-  {}
+	while (true)
+	{
+		// Code
+	}
 }
