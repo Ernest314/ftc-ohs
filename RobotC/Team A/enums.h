@@ -1,12 +1,6 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
-typedef enum Direction
-{
-	DIRECTION_L = 0,
-	DIRECTION_R = 1,
-};
-
 typedef enum JoystickButton	//the values are tentative, esp. start, select, menu, logo
 {
 	BUTTON_A = 2,
@@ -39,6 +33,19 @@ typedef enum JoystickJoystick
 {
 	JOYSTICK_L = 0,
 	JOYSTICK_R = 1,
+};
+
+typedef enum JoystickDirection
+{
+	DIRECTION_NONE = -1,
+	DIRECTION_R = 0,
+	DIRECTION_FR = 1,
+	DIRECTION_F = 2,
+	DIRECTION_FL = 3,
+	DIRECTION_L = 4,
+	DIRECTION_BL = 5,
+	DIRECTION_B = 6,
+	DIRECTION_BR = 7,
 };
 
 #endif

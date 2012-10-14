@@ -200,6 +200,10 @@ _These are all functions. Duh._
 			* `J...A... a` is `JoystickAxis axis`
 			* `J...C... c` is `JoystickController controller`
 			* `C` is `CONTROLLER_1`
+	- `JoystickDirection Joystick_Direction(JoystickController c = C)`
+		- _parameter clarification_:
+			* `c` is `controller`
+			* `C` is `CONTROLLER_1`
 - __NXT Buttons__
 - __File Access__
 - __Timing__

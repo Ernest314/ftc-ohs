@@ -132,7 +132,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 			break;
 
 		case CONTROLLER_2:
-			switch (joy)
+			switch (Joystick)
 			{
 				case JOYSTICK_L:
 					switch (axis)
@@ -164,6 +164,25 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 
 
 	return axisValue;
+}
+
+JoystickDirection Joystick_Direction(JoystickController controller =
+															CONTROLLER_1)
+{
+	JoystickDirection direction = DIRECTION_NONE;
+
+	switch (controller)
+	{
+		case CONTROLLER_1:
+			direction = joy1_TopHat;
+			break;
+		case CONTROLLER_2:
+			// Using the struct since "joy2..." isn't a data type
+			direction = joystick.joy2_TopHat;
+			break;
+	}
+
+	return direction;
 }
 
 
