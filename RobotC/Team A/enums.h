@@ -7,20 +7,20 @@ typedef enum Direction
 	DIRECTION_R = 1,
 };
 
-typedef enum JoystickButton
+typedef enum JoystickButton	//the values are tentative, esp. start, select, menu, logo
 {
-	BUTTON_A,
-	BUTTON_B,
-	BUTTON_X,
-	BUTTON_Y,
-	BUTTON_LB,
-	BUTTON_RB,
-	BUTTON_LT,
-	BUTTON_RT,
-	BUTTON_START,
-	BUTTON_SELECT,
-	BUTTON_MENU,
-	BUTTON_LOGO,	//the Logitech logo button-thingy
+	BUTTON_A = 2,
+	BUTTON_B = 3,
+	BUTTON_X = 1,
+	BUTTON_Y = 4,
+	BUTTON_LB = 5,
+	BUTTON_RB = 6,
+	BUTTON_LT = 7,
+	BUTTON_RT = 8,
+	BUTTON_START = 9,
+	BUTTON_SELECT = 10,
+	BUTTON_MENU = 11,
+	BUTTON_LOGO = 12,	//the Logitech logo button-thingy
 };
 
 #endif
