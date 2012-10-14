@@ -1,6 +1,7 @@
-# This is the coding outline for the autonomous period. Feel free to start contributing. #
+## Coding outline for the autonomous period. ##
 
 This document contains a sketch of what the robot should do (pseudo-code, almost). NOT DONE YET.
+-------------------------
 
 - find IR beacon
 	- turn ? degrees at a time until beacon is located
