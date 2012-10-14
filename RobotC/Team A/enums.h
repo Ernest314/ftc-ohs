@@ -29,4 +29,16 @@ typedef enum JoystickController
 	CONTROLLER_2 = 2,
 };
 
+typedef enum JoystickAxis
+{
+	AXIS_X = 0,
+	AXIS_Y = 1,
+};
+
+typedef enum JoystickJoystick
+{
+	JOYSTICK_L = 0,
+	JOYSTICK_R = 1,
+};
+
 #endif

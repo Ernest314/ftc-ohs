@@ -74,8 +74,8 @@ void Joystick_UpdateData()
 	getJoystickSettings(joystick);
 }
 
-bool Joystick_Button(JoystickButton button,
-	JoystickController controller = CONTROLLER_1)
+bool Joystick_Button(	JoystickButton button,
+						JoystickController controller = CONTROLLER_1)
 {
 	bool isPressed = false;
 
@@ -90,6 +90,72 @@ bool Joystick_Button(JoystickButton button,
 	}
 
 	return isPressed;
+}
+
+int JoyStick_Joystick(	JoystickJoystick joystick,	//best line of code ever
+						JoystickAxis axis,
+						JoystickController controller = CONTROLLER_1)
+{
+	int axisValue = 0;
+	
+
+	switch (controller)
+	{
+		case CONTROLLER_1:
+			switch (joystick)
+			{
+				case JOYSTICK_L:
+					switch (axis)
+					{
+						case AXIS_X:	//controller 1, joystick L, X-axis
+							axisValue = joy1_x1;
+							break;
+						case AXIS_Y:	//controller 1, joystick L, Y-axis
+							axisValue = joy1_y1;
+							break;
+					}
+				case JOYSTICK_R:
+					switch (axis)
+					{
+						case AXIS_X:	//controller 1, joystick L, X-axis
+							axisValue = joy1_x2;
+							break;
+						case AXIS_Y:	//controller 1, joystick L, Y-axis
+							axisValue = joy1_y2;
+							break;
+					}
+			}
+			break;
+
+		case CONTROLLER_2:
+			switch (joystick)
+			{
+				case JOYSTICK_L:
+					switch (axis)
+					{
+						case AXIS_X:	//controller 2, joystick L, X-axis
+							axisValue = joy2_x1;
+							break;
+						case AXIS_Y:	//controller 2, joystick L, Y-axis
+							axisValue = joy2_y1;
+							break;
+					}
+				case JOYSTICK_R:
+					switch (axis)
+					{
+						case AXIS_X:	//controller 2, joystick L, X-axis
+							axisValue = joy2_x2;
+							break;
+						case AXIS_Y:	//controller 2, joystick L, Y-axis
+							axisValue = joy2_y2;
+							break;
+					}
+			}
+			break;
+	}
+
+
+	return axisValue;
 }
 
 
