@@ -1,6 +1,7 @@
 ## Coding outline for the remote control period. ##
 
-This document contains a sketch of what the robot should do (pseudo-code, almost). NOT DONE YET.
+_This document contains a sketch of what the robot should do (pseudo-code, almost). NOT DONE YET._
+
 -------------------------
 
 - joystick 1, controller 1:
