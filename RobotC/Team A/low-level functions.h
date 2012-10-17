@@ -6,52 +6,64 @@
 //    "namespace" Motor    //
 /////////////////////////////
 
-void Motor_Forward(tMotor motor_name, int power=75)
+void Motor_SetBrakes(bool isOn=true)
 {
-	motor[motor_name] = power;
+	bFloatDuringInactiveMotorPWM = !isOn;
 }
 
-void Motor_Reverse(tMotor motor_name, int power=75)
+void Motor_SetMaxSpeed(int speed=750)
 {
-	motor[motor_name] = -1 * power;
+	nMaxRegulatedSpeedNXT = speed;
 }
 
-void Motor_Stop(tMotor motor_name, bool brake=true)
+void Motor_SetPIDInterval(int interval=20)
 {
-	motor[motor_name] = 0;
+	nPidUpdateInterval = interval;
+}
+
+// The good stuff starts here. -------------------------
+
+void Motor_Forward(tMotor motorName, int power=75)
+{
+	motor[motorName] = power;
+}
+
+void Motor_Reverse(tMotor motorName, int power=75)
+{
+	motor[motorName] = -1 * power;
+}
+
+void Motor_Stop(tMotor motorName, bool brake=true)
+{
+	motor[motorName] = 0;
+	// Using this flag instead of `Motor_SetBrakes` since this is low-level.
 	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
-void Motor_ExactRotation(tMotor motor_name, int angle, int power=75, bool brake=true)
+// This function does NOT reset the encoder, in case that is being
+// used elsewhere. Reset the encoder periodically to prevent overflow.
+void Motor_ExactRotation(	tMotor motorName,	int angle,
+							int power=75,		bool brake=true)
 {
-	//RotateMotor(port, power, angle);
-	switch(brake)
-	{
-		case true:
-			//Off(port);
-			break;
-		case false:
-			//Coast(port);
-			break;
-	}
+	// Using some variables directly since this code is low-level.
+	int originalAngle = 0;
+	originalAngle = nMotorEncoder[motorName];
+	nMotorEncoderTarget[motorName] = angle + originalAngle;
+	motor[motorName] = power;
+	//motor[motorName] = 0;	//uncomment if nMotorEncoderTarget[] doesn't work
+	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
-void Motor_GetRotation(tMotor motor_name)
+int Motor_GetRotation(tMotor motorName)
 {
-	//MotorRotationCount(port);
+	int rotation = 0;
+	rotation = nMotorEncoder[motorName];
+	return rotation;
 }
 
-void Motor_ResetRotation(tMotor motor_name, bool relative)
+void Motor_ResetRotation(tMotor motorName)
 {
-	switch(relative)
-	{
-		case true:
-			//ResetBlockTachoCount(port);
-			break;
-		case false:
-			//ResetRotationCount(port);
-			break;
-	}
+	nMotorEncoder[motorName] = 0;
 }
 
 
