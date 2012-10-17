@@ -21,7 +21,7 @@ void Motor_SetPIDInterval(int interval=20)
 	nPidUpdateInterval = interval;
 }
 
-// The good stuff starts here.-------------------------
+// The good stuff starts here. -------------------------
 
 void Motor_Forward(tMotor motorName, int power=75)
 {
@@ -36,39 +36,34 @@ void Motor_Reverse(tMotor motorName, int power=75)
 void Motor_Stop(tMotor motorName, bool brake=true)
 {
 	motor[motorName] = 0;
+	// Using this flag instead of `Motor_SetBrakes` since this is low-level.
 	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
-void Motor_ExactRotation(tMotor motorName, int angle, int power=75, bool brake=true)
+// This function does NOT reset the encoder, in case that is being
+// used elsewhere. Reset the encoder periodically to prevent overflow.
+void Motor_ExactRotation(	tMotor motorName,	int angle,
+							int power=75,		bool brake=true)
 {
-	// Rotate specified amount (int angle).
-	switch(brake)
-	{
-		case true:
-			// Turn motor off.
-			break;
-		case false:
-			// Turn motor on.
-			break;
-	}
+	// Using some variables directly since this code is low-level.
+	int originalAngle = 0;
+	originalAngle = nMotorEncoder[motorName];
+	nMotorEncoderTarget[motorName] = angle + originalAngle;
+	motor[motorName] = power;
+	//motor[motorName] = 0;	//uncomment if nMotorEncoderTarget[] doesn't work
+	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
-void Motor_GetRotation(tMotor motorName)
+int Motor_GetRotation(tMotor motorName)
 {
-	//MotorRotationCount(port);
+	int rotation = 0;
+	rotation = nMotorEncoder[motorName];
+	return rotation;
 }
 
-void Motor_ResetRotation(tMotor motorName, bool relative)
+void Motor_ResetRotation(tMotor motorName)
 {
-	switch(relative)
-	{
-		case true:
-			//ResetBlockTachoCount(port);
-			break;
-		case false:
-			//ResetRotationCount(port);
-			break;
-	}
+	nMotorEncoder[motorName] = 0;
 }
 
 

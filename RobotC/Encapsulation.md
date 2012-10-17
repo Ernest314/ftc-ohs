@@ -169,6 +169,7 @@ Its only useful function is the `void wait(float waitTime)` function.
 		- restores sound playback to volume before mute
 - __Display__
 - __Bluetooth__
+- __Semaphores__
 - __Miscellaneous__
 
 ## Custom Functions/Variables
@@ -187,9 +188,9 @@ _These are all functions. Duh._
 			* `tMotor m` is `tMotor motor_name`
 			* `int a` is the angle in degrees
 			* `int p` is the power; default is 75
-	- `void Motor_GetRotation(tMotor motor_name)`
-	- `void Motor_ClearRotation(tMotor motor_name, bool relative)`
-		- ??? `relative` to what? program? function?
+	- `int Motor_GetRotation(tMotor motor_name)`
+	- `void Motor_ClearRotation(tMotor motor_name)`
+		- reset is always absolute (since the beginning of time)
 - __Servos__
 - __Sensors__
 - __Joystick__
@@ -216,4 +217,5 @@ _These are all functions. Duh._
 - __Sound__
 - __Display__
 - __Bluetooth__
+- __Semaphores__
 - __Miscellaneous__
