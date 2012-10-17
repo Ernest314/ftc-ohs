@@ -174,6 +174,11 @@ Its only useful function is the `void wait(float waitTime)` function.
 ## Custom Functions/Variables
 _These are all functions. Duh._
 - __Motors__
+	- `void Motor_SetBrakes(bool isOn=true)`
+		- RobotC doesn't allow individual brakes to be set
+	- `void Motor_SetMaxSpeed(int speed=750)`
+	- `void Motor_SetPIDInterval(int interval=20)`
+		- in milliseconds; RobotC's default value is 25.
 	- `void Motor_Forward(tMotor motor_name, int power=75)`
 	- `void Motor_Reverse(tMotor motor_name, int power=75)`
 	- `void Motor_Stop(tMotor motor_name, bool brake=true)`

@@ -6,42 +6,59 @@
 //    "namespace" Motor    //
 /////////////////////////////
 
-void Motor_Forward(tMotor motor_name, int power=75)
+void Motor_SetBrakes(bool isOn=true)
 {
-	motor[motor_name] = power;
+	bFloatDuringInactiveMotorPWM = !isOn;
 }
 
-void Motor_Reverse(tMotor motor_name, int power=75)
+void Motor_SetMaxSpeed(int speed=750)
 {
-	motor[motor_name] = -1 * power;
+	nMaxRegulatedSpeedNXT = speed;
 }
 
-void Motor_Stop(tMotor motor_name, bool brake=true)
+void Motor_SetPIDInterval(int interval=20)
 {
-	motor[motor_name] = 0;
+	nPidUpdateInterval = interval;
+}
+
+// The good stuff starts here.-------------------------
+
+void Motor_Forward(tMotor motorName, int power=75)
+{
+	motor[motorName] = power;
+}
+
+void Motor_Reverse(tMotor motorName, int power=75)
+{
+	motor[motorName] = -1 * power;
+}
+
+void Motor_Stop(tMotor motorName, bool brake=true)
+{
+	motor[motorName] = 0;
 	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
-void Motor_ExactRotation(tMotor motor_name, int angle, int power=75, bool brake=true)
+void Motor_ExactRotation(tMotor motorName, int angle, int power=75, bool brake=true)
 {
-	//RotateMotor(port, power, angle);
+	// Rotate specified amount (int angle).
 	switch(brake)
 	{
 		case true:
-			//Off(port);
+			// Turn motor off.
 			break;
 		case false:
-			//Coast(port);
+			// Turn motor on.
 			break;
 	}
 }
 
-void Motor_GetRotation(tMotor motor_name)
+void Motor_GetRotation(tMotor motorName)
 {
 	//MotorRotationCount(port);
 }
 
-void Motor_ResetRotation(tMotor motor_name, bool relative)
+void Motor_ResetRotation(tMotor motorName, bool relative)
 {
 	switch(relative)
 	{
