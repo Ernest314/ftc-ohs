@@ -6,23 +6,6 @@
 //    "namespace" Motor    //
 /////////////////////////////
 
-void Motor_SetBrakes(bool isOn=true)
-{
-	bFloatDuringInactiveMotorPWM = !isOn;
-}
-
-void Motor_SetMaxSpeed(int speed=750)
-{
-	nMaxRegulatedSpeedNXT = speed;
-}
-
-void Motor_SetPIDInterval(int interval=20)
-{
-	nPidUpdateInterval = interval;
-}
-
-// The good stuff starts here. -------------------------
-
 void Motor_Forward(tMotor motorName, int power=75)
 {
 	motor[motorName] = power;
@@ -54,22 +37,75 @@ void Motor_ExactRotation(	tMotor motorName,	int angle,
 	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
-int Motor_GetRotation(tMotor motorName)
+int Motor_GetEncoder(tMotor motorName)
 {
-	int rotation = 0;
-	rotation = nMotorEncoder[motorName];
-	return rotation;
+	int encoder = 0;
+	encoder = nMotorEncoder[motorName];
+	return encoder;
 }
 
-void Motor_ResetRotation(tMotor motorName)
+void Motor_ResetEncoder(tMotor motorName)
 {
 	nMotorEncoder[motorName] = 0;
+}
+
+void Motor_SetBrakes(bool isOn=true)
+{
+	bFloatDuringInactiveMotorPWM = !isOn;
+}
+
+void Motor_SetMaxSpeed(int speed=750)
+{
+	nMaxRegulatedSpeedNXT = speed;
+}
+
+void Motor_SetPIDInterval(int interval=20)
+{
+	nPidUpdateInterval = interval;
 }
 
 
 /////////////////////////////
 //    "namespace" Servo    //
 /////////////////////////////
+
+void Servo_ExactRotation(	TServoIndex servoName,	short angle,
+							int power=75,			bool brake=true)
+{
+	servo[servoName] = angle;
+	// Braking & power are not implemented.
+	// Implementation of power will require calibration.
+}
+
+void Servo_Forward(tMotor motorName, int power=75)
+{
+	// No idea how to work this yet. Will wait until robot is done.
+	// May or may not be implemented.
+}
+
+void Servo_Reverse(tMotor motorName, int power=75)
+{
+	// No idea how to work this yet. Will wait until robot is done.
+	// May or may not be implemented.
+}
+
+void Servo_Stop(tMotor motorName, bool brake=true)
+{
+	// No idea how to work this yet. Will wait until robot is done.
+	// May or may not be implemented.
+}
+
+short Servo_GetPosition(TServoIndex servoName)
+{
+	short rotation = 0;
+	rotation = ServoValue[servoName];
+	return rotation;
+}
+
+void Servo_SetUpdateInterval(TServoIndex servoName, int rate)
+{
+	servoChangeRate[servoName] = rate;
+}
 
 
 /////////////////////////////
