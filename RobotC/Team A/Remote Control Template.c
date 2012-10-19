@@ -29,12 +29,25 @@ void initializeRobot()
 
 task main()
 {
-	initializeRobot();
-	waitForStart();   // Wait for start of tele-op phase.
-	
+	//initializeRobot();
+	//waitForStart();   // Wait for start of tele-op phase.
+
 	while (true)
 	{
 		Joystick_UpdateData();
-		// Code.
+		motor[motor_L] = joystick.joy1_y1;
+		motor[motor_R] = joystick.joy1_x1;
+		if (Joystick_Button(BUTTON_LB) == 1)
+		{
+		  Motor_Forward(motor_scissor, 15);
+		  wait10Msec(10);
+		  Motor_Stop(motor_scissor);
+		}
+		if (Joystick_Button(BUTTON_RB) == 1)
+		{
+		  Motor_Reverse(motor_scissor, 15);
+		  wait10Msec(10);
+		  Motor_Stop(motor_scissor);
+		}
 	}
 }

@@ -142,8 +142,6 @@ bool Joystick_Button(	JoystickButton button,
 
 // Takes an input of "Joystick" instead of "joystick" to
 // avoid conflict with name of built-in struct "joystick";
-// "TJoystick" variable type does NOT support the second controller,
-// forced to use "joystick.joy2_x1" etc. instead of "joy2_x1" etc.
 int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 						JoystickAxis axis,
 						JoystickController controller = CONTROLLER_1)
@@ -160,20 +158,20 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 					switch (axis)
 					{
 						case AXIS_X:	//controller 1, joystick L, X-axis
-							axisValue = joy1_x1;
+							axisValue = joystick.joy1_x1;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joy1_y1;
+							axisValue = joystick.joy1_y1;
 							break;
 					}
 				case JOYSTICK_R:
 					switch (axis)
 					{
 						case AXIS_X:	//controller 1, joystick L, X-axis
-							axisValue = joy1_x2;
+							axisValue = joystick.joy1_x2;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joy1_y2;
+							axisValue = joystick.joy1_y2;
 							break;
 					}
 			}
@@ -186,11 +184,9 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 					switch (axis)
 					{
 						case AXIS_X:	//controller 2, joystick L, X-axis
-							//"TJoystick" doesn't support "joy2..." data type
 							axisValue = joystick.joy2_x1;
 							break;
 						case AXIS_Y:	//controller 2, joystick L, Y-axis
-							//"TJoystick" doesn't support "joy2..." data type
 							axisValue = joystick.joy2_y1;
 							break;
 					}
@@ -198,11 +194,9 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 					switch (axis)
 					{
 						case AXIS_X:	//controller 2, joystick L, X-axis
-							//"TJoystick" doesn't support "joy2..." data type
 							axisValue = joystick.joy2_x2;
 							break;
 						case AXIS_Y:	//controller 2, joystick L, Y-axis
-							//"TJoystick" doesn't support "joy2..." data type
 							axisValue = joystick.joy2_y2;
 							break;
 					}
