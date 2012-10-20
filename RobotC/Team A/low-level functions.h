@@ -37,6 +37,11 @@ void Motor_ExactRotation(	tMotor motorName,	int angle,
 	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
+void Motor_SetPower(tMotor motorName, int power)
+{
+	motor[motorName] = power;
+}
+
 int Motor_GetEncoder(tMotor motorName)
 {
 	int encoder = 0;
