@@ -1,12 +1,13 @@
 #pragma config(Hubs,  S1, HTMotor,  HTServo,  HTMotor,  none)
+#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     touch,          sensorTouch)
 #pragma config(Sensor, S3,     infrared_L,     sensorHiTechnicIRSeeker1200)
 #pragma config(Sensor, S4,     infrared_R,     sensorHiTechnicIRSeeker1200)
-#pragma config(Motor,  motorA,          claw,          tmotorNormal, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C1_1,     motor_L,       tmotorNormal, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C1_2,     motor_R,       tmotorNormal, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorNormal, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C3_2,     motorG,        tmotorNone, openLoop)
+#pragma config(Motor,  motorA,          claw,          tmotorNXT, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C1_1,     motor_R,       tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C1_2,     motor_L,       tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C3_2,     motorG,        tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C2_1,    servo1,               tServoNone)
 #pragma config(Servo,  srvo_S1_C2_2,    servo2,               tServoNone)
 #pragma config(Servo,  srvo_S1_C2_3,    servo3,               tServoNone)
@@ -43,7 +44,7 @@ task main()
 	{
 		Joystick_UpdateData();
 		motor[motor_L] = joystick.joy1_y1;
-		motor[motor_R] = joystick.joy1_y2;
+		motor[motor_R] = joystick.joy1_x1;
 		//Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) );
 		//Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) );
 	}
