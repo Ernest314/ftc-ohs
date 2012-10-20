@@ -216,7 +216,7 @@ JoystickDirection Joystick_Direction(JoystickController controller =
 	switch (controller)
 	{
 		case CONTROLLER_1:
-			direction = joy1_TopHat;
+			direction = joystick.joy1_TopHat;
 			break;
 		case CONTROLLER_2:
 			// Using the struct since "joy2..." isn't a data type
