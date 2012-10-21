@@ -4,7 +4,7 @@
 #pragma config(Sensor, S3,     infrared_L,     sensorHiTechnicIRSeeker1200)
 #pragma config(Sensor, S4,     infrared_R,     sensorHiTechnicIRSeeker1200)
 #pragma config(Motor,  motorA,          claw,          tmotorNXT, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C1_1,     motor_L,       tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C1_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_2,     motorG,        tmotorTetrix, openLoop)
