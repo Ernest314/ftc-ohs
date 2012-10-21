@@ -6,58 +6,111 @@
 //    "namespace" Motor    //
 /////////////////////////////
 
-void Motor_Forward(tMotor motor_name, int power=75)
+void Motor_Forward(tMotor motorName, int power=75)
 {
-	motor[motor_name] = power;
+	motor[motorName] = power;
 }
 
-void Motor_Reverse(tMotor motor_name, int power=75)
+void Motor_Reverse(tMotor motorName, int power=75)
 {
-	motor[motor_name] = -1 * power;
+	motor[motorName] = -1 * power;
 }
 
-void Motor_Stop(tMotor motor_name, bool brake=true)
+void Motor_Stop(tMotor motorName, bool brake=true)
 {
-	motor[motor_name] = 0;
+	motor[motorName] = 0;
+	// Using this flag instead of `Motor_SetBrakes` since this is low-level.
 	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
-void Motor_ExactRotation(tMotor motor_name, int angle, int power=75, bool brake=true)
+// This function does NOT reset the encoder, in case that is being
+// used elsewhere. Reset the encoder periodically to prevent overflow.
+void Motor_ExactRotation(	tMotor motorName,	int angle,
+							int power=75,		bool brake=true)
 {
-	//RotateMotor(port, power, angle);
-	switch(brake)
-	{
-		case true:
-			//Off(port);
-			break;
-		case false:
-			//Coast(port);
-			break;
-	}
+	// Using some variables directly since this code is low-level.
+	int originalAngle = 0;
+	originalAngle = nMotorEncoder[motorName];
+	nMotorEncoderTarget[motorName] = angle + originalAngle;
+	motor[motorName] = power;
+	//motor[motorName] = 0;	//uncomment if nMotorEncoderTarget[] doesn't work
+	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
-void Motor_GetRotation(tMotor motor_name)
+void Motor_SetPower(tMotor motorName, int power)
 {
-	//MotorRotationCount(port);
+	motor[motorName] = power;
 }
 
-void Motor_ResetRotation(tMotor motor_name, bool relative)
+int Motor_GetEncoder(tMotor motorName)
 {
-	switch(relative)
-	{
-		case true:
-			//ResetBlockTachoCount(port);
-			break;
-		case false:
-			//ResetRotationCount(port);
-			break;
-	}
+	int encoder = 0;
+	encoder = nMotorEncoder[motorName];
+	return encoder;
+}
+
+void Motor_ResetEncoder(tMotor motorName)
+{
+	nMotorEncoder[motorName] = 0;
+}
+
+void Motor_SetBrakes(bool isOn=true)
+{
+	bFloatDuringInactiveMotorPWM = !isOn;
+}
+
+void Motor_SetMaxSpeed(int speed=750)
+{
+	nMaxRegulatedSpeedNXT = speed;
+}
+
+void Motor_SetPIDInterval(int interval=20)
+{
+	nPidUpdateInterval = interval;
 }
 
 
 /////////////////////////////
 //    "namespace" Servo    //
 /////////////////////////////
+
+void Servo_ExactRotation(	TServoIndex servoName,	short angle,
+							int power=75,			bool brake=true)
+{
+	servo[servoName] = angle;
+	// Braking & power are not implemented.
+	// Implementation of power will require calibration.
+}
+
+void Servo_Forward(tMotor motorName, int power=75)
+{
+	// No idea how to work this yet. Will wait until robot is done.
+	// May or may not be implemented.
+}
+
+void Servo_Reverse(tMotor motorName, int power=75)
+{
+	// No idea how to work this yet. Will wait until robot is done.
+	// May or may not be implemented.
+}
+
+void Servo_Stop(tMotor motorName, bool brake=true)
+{
+	// No idea how to work this yet. Will wait until robot is done.
+	// May or may not be implemented.
+}
+
+short Servo_GetPosition(TServoIndex servoName)
+{
+	short rotation = 0;
+	rotation = ServoValue[servoName];
+	return rotation;
+}
+
+void Servo_SetUpdateInterval(TServoIndex servoName, int rate)
+{
+	servoChangeRate[servoName] = rate;
+}
 
 
 /////////////////////////////
@@ -94,8 +147,6 @@ bool Joystick_Button(	JoystickButton button,
 
 // Takes an input of "Joystick" instead of "joystick" to
 // avoid conflict with name of built-in struct "joystick";
-// "TJoystick" variable type does NOT support the second controller,
-// forced to use "joystick.joy2_x1" etc. instead of "joy2_x1" etc.
 int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 						JoystickAxis axis,
 						JoystickController controller = CONTROLLER_1)
@@ -112,20 +163,20 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 					switch (axis)
 					{
 						case AXIS_X:	//controller 1, joystick L, X-axis
-							axisValue = joy1_x1;
+							axisValue = joystick.joy1_x1;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joy1_y1;
+							axisValue = joystick.joy1_y1;
 							break;
 					}
 				case JOYSTICK_R:
 					switch (axis)
 					{
 						case AXIS_X:	//controller 1, joystick L, X-axis
-							axisValue = joy1_x2;
+							axisValue = joystick.joy1_x2;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joy1_y2;
+							axisValue = joystick.joy1_y2;
 							break;
 					}
 			}
@@ -138,11 +189,9 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 					switch (axis)
 					{
 						case AXIS_X:	//controller 2, joystick L, X-axis
-							//"TJoystick" doesn't support "joy2..." data type
 							axisValue = joystick.joy2_x1;
 							break;
 						case AXIS_Y:	//controller 2, joystick L, Y-axis
-							//"TJoystick" doesn't support "joy2..." data type
 							axisValue = joystick.joy2_y1;
 							break;
 					}
@@ -150,11 +199,9 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 					switch (axis)
 					{
 						case AXIS_X:	//controller 2, joystick L, X-axis
-							//"TJoystick" doesn't support "joy2..." data type
 							axisValue = joystick.joy2_x2;
 							break;
 						case AXIS_Y:	//controller 2, joystick L, Y-axis
-							//"TJoystick" doesn't support "joy2..." data type
 							axisValue = joystick.joy2_y2;
 							break;
 					}
@@ -174,7 +221,7 @@ JoystickDirection Joystick_Direction(JoystickController controller =
 	switch (controller)
 	{
 		case CONTROLLER_1:
-			direction = joy1_TopHat;
+			direction = joystick.joy1_TopHat;
 			break;
 		case CONTROLLER_2:
 			// Using the struct since "joy2..." isn't a data type
