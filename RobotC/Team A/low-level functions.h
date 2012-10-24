@@ -61,7 +61,7 @@ void Motor_SetBrakes(bool isOn=true)
 
 void Motor_SetMaxSpeed(int speed=750)
 {
-	nMaxRegulatedSpeedNXT = speed;
+	nMaxRegulatedSpeedNxt = speed;
 }
 
 void Motor_SetPIDInterval(int interval=20)
@@ -135,10 +135,10 @@ bool Joystick_Button(	JoystickButton button,
 	switch (controller)
 	{
 		case CONTROLLER_1:
-			isPressed = joy1Btn(button);
+			isPressed = (bool)(joy1Btn(button));
 			break;
 		case CONTROLLER_2:
-			isPressed = joy2Btn(button);
+			isPressed = (bool)(joy2Btn(button));
 			break;
 	}
 
@@ -176,7 +176,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy1_x2;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joystick.joy1_y2;
+							axisValue = joystick.joy2_y2;
 							break;
 					}
 			}
@@ -221,11 +221,11 @@ JoystickDirection Joystick_Direction(JoystickController controller =
 	switch (controller)
 	{
 		case CONTROLLER_1:
-			direction = joystick.joy1_TopHat;
+			direction = (JoystickDirection)joystick.joy1_TopHat;
 			break;
 		case CONTROLLER_2:
 			// Using the struct since "joy2..." isn't a data type
-			direction = joystick.joy2_TopHat;
+			direction = (JoystickDirection)joystick.joy2_TopHat;
 			break;
 	}
 
