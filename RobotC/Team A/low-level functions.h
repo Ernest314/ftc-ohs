@@ -176,7 +176,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy1_x2;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joystick.joy1_y2;
+							axisValue = joystick.joy2_y2;
 							break;
 					}
 			}

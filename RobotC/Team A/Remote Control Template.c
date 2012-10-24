@@ -43,11 +43,17 @@ task main()
 	while (true)
 	{
 		Joystick_UpdateData();
-		//motor[motor_L] = joystick.joy1_y1;
-		//motor[motor_R] = joystick.joy1_y2;
-		Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) );
-		Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) );
-		//Motor_SetPower( motor_L, joystick.joy1_y1 );
-		//Motor_SetPower( motor_R, joystick.joy1_y2 );
+
+		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
+		if ( joy1Btn(6)==1 || joy1Btn(5)==1 )
+		{
+			Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
+			Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+		}
+		else
+		{
+			Motor_SetPower( motor_L, joystick.joy1_y1 );
+			Motor_SetPower( motor_R, joystick.joy1_y2 );
+		}
 	}
 }
