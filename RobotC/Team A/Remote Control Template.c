@@ -4,8 +4,8 @@
 #pragma config(Sensor, S3,     infrared_L,     sensorHiTechnicIRSeeker1200)
 #pragma config(Sensor, S4,     infrared_R,     sensorHiTechnicIRSeeker1200)
 #pragma config(Motor,  motorA,          claw,          tmotorNXT, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C1_1,     motor_R,       tmotorTetrix, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C1_2,     motor_L,       tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C1_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C1_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_2,     motorG,        tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C2_1,    servo1,               tServoNone)
@@ -43,9 +43,17 @@ task main()
 	while (true)
 	{
 		Joystick_UpdateData();
-		motor[motor_L] = joystick.joy1_y1;
-		motor[motor_R] = joystick.joy1_x1;
-		//Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) );
-		//Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) );
+
+		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
+		if ( joy1Btn(6)==1 || joy1Btn(5)==1 )
+		{
+			Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
+			Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+		}
+		else
+		{
+			Motor_SetPower( motor_L, joystick.joy1_y1 );
+			Motor_SetPower( motor_R, joystick.joy1_y2 );
+		}
 	}
 }
