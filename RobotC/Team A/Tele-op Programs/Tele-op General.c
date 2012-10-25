@@ -25,6 +25,7 @@
 #include "structs.h"
 #include "low-level functions.h"
 #include "high-level functions.h"
+#include "subroutines.h"
 
 
 void initializeRobot()
@@ -37,8 +38,8 @@ void initializeRobot()
 
 task main()
 {
-	//initializeRobot();
-	//waitForStart();   // Wait for start of tele-op phase.
+	initializeRobot();
+	waitForStart();   // Wait for start of tele-op phase.
 
 	while (true)
 	{
