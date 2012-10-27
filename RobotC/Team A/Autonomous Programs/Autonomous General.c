@@ -17,6 +17,7 @@
 #include "structs.h"
 #include "low-level functions.h"
 #include "high-level functions.h"
+#include "subroutines.h"
 
 
 void initializeRobot()

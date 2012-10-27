@@ -169,6 +169,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy1_y1;
 							break;
 					}
+					break;
 				case JOYSTICK_R:
 					switch (axis)
 					{
@@ -179,6 +180,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy2_y2;
 							break;
 					}
+					break;
 			}
 			break;
 
@@ -195,6 +197,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy2_y1;
 							break;
 					}
+					break;
 				case JOYSTICK_R:
 					switch (axis)
 					{
@@ -205,6 +208,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy2_y2;
 							break;
 					}
+					break;
 			}
 			break;
 	}

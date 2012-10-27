@@ -1,7 +1,7 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
-typedef enum JoystickButton	//the values are tentative, esp. start, select, menu, logo
+typedef enum JoystickButton	//the values are NOT final
 {
 	BUTTON_A = 1,
 	BUTTON_B = 2,
@@ -13,8 +13,8 @@ typedef enum JoystickButton	//the values are tentative, esp. start, select, menu
 	BUTTON_RT = 7,
 	BUTTON_BACK = 8,
 	BUTTON_START = 9,
-	BUTTON_JOYL = 10,
-	BUTTON_JOYR = 11,	//the Logitech logo button-thingy
+	BUTTON_JOYL = 10,	//"floating-D technology"
+	BUTTON_JOYR = 11,	//"floating-D technology"
 };
 
 typedef enum JoystickController
@@ -35,7 +35,7 @@ typedef enum JoystickJoystick
 	JOYSTICK_R = 1,
 };
 
-typedef enum JoystickDirection
+typedef enum JoystickDirection	//need one more definitive test
 {
 	DIRECTION_NONE = -1,
 	DIRECTION_F = 2,
