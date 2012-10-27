@@ -1,13 +1,14 @@
 #pragma config(Hubs,  S1, HTMotor,  HTServo,  HTMotor,  none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     touch,          sensorTouch)
 #pragma config(Sensor, S3,     infrared_L,     sensorHiTechnicIRSeeker1200)
 #pragma config(Sensor, S4,     infrared_R,     sensorHiTechnicIRSeeker1200)
-#pragma config(Motor,  motorA,          claw,          tmotorNXT, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C1_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
-#pragma config(Motor,  mtr_S1_C1_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C3_2,     motorG,        tmotorTetrix, openLoop)
+#pragma config(Motor,  motorA,          claw_L,        tmotorNormal, PIDControl, encoder)
+#pragma config(Motor,  motorB,          claw_R,        tmotorNormal, PIDControl, encoder)
+#pragma config(Motor,  motorC,          release_ramp,  tmotorNormal, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C1_1,     motor_L,       tmotorNormal, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C1_2,     motor_R,       tmotorNormal, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorNormal, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C3_2,     motor_G,       tmotorNormal, openLoop)
 #pragma config(Servo,  srvo_S1_C2_1,    servo1,               tServoNone)
 #pragma config(Servo,  srvo_S1_C2_2,    servo2,               tServoNone)
 #pragma config(Servo,  srvo_S1_C2_3,    servo3,               tServoNone)
@@ -46,15 +47,31 @@ task main()
 		Joystick_UpdateData();
 
 		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		if ( joy1Btn(6)==1 || joy1Btn(5)==1 )
+		// if ( joy1Btn(6)==1 || joy1Btn(5)==1 )
+		// {
+			// Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
+			// Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+		// }
+		// else
+		// {
+			// Motor_SetPower( motor_L, joystick.joy1_y1 );
+			// Motor_SetPower( motor_R, joystick.joy1_y2 );
+		// }
+
+		int TEST_BUTTON = 0;
+
+		if ( joy1Btn(TEST_BUTTON)==1 )
 		{
-			Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
-			Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+			Motor_SetPower( motor_L, 75 );
+			Motor_SetPower( motor_R, 75 );
 		}
-		else
-		{
-			Motor_SetPower( motor_L, joystick.joy1_y1 );
-			Motor_SetPower( motor_R, joystick.joy1_y2 );
-		}
+
+		// JoystickButton TEST_BUTTON = BUTTON_A;
+
+		// if ( Joystick_Button(TEST_BUTTON)==1 )
+		// {
+			// Motor_SetPower( motor_L, 75 );
+			// Motor_SetPower( motor_R, 75 );
+		// }
 	}
 }
