@@ -46,32 +46,24 @@ task main()
 	{
 		Joystick_UpdateData();
 
-		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		// if ( joy1Btn(6)==1 || joy1Btn(5)==1 )
-		// {
-			// Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
-			// Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
-		// }
-		// else
-		// {
-			// Motor_SetPower( motor_L, joystick.joy1_y1 );
-			// Motor_SetPower( motor_R, joystick.joy1_y2 );
-		// }
-
-		int TEST_BUTTON = 0;
-
-		if ( joy1Btn(TEST_BUTTON)==1 )
+		if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
 		{
-			Motor_SetPower( motor_L, 75 );
-			Motor_SetPower( motor_R, 75 );
+			Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
+			Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
+		}
+		else
+		{
+			Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) );
+			Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) );
 		}
 
-		// JoystickButton TEST_BUTTON = BUTTON_A;
-
-		// if ( Joystick_Button(TEST_BUTTON)==1 )
-		// {
-			// Motor_SetPower( motor_L, 75 );
-			// Motor_SetPower( motor_R, 75 );
-		// }
+		//if ( Joystick_Direction()==DIRECTION_F )
+		//{
+		//	Motor_SetPower( motor_L, 75 );
+		//	Motor_SetPower( motor_R, 75 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_L );
+		//	Motor_Stop( motor_R );
+		//}
 	}
 }
