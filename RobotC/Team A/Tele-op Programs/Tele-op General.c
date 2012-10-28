@@ -46,45 +46,98 @@ task main()
 	{
 		Joystick_UpdateData();
 
-		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		//{
-		//	Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
-		//	Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
-		//}
-		//else
-		//{
-			//Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) );
-			//Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) );
-			//int value = 1;
-			//value = joystick.joy1_y2;
-			//value = joystick.joy1_y2;
-		//}
+
+		//----------NON-ENCAPSULATED VERSION (BASIC)----------//
+
+		// Nothing is encapsulated. All low-level code (direct interface).
+
+		// if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
+		// {
+			// Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
+			// Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+		// }
+		// else
+		// {
+			// Motor_SetPower( motor_L, joystick.joy1_y1 );
+			// Motor_SetPower( motor_R, joystick.joy1_y2 );
+		// }
+
+
+
+		//----------SEMI-ENCAPSULATED VERSION A (BASIC)----------//
+
+		// Get-axis-value is NOT encapsulated. Everything else is.
+
+		// if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
+		// {
+			// Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
+			// Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+		// }
+		// else
+		// {
+			// Motor_SetPower( motor_L, joystick.joy1_y1 );
+			// Motor_SetPower( motor_R, joystick.joy1_y2 );
+		// }
+
+
+
+		//----------SEMI-ENCAPSULATED VERSION B (BASIC)----------//
+
+		// Buttons are NOT encapsulated. Everything else is.
+
+		// if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
+		// {
+			// Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
+			// Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
+		// }
+		// else
+		// {
+			// Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) );
+			// Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) );
+		// }
+
+
+
+		//----------ENCAPSULATED VERSION (BASIC)----------//
 
 		if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
 		{
-			Motor_SetPower( motor_L, 100 );
-			Motor_SetPower( motor_R, 100 );
-			Time_Wait(100);
-			Motor_Stop(motor_L);
-			Motor_Stop(motor_R);
+			Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
+			Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
 		}
-
-		if ( Joystick_Button(BUTTON_LT)==1 || Joystick_Button(BUTTON_RT)==1 )
+		else
 		{
-			Motor_SetPower( motor_L, -100 );
-			Motor_SetPower( motor_R, -100 );
-			Time_Wait(100);
-			Motor_Stop(motor_L);
-			Motor_Stop(motor_R);
+			Motor_SetPower( motor_L, JoyStick_Joystick(JOYSTICK_L, AXIS_Y) );
+			Motor_SetPower( motor_R, JoyStick_Joystick(JOYSTICK_R, AXIS_Y) );
 		}
 
-		//if ( Joystick_Direction()==DIRECTION_F )
-		//{
-		//	Motor_SetPower( motor_L, 75 );
-		//	Motor_SetPower( motor_R, 75 );
-		//	Time_Wait( 100 );
-		//	Motor_Stop( motor_L );
-		//	Motor_Stop( motor_R );
-		//}
+
+
+		//----------TEST OF DIRECTION PAD----------//
+
+		// if ( Joystick_Direction()==DIRECTION_F )
+		// {
+			// Motor_SetPower( motor_L, 75 );
+			// Motor_SetPower( motor_R, 75 );
+			// Time_Wait( 100 );
+			// Motor_Stop( motor_L );
+			// Motor_Stop( motor_R );
+		// }
+
+
+
+		//----------TEST OF BUTTON -> INT CONVERSION----------//
+
+		// Go to `enums.h` and change "enum JoystickButton" from
+		// 0# to # and see what happens (e.g., 01 to 1).
+
+		// if ( Joystick_Button(BUTTON_A)==1 )
+		// {
+			// Motor_SetPower( motor_L, 75 );
+			// Motor_SetPower( motor_R, 75 );
+			// Time_Wait( 100 );
+			// Motor_Stop( motor_L );
+			// Motor_Stop( motor_R );
+		// }
 	}
 }

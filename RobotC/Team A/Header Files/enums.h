@@ -3,6 +3,9 @@
 
 typedef enum JoystickButton	//the values are NOT final
 {
+	// Comment out the line after when debugging. See main program.
+	// BUTTON_A = 2,
+
 	BUTTON_A = 02,
 	BUTTON_B = 03,
 	BUTTON_X = 01,
