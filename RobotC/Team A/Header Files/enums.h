@@ -3,18 +3,18 @@
 
 typedef enum JoystickButton	//the values are NOT final
 {
-	BUTTON_A = 1,
-	BUTTON_B = 2,
-	BUTTON_X = 0,
-	BUTTON_Y = 3,
-	BUTTON_LB = 4,
-	BUTTON_RB = 5,
-	BUTTON_LT = 6,
-	BUTTON_RT = 7,
-	BUTTON_BACK = 8,
-	BUTTON_START = 9,
-	BUTTON_JOYL = 10,	//"floating-D technology"
-	BUTTON_JOYR = 11,	//"floating-D technology"
+	BUTTON_A = 02,
+	BUTTON_B = 03,
+	BUTTON_X = 01,
+	BUTTON_Y = 04,
+	BUTTON_LB = 05,
+	BUTTON_RB = 06,
+	BUTTON_LT = 07,
+	BUTTON_RT = 08,
+	BUTTON_BACK = 09,
+	BUTTON_START = 10,
+	BUTTON_JOYL = 11,	//"floating-D technology"
+	BUTTON_JOYR = 12,	//"floating-D technology"
 };
 
 typedef enum JoystickController
@@ -38,9 +38,9 @@ typedef enum JoystickJoystick
 typedef enum JoystickDirection	//need one more definitive test
 {
 	DIRECTION_NONE = -1,
-	DIRECTION_F = 2,
+	DIRECTION_F = 0,
 	DIRECTION_FR = 1,
-	DIRECTION_R = 0,
+	DIRECTION_R = 2,
 	DIRECTION_BR = 7,
 	DIRECTION_B = 6,
 	DIRECTION_BL = 5,
