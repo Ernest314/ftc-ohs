@@ -163,7 +163,7 @@ task main()
 		}
 		else if ( 90<angle && angle<=180 )	//Quadrant II
 		{
-			powerL = 0;	//placeholder
+			powerL = -1 * powerTotal*(angle-90)/45 - powerTotal;	//I think
 			powerR = powerTotal;
 		}
 		else if ( -180<angle && angle<=-90 )	//Quadrant III
