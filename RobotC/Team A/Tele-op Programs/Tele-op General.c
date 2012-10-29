@@ -19,7 +19,6 @@
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 #include "typedefs.h"
 #include "global vars.h"
-#include "math.h"
 #include "enums.h"
 #include "structs.h"
 #include "low-level functions.h"
@@ -159,20 +158,26 @@ task main()
 
 		if ( 0<angle && angle<=90 )	//Quadrant I
 		{
-			;
+			powerL = powerTotal;
+			powerR = 0;	//placeholder
 		}
 		else if ( 90<angle && angle<=180 )	//Quadrant II
 		{
-			;
+			powerL = 0;	//placeholder
+			powerR = powerTotal;
 		}
 		else if ( -180<angle && angle<=-90 )	//Quadrant III
 		{
-			;
+			powerL = -1 * powerTotal;
+			powerR = 0;	//placeholder
 		}
 		else if ( -90<angle && angle<=0 )	//Quadrant IV
 		{
-			;
+			powerL = 0;	//placeholder
+			powerR = -1 * powerTotal;
 		}
 
+		Motor_SetPower(motor_L, powerL);
+		Motor_SetPower(motor_R, powerR);
 	}
 }
