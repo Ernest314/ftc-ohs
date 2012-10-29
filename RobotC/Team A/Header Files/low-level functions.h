@@ -147,7 +147,7 @@ bool Joystick_Button(	JoystickButton button,
 
 // Takes an input of "Joystick" instead of "joystick" to
 // avoid conflict with name of built-in struct "joystick";
-int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
+int Joystick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 						JoystickAxis axis,
 						JoystickController controller = CONTROLLER_1)
 {
