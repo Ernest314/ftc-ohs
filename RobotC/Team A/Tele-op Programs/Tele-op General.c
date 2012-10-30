@@ -6,8 +6,8 @@
 #pragma config(Motor,  motorA,          claw_L,        tmotorNXT, PIDControl, encoder)
 #pragma config(Motor,  motorB,          claw_R,        tmotorNXT, PIDControl, encoder)
 #pragma config(Motor,  motorC,          release_ramp,  tmotorNXT, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C1_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
-#pragma config(Motor,  mtr_S1_C1_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C1_1,     motor_L,       tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C1_2,     motor_R,       tmotorTetrix, PIDControl, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_2,     motor_G,       tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C2_1,    servo1,               tServoNone)
@@ -52,15 +52,43 @@ task main()
 
 		// Nothing is encapsulated. All low-level code (direct interface).
 
-		 if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
+		// if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
+		// {
+		//	 Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
+		//	 Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+		// }
+		// else
+		// {
+		//	 Motor_SetPower( motor_L, joystick.joy1_y1 );
+		//	 Motor_SetPower( motor_R, joystick.joy1_y2 );
+		// }
+		//if ( Joystick_Button(BUTTON_B)==1 )
+		//{
+		//	Motor_SetPower( motor_lift, 100 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_lift );
+		//}
+		//if ( Joystick_Button(BUTTON_A)==1 )
+		//{
+		//	Motor_SetPower( motor_lift, -100 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_lift );
+		//}
+
+
+		//----------SEMI-ENCAPSULATED VERSION A (BASIC)----------//
+
+		// Get-axis-value is NOT encapsulated. Everything else is.
+
+		 if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
 		 {
-			 Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
-			 Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+			 Motor_SetPower( motor_L, -1 * joystick.joy1_y1 / 4 );
+			 Motor_SetPower( motor_R, -1 * joystick.joy1_y2 / 4 );
 		 }
 		 else
 		 {
-			 Motor_SetPower( motor_L, joystick.joy1_y1 );
-			 Motor_SetPower( motor_R, joystick.joy1_y2 );
+			 Motor_SetPower( motor_L, -1 * joystick.joy1_y1 );
+			 Motor_SetPower( motor_R, -1 * joystick.joy1_y2 );
 		 }
 		if ( Joystick_Button(BUTTON_B)==1 )
 		{
@@ -74,23 +102,6 @@ task main()
 			Time_Wait( 100 );
 			Motor_Stop( motor_lift );
 		}
-
-
-		//----------SEMI-ENCAPSULATED VERSION A (BASIC)----------//
-
-		// Get-axis-value is NOT encapsulated. Everything else is.
-
-		// if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		// {
-			// Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
-			// Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
-		// }
-		// else
-		// {
-			// Motor_SetPower( motor_L, joystick.joy1_y1 );
-			// Motor_SetPower( motor_R, joystick.joy1_y2 );
-		// }
-
 
 
 		//----------SEMI-ENCAPSULATED VERSION B (BASIC)----------//
@@ -162,10 +173,10 @@ task main()
 		//int angle = 0;	//standard polar measuring
 		//int axisX = 0;
 		//int axisY = 0;
-		//// axisX = joystick.joy1_x1;	// this is low-level code
-		//// axisY = joystick.joy1_y1;	// this is low-level code
-		//axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
-		//axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
+		//axisX = joystick.joy1_x1;	// this is low-level code
+		//axisY = (-1) * joystick.joy1_y1;	// this is low-level code
+		////axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
+		////axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
 
 		//angle = radiansToDegrees( atan2(axisY,axisX) );	//better than normal arctan
 		//powerTotal = sqrt( axisX*axisX + axisY*axisY );	//Pythagorean theorem
@@ -177,18 +188,18 @@ task main()
 		//}
 		//else if ( 90<angle && angle<=180 )	//Quadrant II
 		//{
-		//	powerL = -1 * powerTotal*(angle-90)/45 - powerTotal;	//I think
+		//	powerL = (-1) * powerTotal*(angle-90)/45 + powerTotal;	//I think
 		//	powerR = powerTotal;
 		//}
 		//else if ( -180<angle && angle<=-90 )	//Quadrant III
 		//{
-		//	powerL = -1 * powerTotal;
-		//	powerR = 0;	//placeholder
+		//	powerL = (-1) * powerTotal;
+		//	powerR = (-1) * powerTotal*(angle+90)/45 - powerTotal;	//I think
 		//}
 		//else if ( -90<angle && angle<=0 )	//Quadrant IV
 		//{
-		//	powerL = 0;	//placeholder
-		//	powerR = -1 * powerTotal;
+		//	powerL = powerTotal*angle/45 + powerTotal;	//I think
+		//	powerR = (-1) * powerTotal;
 		//}
 
 		//Motor_SetPower(motor_L, powerL);
