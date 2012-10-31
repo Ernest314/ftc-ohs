@@ -158,19 +158,18 @@ task main()
 
 		//----------SINGLE-JOYSTICK CONTROL CODE----------//
 
-		//int powerTotal = 0;
 		//int powerL = 0;
 		//int powerR = 0;
-		//int angle = 0;	//standard polar measuring
-		//int axisX = 0;
-		//int axisY = 0;
-		//axisX = joystick.joy1_x1;	// this is low-level code
-		//axisY = (-1) * joystick.joy1_y1;	// this is low-level code
-		////axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
-		////axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
 
-		//angle = radiansToDegrees( atan2(axisY,axisX) );	//better than normal arctan
-		//powerTotal = sqrt( axisX*axisX + axisY*axisY );	//Pythagorean theorem
+		//int axisX = joystick.joy1_x1;	// this is low-level code
+		//int axisY = (-1) * joystick.joy1_y1;	// this is low-level code
+
+		////int axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
+		////int axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
+
+		//int angle = radiansToDegrees( atan2(axisY,axisX) );	//standard (from theta=0)
+		//int powerTotal = sqrt( axisX*axisX + axisY*axisY );	//Pythagorean theorem
+
 
 		//if ( 0<angle && angle<=90 )	//Quadrant I
 		//{
@@ -179,7 +178,7 @@ task main()
 		//}
 		//else if ( 90<angle && angle<=180 )	//Quadrant II
 		//{
-		//	powerL = (-1) * powerTotal*(angle-90)/45 + powerTotal;	//I think
+		//	powerL = (-1)*powerTotal*(angle-90)/45 + powerTotal;	//I think
 		//	powerR = powerTotal;
 		//}
 		//else if ( -180<angle && angle<=-90 )	//Quadrant III
@@ -195,6 +194,7 @@ task main()
 
 		//Motor_SetPower(motor_L, powerL);
 		//Motor_SetPower(motor_R, powerR);
+
 
 
 		//----------NON-PID LIFT ASSIGNMENTS----------//
