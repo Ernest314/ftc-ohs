@@ -33,7 +33,8 @@
 void initializeRobot()
 {
 	// Place code here to init servos to starting positions.
-	// Sensors are auto-config'ed and setup by RobotC. They may need to stabilize.
+	// Sensors are auto-config'ed and setup by RobotC.
+	// They may need to stabilize.
 	return;
 }
 
@@ -41,7 +42,7 @@ void initializeRobot()
 task main()
 {
 	initializeRobot();
-	waitForStart();   // Wait for start of tele-op phase.
+	waitForStart();
 
 	while (true)
 	{
@@ -52,16 +53,16 @@ task main()
 
 		// Nothing is encapsulated. All low-level code (direct interface).
 
-		// if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
-		// {
-		//	 Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
-		//	 Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
-		// }
-		// else
-		// {
-		//	 Motor_SetPower( motor_L, joystick.joy1_y1 );
-		//	 Motor_SetPower( motor_R, joystick.joy1_y2 );
-		// }
+		//if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
+		//{
+		//	Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
+		//	Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+		//}
+		//else
+		//{
+		//	Motor_SetPower( motor_L, joystick.joy1_y1 );
+		//	Motor_SetPower( motor_R, joystick.joy1_y2 );
+		//}
 		//if ( Joystick_Button(BUTTON_B)==1 )
 		//{
 		//	Motor_SetPower( motor_lift, 100 );
@@ -76,50 +77,22 @@ task main()
 		//}
 
 
+
 		//----------SEMI-ENCAPSULATED VERSION A (BASIC)----------//
 
 		// Get-axis-value is NOT encapsulated. Everything else is.
 
-		 if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		 {
-			 Motor_SetPower( motor_L, -1 * joystick.joy1_y1 / 4 );
-			 Motor_SetPower( motor_R, -1 * joystick.joy1_y2 / 4 );
-		 }
-		 else
-		 {
-			 Motor_SetPower( motor_L, -1 * joystick.joy1_y1 );
-			 Motor_SetPower( motor_R, -1 * joystick.joy1_y2 );
-		 }
-		if ( Joystick_Button(BUTTON_B)==1 && (Joystick_Button(BUTTON_LT)||Joystick_Button(BUTTON_RT))==1 )
+		if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
 		{
-			Motor_SetPower( motor_lift, 25 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
+			Motor_SetPower( motor_L, -1 * joystick.joy1_y1 / 4 );
+			Motor_SetPower( motor_R, -1 * joystick.joy1_y2 / 4 );
 		}
-		else if ( Joystick_Button(BUTTON_B)==1 )
+		else
 		{
-			Motor_SetPower( motor_lift, 100 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
+			Motor_SetPower( motor_L, -1 * joystick.joy1_y1 );
+			Motor_SetPower( motor_R, -1 * joystick.joy1_y2 );
 		}
-		if ( Joystick_Button(BUTTON_A)==1 && (Joystick_Button(BUTTON_LT)||Joystick_Button(BUTTON_RT))==1 )
-		{
-			Motor_SetPower( motor_lift, -25 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
-		}
-		else if ( Joystick_Button(BUTTON_A)==1 )
-		{
-			Motor_SetPower( motor_lift, -100 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
-		}
-		if ( Joystick_Button(BUTTON_X)==1 )
-		{
-			ClearSounds();
-			nVolume = 4;
-			PlaySoundFile("moo.rso");
-		}
+
 
 
 		//----------SEMI-ENCAPSULATED VERSION B (BASIC)----------//
@@ -222,6 +195,37 @@ task main()
 
 		//Motor_SetPower(motor_L, powerL);
 		//Motor_SetPower(motor_R, powerR);
+
+
+		//----------
+
+		if ( Joystick_Button(BUTTON_B)==1 )
+		{
+			Motor_SetPower( motor_lift, 100 );
+			Time_Wait( 100 );
+			Motor_Stop( motor_lift );
+		}
+		if ( Joystick_Button(BUTTON_A)==1 )
+		{
+			Motor_SetPower( motor_lift, -100 );
+			Time_Wait( 100 );
+			Motor_Stop( motor_lift );
+		}
+
+
+		//----------MOO TEST - TOP SECRET!----------//
+
+		// Doesn't work yet. I do not know why (the .rso file exists).
+		// Could use a while loop to delay, or call a different function.
+
+		if ( Joystick_Button(BUTTON_X)==1 )
+		{
+			ClearSounds();
+			nVolume = 4;
+			PlaySoundFile("moo.rso");
+		}
+
+
+
 	}
-	nVolume = 0;
 }
