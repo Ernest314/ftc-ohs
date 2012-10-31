@@ -33,7 +33,8 @@
 void initializeRobot()
 {
 	// Place code here to init servos to starting positions.
-	// Sensors are auto-config'ed and setup by RobotC. They may need to stabilize.
+	// Sensors are auto-config'ed and setup by RobotC.
+	// They may need to stabilize.
 	return;
 }
 
@@ -41,7 +42,7 @@ void initializeRobot()
 task main()
 {
 	initializeRobot();
-	waitForStart();   // Wait for start of tele-op phase.
+	waitForStart();
 
 	while (true)
 	{
@@ -52,16 +53,16 @@ task main()
 
 		// Nothing is encapsulated. All low-level code (direct interface).
 
-		// if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
-		// {
-		//	 Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
-		//	 Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
-		// }
-		// else
-		// {
-		//	 Motor_SetPower( motor_L, joystick.joy1_y1 );
-		//	 Motor_SetPower( motor_R, joystick.joy1_y2 );
-		// }
+		//if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
+		//{
+		//	Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
+		//	Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
+		//}
+		//else
+		//{
+		//	Motor_SetPower( motor_L, joystick.joy1_y1 );
+		//	Motor_SetPower( motor_R, joystick.joy1_y2 );
+		//}
 		//if ( Joystick_Button(BUTTON_B)==1 )
 		//{
 		//	Motor_SetPower( motor_lift, 100 );
@@ -76,94 +77,66 @@ task main()
 		//}
 
 
+
 		//----------SEMI-ENCAPSULATED VERSION A (BASIC)----------//
 
 		// Get-axis-value is NOT encapsulated. Everything else is.
 
-		 if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		 {
-			 Motor_SetPower( motor_L, -1 * joystick.joy1_y1 / 4 );
-			 Motor_SetPower( motor_R, -1 * joystick.joy1_y2 / 4 );
-		 }
-		 else
-		 {
-			 Motor_SetPower( motor_L, -1 * joystick.joy1_y1 );
-			 Motor_SetPower( motor_R, -1 * joystick.joy1_y2 );
-		 }
-		if ( Joystick_Button(BUTTON_B)==1 && (Joystick_Button(BUTTON_LT)||Joystick_Button(BUTTON_RT))==1 )
+		if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
 		{
-			Motor_SetPower( motor_lift, 25 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
+			Motor_SetPower( motor_L, -1 * joystick.joy1_y1 / 4 );
+			Motor_SetPower( motor_R, -1 * joystick.joy1_y2 / 4 );
 		}
-		else if ( Joystick_Button(BUTTON_B)==1 )
+		else
 		{
-			Motor_SetPower( motor_lift, 100 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
+			Motor_SetPower( motor_L, -1 * joystick.joy1_y1 );
+			Motor_SetPower( motor_R, -1 * joystick.joy1_y2 );
 		}
-		if ( Joystick_Button(BUTTON_A)==1 && (Joystick_Button(BUTTON_LT)||Joystick_Button(BUTTON_RT))==1 )
-		{
-			Motor_SetPower( motor_lift, -25 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
-		}
-		else if ( Joystick_Button(BUTTON_A)==1 )
-		{
-			Motor_SetPower( motor_lift, -100 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
-		}
-		if ( Joystick_Button(BUTTON_X)==1 )
-		{
-			ClearSounds();
-			nVolume = 4;
-			PlaySoundFile("moo.rso");
-		}
+
 
 
 		//----------SEMI-ENCAPSULATED VERSION B (BASIC)----------//
 
 		// Buttons are NOT encapsulated. Everything else is.
 
-		// if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
-		// {
-			// Motor_SetPower( motor_L, Joystick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
-			// Motor_SetPower( motor_R, Joystick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
-		// }
-		// else
-		// {
-			// Motor_SetPower( motor_L, Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
-			// Motor_SetPower( motor_R, Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
-		// }
+		//if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
+		//{
+		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
+		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
+		//}
+		//else
+		//{
+		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
+		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
+		//}
 
 
 
 		//----------ENCAPSULATED VERSION (BASIC)----------//
 
-		 //if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		 //{
-			// Motor_SetPower( motor_L, Joystick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
-			// Motor_SetPower( motor_R, Joystick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
-		 //}
-		 //else
-		 //{
-			// Motor_SetPower( motor_L, Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
-			// Motor_SetPower( motor_R, Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
-		 //}
+		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
+		//{
+		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
+		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
+		//}
+		//else
+		//{
+		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
+		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
+		//}
 
 
 
 		//----------TEST OF DIRECTION PAD----------//
 
-		// if ( Joystick_Direction()==DIRECTION_F )
-		// {
-			// Motor_SetPower( motor_L, 75 );
-			// Motor_SetPower( motor_R, 75 );
-			// Time_Wait( 100 );
-			// Motor_Stop( motor_L );
-			// Motor_Stop( motor_R );
-		// }
+		//if ( Joystick_Direction()==DIRECTION_F )
+		//{
+		//	Motor_SetPower( motor_L, 75 );
+		//	Motor_SetPower( motor_R, 75 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_L );
+		//	Motor_Stop( motor_R );
+		//}
 
 
 
@@ -172,32 +145,31 @@ task main()
 		// Go to `enums.h` and change "enum JoystickButton" from
 		// 0# to # and see what happens (e.g., 01 to 1).
 
-		// if ( Joystick_Button(BUTTON_A)==1 )
-		// {
-			// Motor_SetPower( motor_L, 75 );
-			// Motor_SetPower( motor_R, 75 );
-			// Time_Wait( 100 );
-			// Motor_Stop( motor_L );
-			// Motor_Stop( motor_R );
-		// }
+		//if ( Joystick_Button(BUTTON_A)==1 )
+		//{
+		//	Motor_SetPower( motor_L, 75 );
+		//	Motor_SetPower( motor_R, 75 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_L );
+		//	Motor_Stop( motor_R );
+		//}
 
 
 
 		//----------SINGLE-JOYSTICK CONTROL CODE----------//
 
-		//int powerTotal = 0;
 		//int powerL = 0;
 		//int powerR = 0;
-		//int angle = 0;	//standard polar measuring
-		//int axisX = 0;
-		//int axisY = 0;
-		//axisX = joystick.joy1_x1;	// this is low-level code
-		//axisY = (-1) * joystick.joy1_y1;	// this is low-level code
-		////axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
-		////axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
 
-		//angle = radiansToDegrees( atan2(axisY,axisX) );	//better than normal arctan
-		//powerTotal = sqrt( axisX*axisX + axisY*axisY );	//Pythagorean theorem
+		//int axisX = joystick.joy1_x1;	// this is low-level code
+		//int axisY = (-1) * joystick.joy1_y1;	// this is low-level code
+
+		////int axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
+		////int axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
+
+		//int angle = radiansToDegrees( atan2(axisY,axisX) );	//standard (from theta=0)
+		//int powerTotal = sqrt( axisX*axisX + axisY*axisY );	//Pythagorean theorem
+
 
 		//if ( 0<angle && angle<=90 )	//Quadrant I
 		//{
@@ -206,7 +178,7 @@ task main()
 		//}
 		//else if ( 90<angle && angle<=180 )	//Quadrant II
 		//{
-		//	powerL = (-1) * powerTotal*(angle-90)/45 + powerTotal;	//I think
+		//	powerL = (-1)*powerTotal*(angle-90)/45 + powerTotal;	//I think
 		//	powerR = powerTotal;
 		//}
 		//else if ( -180<angle && angle<=-90 )	//Quadrant III
@@ -222,6 +194,49 @@ task main()
 
 		//Motor_SetPower(motor_L, powerL);
 		//Motor_SetPower(motor_R, powerR);
+
+
+
+		//----------NON-PID LIFT ASSIGNMENTS----------//
+
+		// We can't have "80 power" or such since we need another encoder.
+
+		if ( Joystick_Button(BUTTON_B)==1 )
+		{
+			Motor_SetPower( motor_lift, 100 );
+			Time_Wait( 100 );
+			Motor_Stop( motor_lift );
+		}
+		if ( Joystick_Button(BUTTON_A)==1 )
+		{
+			Motor_SetPower( motor_lift, -100 );
+			Time_Wait( 100 );
+			Motor_Stop( motor_lift );
+		}
+		
+
+
+		//----------MOO TEST - TOP SECRET!----------//
+
+		// Doesn't work yet. I do not know why (the .rso file exists).
+		// Could use a while loop to delay, or call a different function.
+
+		if ( Joystick_Button(BUTTON_X)==1 )
+		{
+			ClearSounds();
+			nVolume = 4;
+			PlaySoundFile("moo.rso");
+		}
+
+
+
+		//////////////////////////////////////////////////
+		//                                              //
+		//=========== FINAL DRAFT OF PROGRAM ===========//
+		//                                              //
+		//////////////////////////////////////////////////
+
+
+
 	}
-	nVolume = 0;
 }
