@@ -197,7 +197,9 @@ task main()
 		//Motor_SetPower(motor_R, powerR);
 
 
-		//----------
+		//----------NON-PID LIFT ASSIGNMENTS----------//
+
+		// We can't have "80 power" or such since we need another encoder.
 
 		if ( Joystick_Button(BUTTON_B)==1 )
 		{
@@ -211,6 +213,7 @@ task main()
 			Time_Wait( 100 );
 			Motor_Stop( motor_lift );
 		}
+		
 
 
 		//----------MOO TEST - TOP SECRET!----------//
@@ -224,6 +227,15 @@ task main()
 			nVolume = 4;
 			PlaySoundFile("moo.rso");
 		}
+
+
+
+
+		//////////////////////////////////////////////////
+		//                                              //
+		//=========== FINAL DRAFT OF PROGRAM ===========//
+		//                                              //
+		//////////////////////////////////////////////////
 
 
 
