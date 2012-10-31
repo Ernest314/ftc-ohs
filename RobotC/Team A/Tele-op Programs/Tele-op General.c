@@ -90,17 +90,35 @@ task main()
 			 Motor_SetPower( motor_L, -1 * joystick.joy1_y1 );
 			 Motor_SetPower( motor_R, -1 * joystick.joy1_y2 );
 		 }
-		if ( Joystick_Button(BUTTON_B)==1 )
+		if ( Joystick_Button(BUTTON_B)==1 && (Joystick_Button(BUTTON_LT)||Joystick_Button(BUTTON_RT))==1 )
+		{
+			Motor_SetPower( motor_lift, 25 );
+			Time_Wait( 100 );
+			Motor_Stop( motor_lift );
+		}
+		else if ( Joystick_Button(BUTTON_B)==1 )
 		{
 			Motor_SetPower( motor_lift, 100 );
 			Time_Wait( 100 );
 			Motor_Stop( motor_lift );
 		}
-		if ( Joystick_Button(BUTTON_A)==1 )
+		if ( Joystick_Button(BUTTON_A)==1 && (Joystick_Button(BUTTON_LT)||Joystick_Button(BUTTON_RT))==1 )
+		{
+			Motor_SetPower( motor_lift, -25 );
+			Time_Wait( 100 );
+			Motor_Stop( motor_lift );
+		}
+		else if ( Joystick_Button(BUTTON_A)==1 )
 		{
 			Motor_SetPower( motor_lift, -100 );
 			Time_Wait( 100 );
 			Motor_Stop( motor_lift );
+		}
+		if ( Joystick_Button(BUTTON_X)==1 )
+		{
+			ClearSounds();
+			nVolume = 4;
+			PlaySoundFile("moo.rso");
 		}
 
 
@@ -205,4 +223,5 @@ task main()
 		//Motor_SetPower(motor_L, powerL);
 		//Motor_SetPower(motor_R, powerR);
 	}
+	nVolume = 0;
 }
