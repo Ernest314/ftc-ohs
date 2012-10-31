@@ -99,44 +99,44 @@ task main()
 
 		// Buttons are NOT encapsulated. Everything else is.
 
-		// if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
-		// {
-			// Motor_SetPower( motor_L, Joystick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
-			// Motor_SetPower( motor_R, Joystick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
-		// }
-		// else
-		// {
-			// Motor_SetPower( motor_L, Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
-			// Motor_SetPower( motor_R, Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
-		// }
+		//if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
+		//{
+		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
+		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
+		//}
+		//else
+		//{
+		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
+		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
+		//}
 
 
 
 		//----------ENCAPSULATED VERSION (BASIC)----------//
 
-		 //if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		 //{
-			// Motor_SetPower( motor_L, Joystick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
-			// Motor_SetPower( motor_R, Joystick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
-		 //}
-		 //else
-		 //{
-			// Motor_SetPower( motor_L, Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
-			// Motor_SetPower( motor_R, Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
-		 //}
+		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
+		//{
+		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) / 4 );
+		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) / 4 );
+		//}
+		//else
+		//{
+		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
+		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
+		//}
 
 
 
 		//----------TEST OF DIRECTION PAD----------//
 
-		// if ( Joystick_Direction()==DIRECTION_F )
-		// {
-			// Motor_SetPower( motor_L, 75 );
-			// Motor_SetPower( motor_R, 75 );
-			// Time_Wait( 100 );
-			// Motor_Stop( motor_L );
-			// Motor_Stop( motor_R );
-		// }
+		//if ( Joystick_Direction()==DIRECTION_F )
+		//{
+		//	Motor_SetPower( motor_L, 75 );
+		//	Motor_SetPower( motor_R, 75 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_L );
+		//	Motor_Stop( motor_R );
+		//}
 
 
 
@@ -145,14 +145,14 @@ task main()
 		// Go to `enums.h` and change "enum JoystickButton" from
 		// 0# to # and see what happens (e.g., 01 to 1).
 
-		// if ( Joystick_Button(BUTTON_A)==1 )
-		// {
-			// Motor_SetPower( motor_L, 75 );
-			// Motor_SetPower( motor_R, 75 );
-			// Time_Wait( 100 );
-			// Motor_Stop( motor_L );
-			// Motor_Stop( motor_R );
-		// }
+		//if ( Joystick_Button(BUTTON_A)==1 )
+		//{
+		//	Motor_SetPower( motor_L, 75 );
+		//	Motor_SetPower( motor_R, 75 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_L );
+		//	Motor_Stop( motor_R );
+		//}
 
 
 
@@ -227,7 +227,6 @@ task main()
 			nVolume = 4;
 			PlaySoundFile("moo.rso");
 		}
-
 
 
 
