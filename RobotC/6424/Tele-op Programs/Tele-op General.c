@@ -49,34 +49,6 @@ task main()
 		Joystick_UpdateData();
 
 
-		//----------NON-ENCAPSULATED VERSION (BASIC)----------//
-
-		// Nothing is encapsulated. All low-level code (direct interface).
-
-		//if ( Joystick_Button(5)==1 || Joystick_Button(6)==1 )
-		//{
-		//	Motor_SetPower( motor_L, joystick.joy1_y1 / 4 );
-		//	Motor_SetPower( motor_R, joystick.joy1_y2 / 4 );
-		//}
-		//else
-		//{
-		//	Motor_SetPower( motor_L, joystick.joy1_y1 );
-		//	Motor_SetPower( motor_R, joystick.joy1_y2 );
-		//}
-		//if ( Joystick_Button(BUTTON_B)==1 )
-		//{
-		//	Motor_SetPower( motor_lift, 100 );
-		//	Time_Wait( 100 );
-		//	Motor_Stop( motor_lift );
-		//}
-		//if ( Joystick_Button(BUTTON_A)==1 )
-		//{
-		//	Motor_SetPower( motor_lift, -100 );
-		//	Time_Wait( 100 );
-		//	Motor_Stop( motor_lift );
-		//}
-
-
 
 		//----------SEMI-ENCAPSULATED VERSION A (BASIC)----------//
 
@@ -184,11 +156,11 @@ task main()
 		//else if ( -180<angle && angle<=-90 )	//Quadrant III
 		//{
 		//	powerL = (-1) * powerTotal;
-		//	powerR = (-1) * powerTotal*(angle+90)/45 - powerTotal;	//I think
+		//	powerR = (-1) * powerTotal*(angle+180)/45 + powerTotal;	//I think
 		//}
 		//else if ( -90<angle && angle<=0 )	//Quadrant IV
 		//{
-		//	powerL = powerTotal*angle/45 + powerTotal;	//I think
+		//	powerL = powerTotal*(angle+90)/45 - powerTotal;	//I think
 		//	powerR = (-1) * powerTotal;
 		//}
 
@@ -198,8 +170,6 @@ task main()
 
 
 		//----------NON-PID LIFT ASSIGNMENTS----------//
-
-		// We can't have "80 power" or such since we need another encoder.
 
 		if ( Joystick_Button(BUTTON_B)==1 )
 		{
@@ -213,7 +183,7 @@ task main()
 			Time_Wait( 100 );
 			Motor_Stop( motor_lift );
 		}
-		
+
 
 
 		//----------MOO TEST - TOP SECRET!----------//
