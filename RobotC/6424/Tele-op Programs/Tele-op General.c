@@ -54,16 +54,39 @@ task main()
 
 		// Get-axis-value is NOT encapsulated. Everything else is.
 
+		int motorL = 0;
+		int motorR = 0;
+
 		if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
 		{
-			Motor_SetPower( motor_L, -1 * joystick.joy1_y1 / 4 );
-			Motor_SetPower( motor_R, -1 * joystick.joy1_y2 / 4 );
+			motorL = -1 * joystick.joy1_y1 / 4;
+			motorR = -1 * joystick.joy1_y2 / 4;
+
+			if (motorL > 0)
+			{
+				motorL -= (motorL - 100);
+			}
+			if (motorR > 0)
+			{
+				motorR -= (motorR - 100);
+			}
+			if (motorL < 0)
+			{
+				motorL += (motorL + 100);
+			}
+			if (motorR < 0)
+			{
+				motorR += (motorR + 100);
+			}
 		}
 		else
 		{
-			Motor_SetPower( motor_L, -1 * joystick.joy1_y1 );
-			Motor_SetPower( motor_R, -1 * joystick.joy1_y2 );
+			motorL = -1 * joystick.joy1_y1;
+			motorR = -1 * joystick.joy1_y2;
 		}
+
+		Motor_SetPower( motor_L, motorL );
+		Motor_SetPower( motor_R, motorR );
 
 
 
@@ -134,10 +157,10 @@ task main()
 		//int powerR = 0;
 
 		//int axisX = joystick.joy1_x1;	// this is low-level code
-		//int axisY = (-1) * joystick.joy1_y1;	// this is low-level code
+		//int axisY = joystick.joy1_y1;	// this is low-level code
 
-		////int axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
-		////int axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
+		//int axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
+		//int axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
 
 		//int angle = radiansToDegrees( atan2(axisY,axisX) );	//standard (from theta=0)
 		//int powerTotal = sqrt( axisX*axisX + axisY*axisY );	//Pythagorean theorem
