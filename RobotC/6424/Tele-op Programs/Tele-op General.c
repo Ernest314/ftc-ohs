@@ -211,7 +211,23 @@ task main()
 		//                                              //
 		//////////////////////////////////////////////////
 
-
+		// See if a direction is being pressed, then test for the direction.
+		if (!( Joystick_Direction(CONTROLLER_1) == -1 ))
+		{
+			switch ( Joystick_Direction(CONTROLLER_1) )
+			{
+				case DIRECTION_F:
+				case DIRECTION_FL:
+				case DIRECTION_FR:
+					sub_PutRingOn();
+					break;
+				case DIRECTION_B:
+				case DIRECTION_BL:
+				case DIRECTION_BR:
+					sub_TakeRingOff();
+					break;
+			}
+		}
 
 	}
 }
