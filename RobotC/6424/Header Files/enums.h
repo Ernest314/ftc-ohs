@@ -1,20 +1,17 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
-typedef enum JoystickButton	//the values are NOT final
+typedef enum JoystickButton
 {
-	// Comment out the line after when debugging. See main program.
-	// BUTTON_A = 2,
-
-	BUTTON_A = 02,
-	BUTTON_B = 03,
-	BUTTON_X = 01,
-	BUTTON_Y = 04,
-	BUTTON_LB = 05,
-	BUTTON_RB = 06,
-	BUTTON_LT = 07,
-	BUTTON_RT = 08,
-	BUTTON_BACK = 09,
+	BUTTON_A = 2,
+	BUTTON_B = 3,
+	BUTTON_X = 1,
+	BUTTON_Y = 4,
+	BUTTON_LB = 5,
+	BUTTON_RB = 6,
+	BUTTON_LT = 7,
+	BUTTON_RT = 8,
+	BUTTON_BACK = 9,
 	BUTTON_START = 10,
 	BUTTON_JOYL = 11,	//"floating-D technology"
 	BUTTON_JOYR = 12,	//"floating-D technology"
