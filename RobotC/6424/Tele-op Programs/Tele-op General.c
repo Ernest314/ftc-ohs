@@ -58,22 +58,22 @@ task main()
 
 		// Get-axis-value is NOT encapsulated. Everything else is.
 
-		int motorL = 0;
-		int motorR = 0;
+		//int motorL = 0;
+		//int motorR = 0;
 
-		if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		{
-			motorL = -1 * joystick.joy1_y1 / 4;
-			motorR = -1 * joystick.joy1_y2 / 4;
-		}
-		else
-		{
-			motorL = -1 * joystick.joy1_y1;
-			motorR = -1 * joystick.joy1_y2;
-		}
+		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
+		//{
+		//	motorL = -1 * joystick.joy1_y1 / 4;
+		//	motorR = -1 * joystick.joy1_y2 / 4;
+		//}
+		//else
+		//{
+		//	motorL = -1 * joystick.joy1_y1;
+		//	motorR = -1 * joystick.joy1_y2;
+		//}
 
-		Motor_SetPower( motor_L, motorL );
-		Motor_SetPower( motor_R, motorR );
+		//Motor_SetPower( motor_L, motorL );
+		//Motor_SetPower( motor_R, motorR );
 
 
 
@@ -105,19 +105,6 @@ task main()
 		//{
 		//	Motor_SetPower( motor_L, -1 * Joystick_Joystick(JOYSTICK_L, AXIS_Y) );
 		//	Motor_SetPower( motor_R, -1 * Joystick_Joystick(JOYSTICK_R, AXIS_Y) );
-		//}
-
-
-
-		//----------TEST OF DIRECTION PAD----------//
-
-		//if ( Joystick_Direction()==DIRECTION_F )
-		//{
-		//	Motor_SetPower( motor_L, 75 );
-		//	Motor_SetPower( motor_R, 75 );
-		//	Time_Wait( 100 );
-		//	Motor_Stop( motor_L );
-		//	Motor_Stop( motor_R );
 		//}
 
 
@@ -165,47 +152,34 @@ task main()
 
 		//----------NON-PID LIFT ASSIGNMENTS----------//
 
-		if ( Joystick_Button(BUTTON_B)==1 )
-		{
-			Motor_SetPower( motor_lift, 100 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
-		}
-		if ( Joystick_Button(BUTTON_A)==1 )
-		{
-			Motor_SetPower( motor_lift, -100 );
-			Time_Wait( 100 );
-			Motor_Stop( motor_lift );
-		}
+		//if ( Joystick_Button(BUTTON_B)==1 )
+		//{
+		//	Motor_SetPower( motor_lift, 100 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_lift );
+		//}
+		//if ( Joystick_Button(BUTTON_A)==1 )
+		//{
+		//	Motor_SetPower( motor_lift, -100 );
+		//	Time_Wait( 100 );
+		//	Motor_Stop( motor_lift );
+		//}
 
 
 
 		//----------JOYSTICK LIFT CONTROL----------//
 
-		//int powerLift = 0;
-		//if ( Joystick_Button(BUTTON_RB)==1 )
-		//{
-		//	powerLift = joystick.joy1_y2 / 4;
-		//}
-		//else
-		//{
-		//	powerLift = joystick.joy1_y2;
-		//}
-		//Motor_SetPower(motor_lift, powerLift);
-
-
-
-		//----------MOO TEST - TOP SECRET!----------//
-
-		// Doesn't work yet. I do not know why (the .rso file exists).
-		// Could use a while loop to delay, or call a different function.
-
-		if ( Joystick_Button(BUTTON_X)==1 )
+		int powerLift = 0;
+		if ( Joystick_Button(BUTTON_RB)==1 )
 		{
-			ClearSounds();
-			nVolume = 4;
-			PlaySoundFile("moo.rso");
+			powerLift = joystick.joy1_y2 / 4;
 		}
+		else
+		{
+			powerLift = joystick.joy1_y2;
+		}
+		Motor_SetPower(motor_lift, powerLift);
+
 
 
 
@@ -221,7 +195,7 @@ task main()
 		// This is inside an `if` statement to optimize speed (less checking).
 		// `JoystickController` arguments are not passed to increase speed.
 
-		if ( Joystick_Direction() != -1 )
+		if ( Joystick_Direction() != DIRECTION_NONE )
 		{
 			switch ( Joystick_Direction() )	//fall-through very intentional
 			{
@@ -278,9 +252,13 @@ task main()
 			}
 		}
 
+
+
 		// Joystick stuff comes last! It's so convoluted...
 		// TODO: add threshold values, etc.
 		// This needs to include both joy1_y1 and joy1_y2.
+
+
 
 		// Input from CONTROLLER_2 will be processed last. Very low priority.
 
