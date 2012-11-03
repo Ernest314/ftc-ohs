@@ -39,6 +39,10 @@ void initializeRobot()
 	// Place code here to init servos to starting positions.
 	// Sensors are auto-config'ed and setup by RobotC.
 	// They may need to stabilize.
+	Motor_SetMaxSpeed(g_FullMotorPower);
+	int powerL = 0;
+	int powerR = 0;
+	int powerLift = 0;
 	return;
 }
 
@@ -169,16 +173,7 @@ task main()
 
 		//----------JOYSTICK LIFT CONTROL----------//
 
-		int powerLift = 0;
-		if ( Joystick_Button(BUTTON_RB)==1 )
-		{
-			powerLift = joystick.joy1_y2 / 4;
-		}
-		else
-		{
-			powerLift = joystick.joy1_y2;
-		}
-		Motor_SetPower(motor_lift, powerLift);
+
 
 
 
@@ -260,7 +255,28 @@ task main()
 
 
 
+		// The right joystick on Controller 1 controls the lift ("manual mode")
+		// in addition to the Y/B/A buttons. Pressing RB divides the speed by 4.
+		// Logarithmic control probably won't be implemented anytime soon.
+
+		if ( Joystick_Button(BUTTON_RB)==1 )
+		{
+			powerLift = joystick.joy1_y2 / 4;
+		}
+		else
+		{
+			powerLift = joystick.joy1_y2;
+		}
+		Motor_SetPower(motor_lift, powerLift);
+
+
+
 		// Input from CONTROLLER_2 will be processed last. Very low priority.
+
+
+
+		// Flush the controller input buffer periodically (every 1/4 sec?)
+
 
 
 	}
