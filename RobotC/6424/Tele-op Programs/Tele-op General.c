@@ -233,9 +233,27 @@ task main()
 
 		// See if a button (no LB/LT/RB/RT) is being pressed, then react.
 		// This is inside an `if` statement to optimize speed (less checking).
-		if(true)	//just a placeholder
+		if(true)	//true is just a placeholder
 		{
-			;
+			if ( Joystick_Button(BUTTON_Y)==true )
+			{
+				sub_LiftToTop();
+			}
+			if ( Joystick_Button(BUTTON_B)==true )
+			{
+				sub_LiftToMiddle();
+			}
+			if ( Joystick_Button(BUTTON_A)==true )
+			{
+				sub_LiftToBottom();
+			}
+			if ( Joystick_Button(BUTTON_X)==true )
+			{
+				if ( (Joystick_Button(BUTTON_JOYL)||Joystick_Button(BUTTON_JOYR))==true )
+				{
+					sub_DeployRamp();
+				}
+			}
 		}
 
 		// Joystick stuff comes last! It's so convoluted...
