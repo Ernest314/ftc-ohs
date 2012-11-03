@@ -211,7 +211,9 @@ task main()
 		//                                              //
 		//////////////////////////////////////////////////
 
+
 		// See if a direction is being pressed, then test for the direction.
+		// This is inside an `if` statement to optimize speed (less checking).
 		if (!( Joystick_Direction(CONTROLLER_1) == -1 ))
 		{
 			switch ( Joystick_Direction(CONTROLLER_1) )
@@ -228,6 +230,20 @@ task main()
 					break;
 			}
 		}
+
+		// See if a button (no LB/LT/RB/RT) is being pressed, then react.
+		// This is inside an `if` statement to optimize speed (less checking).
+		if(true)	//just a placeholder
+		{
+			;
+		}
+
+		// Joystick stuff comes last! It's so convoluted...
+		// TODO: add threshold values, etc.
+		// This needs to include both joy1_y1 and joy1_y2.
+
+		// Input from CONTROLLER_2 will be processed last. Very low priority.
+
 
 	}
 }
