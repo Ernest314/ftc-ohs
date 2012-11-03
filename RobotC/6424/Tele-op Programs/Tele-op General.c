@@ -221,9 +221,9 @@ task main()
 		// This is inside an `if` statement to optimize speed (less checking).
 		// `JoystickController` arguments are not passed to increase speed.
 
-		if (!( Joystick_Direction() == -1 ))
+		if ( Joystick_Direction() != -1 )
 		{
-			switch ( Joystick_Direction() )
+			switch ( Joystick_Direction() )	//fall-through very intentional
 			{
 				case DIRECTION_F:
 				case DIRECTION_FL:
@@ -245,10 +245,13 @@ task main()
 
 		// The argument to this first `if` statement is a masked version
 		// of the "bitmap" of buttons directly from the controller.
-		// Only the LB, LT, and RB are  masked to increase processing
-		// speed (possibly, just speculation).
 
-		if(true)	//true is just a placeholder
+		// Everything other than the buttons used are masked off, to increase
+		// processing speed (possibly, just speculation). Reasoning:
+		// `&` compares all bits of the variables, so we might as well mask
+		// everything we won't need, in case something irrelevant is pressed.
+
+		if( (CONTROLLER_MASK & joystick.joy1_Buttons) != 0 )
 		{
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
