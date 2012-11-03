@@ -251,7 +251,10 @@ task main()
 		// `&` compares all bits of the variables, so we might as well mask
 		// everything we won't need, in case something irrelevant is pressed.
 
-		if( (CONTROLLER_MASK & joystick.joy1_Buttons) != 0 )
+		// A `0` value means no buttons (that we are testing for) are pressed.
+		// Directly using the struct since this is the only possible time to
+		// use it, and this is very low-level anyways.
+		if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
 		{
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
