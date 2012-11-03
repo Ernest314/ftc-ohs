@@ -28,10 +28,26 @@ task main()
 {
 	while (true)
 	{
-		if (nNxtButtonPressed == 3)
+		if (nNxtButtonPressed == 3)	//orange button
+		{
+			Motor_SetPower(motor_L, -100);
+			Motor_SetPower(motor_R, -100);
+			Time_Wait(50);
+			Motor_Stop(motor_L);
+			Motor_Stop(motor_R);
+		}
+		if (nNxtButtonPressed == 2)	//left arrow button
+		{
+			Motor_SetPower(motor_L, -100);
+			Motor_SetPower(motor_R, 100);
+			Time_Wait(50);
+			Motor_Stop(motor_L);
+			Motor_Stop(motor_R);
+		}
+		if (nNxtButtonPressed == 1)	//right arrow button
 		{
 			Motor_SetPower(motor_L, 100);
-			Motor_SetPower(motor_R, 100);
+			Motor_SetPower(motor_R, -100);
 			Time_Wait(50);
 			Motor_Stop(motor_L);
 			Motor_Stop(motor_R);
