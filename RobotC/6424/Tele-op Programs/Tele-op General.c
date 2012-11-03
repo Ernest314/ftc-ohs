@@ -61,23 +61,6 @@ task main()
 		{
 			motorL = -1 * joystick.joy1_y1 / 4;
 			motorR = -1 * joystick.joy1_y2 / 4;
-
-			if (motorL > 0)
-			{
-				motorL -= (motorL - 100);
-			}
-			if (motorR > 0)
-			{
-				motorR -= (motorR - 100);
-			}
-			if (motorL < 0)
-			{
-				motorL += (motorL + 100);
-			}
-			if (motorR < 0)
-			{
-				motorR += (motorR + 100);
-			}
 		}
 		else
 		{
@@ -125,22 +108,6 @@ task main()
 		//----------TEST OF DIRECTION PAD----------//
 
 		//if ( Joystick_Direction()==DIRECTION_F )
-		//{
-		//	Motor_SetPower( motor_L, 75 );
-		//	Motor_SetPower( motor_R, 75 );
-		//	Time_Wait( 100 );
-		//	Motor_Stop( motor_L );
-		//	Motor_Stop( motor_R );
-		//}
-
-
-
-		//----------TEST OF BUTTON -> INT CONVERSION----------//
-
-		// Go to `enums.h` and change "enum JoystickButton" from
-		// 0# to # and see what happens (e.g., 01 to 1).
-
-		//if ( Joystick_Button(BUTTON_A)==1 )
 		//{
 		//	Motor_SetPower( motor_L, 75 );
 		//	Motor_SetPower( motor_R, 75 );
@@ -206,6 +173,21 @@ task main()
 			Time_Wait( 100 );
 			Motor_Stop( motor_lift );
 		}
+
+
+
+		//----------JOYSTICK LIFT CONTROL----------//
+
+		//int powerLift = 0;
+		//if ( Joystick_Button(BUTTON_RB)==1 )
+		//{
+		//	powerLift = joystick.joy1_y2 / 4;
+		//}
+		//else
+		//{
+		//	powerLift = joystick.joy1_y2;
+		//}
+		//Motor_SetPower(motor_lift, powerLift);
 
 
 
