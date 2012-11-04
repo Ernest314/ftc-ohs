@@ -74,42 +74,27 @@ void Motor_SetPIDInterval(int interval=20)
 //    "namespace" Servo    //
 /////////////////////////////
 
-void Servo_ExactRotation(	TServoIndex servoName,	short angle,
-							int power=75,			bool brake=true)
+void Servo_Rotate(	TServoIndex servoName,	short position,
+							int rate=0,		bool brake=true)
 {
-	servo[servoName] = angle;
-	// Braking & power are not implemented.
-	// Implementation of power will require calibration.
-}
-
-void Servo_Forward(tMotor motorName, int power=75)
-{
-	// No idea how to work this yet. Will wait until robot is done.
-	// May or may not be implemented.
-}
-
-void Servo_Reverse(tMotor motorName, int power=75)
-{
-	// No idea how to work this yet. Will wait until robot is done.
-	// May or may not be implemented.
-}
-
-void Servo_Stop(tMotor motorName, bool brake=true)
-{
-	// No idea how to work this yet. Will wait until robot is done.
-	// May or may not be implemented.
+	servoChangeRate[servoName] = rate;
+	servo[servoName] = position;
+	bSystemLeaveServosEnabledOnProgramStop = brake;
 }
 
 short Servo_GetPosition(TServoIndex servoName)
 {
-	short rotation = 0;
-	rotation = ServoValue[servoName];
-	return rotation;
+	return ServoValue[servoName];
 }
 
-void Servo_SetUpdateInterval(TServoIndex servoName, int rate)
+void Servo_SetSpeed(TServoIndex servoName, int rate)
 {
 	servoChangeRate[servoName] = rate;
+}
+
+void Servo_LockPosition(TServoIndex servoName, bool isLocked=true)
+{
+	bSystemLeaveServosEnabledOnProgramStop = isLocked;
 }
 
 
