@@ -62,22 +62,19 @@ task main()
 
 		// Get-axis-value is NOT encapsulated. Everything else is.
 
-		//int motorL = 0;
-		//int motorR = 0;
+		if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
+		{
+			powerL = -1 * joystick.joy1_y1 / 4;
+			powerR = -1 * joystick.joy1_y2 / 4;
+		}
+		else
+		{
+			powerL = -1 * joystick.joy1_y1;
+			powerR = -1 * joystick.joy1_y2;
+		}
 
-		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		//{
-		//	motorL = -1 * joystick.joy1_y1 / 4;
-		//	motorR = -1 * joystick.joy1_y2 / 4;
-		//}
-		//else
-		//{
-		//	motorL = -1 * joystick.joy1_y1;
-		//	motorR = -1 * joystick.joy1_y2;
-		//}
-
-		//Motor_SetPower( motor_L, motorL );
-		//Motor_SetPower( motor_R, motorR );
+		Motor_SetPower( motor_L, powerL );
+		Motor_SetPower( motor_R, powerR );
 
 
 
@@ -114,9 +111,6 @@ task main()
 
 
 		//----------SINGLE-JOYSTICK CONTROL CODE----------//
-
-		//int powerL = 0;
-		//int powerR = 0;
 
 		//int axisX = joystick.joy1_x1;	// this is low-level code
 		//int axisY = joystick.joy1_y1;	// this is low-level code
@@ -250,9 +244,16 @@ task main()
 
 
 
-		// Joystick stuff comes last! It's so convoluted...
-		// TODO: add threshold values, logarithmic control, etc.
-		// This needs to include both joy1_y1 and joy1_y2.
+		// L/R motor code. Only triggered when the left joystick returns a
+		// value greater than the global threshold (`global vars.h`).
+
+		// TODO
+
+		// Logarithmic control probably won't be implemented anytime soon.
+		//if ( joystick.joy1_y1||joystick.joy1_y2 > g_JoystickThreshold )
+		//{
+		//	;
+		//}
 
 
 
