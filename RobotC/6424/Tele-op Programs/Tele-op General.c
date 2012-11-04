@@ -150,27 +150,22 @@ task main()
 
 		//----------NON-PID LIFT ASSIGNMENTS----------//
 
-		//if ( Joystick_Button(BUTTON_B)==1 )
-		//{
-		//	Motor_SetPower( motor_lift, 100 );
-		//	Time_Wait( 100 );
-		//	Motor_Stop( motor_lift );
-		//}
-		//if ( Joystick_Button(BUTTON_A)==1 )
-		//{
-		//	Motor_SetPower( motor_lift, -100 );
-		//	Time_Wait( 100 );
-		//	Motor_Stop( motor_lift );
-		//}
+		if ( Joystick_Button(BUTTON_B)==1 )
+		{
+			Motor_SetPower( motor_lift, 100 );
+			Time_Wait( 100 );
+			Motor_Stop( motor_lift );
+		}
+		if ( Joystick_Button(BUTTON_A)==1 )
+		{
+			Motor_SetPower( motor_lift, -100 );
+			Time_Wait( 100 );
+			Motor_Stop( motor_lift );
+		}
 
 
 
 
-			//////////////////////////////////////////////////
-			//                                              //
-			//=========== FINAL DRAFT OF PROGRAM ===========//
-			//                                              //
-			//////////////////////////////////////////////////
 
 			//////////////////////////////////////////////////
 			//                                              //
@@ -261,15 +256,15 @@ task main()
 		// in addition to the Y/B/A buttons. Pressing RB divides the speed by 4.
 		// Logarithmic control probably won't be implemented anytime soon.
 
-		if ( Joystick_Button(BUTTON_RB)==1 && Joystick_Button(BUTTON_X)==1 )
-		{
-			powerLift = joystick.joy1_y2 / 4;
-		}
-		else if ( Joystick_Button(BUTTON_X)==1 )
-		{
-			powerLift = joystick.joy1_y2;
-		}
-		Motor_SetPower(motor_lift, powerLift);
+		//if ( Joystick_Button(BUTTON_RB)==1 && Joystick_Button(BUTTON_X)==1 )
+		//{
+		//	powerLift = joystick.joy1_y2 / 4;
+		//}
+		//else if ( Joystick_Button(BUTTON_X)==1 )
+		//{
+		//	powerLift = joystick.joy1_y2;
+		//}
+		//Motor_SetPower(motor_lift, powerLift);
 
 
 
