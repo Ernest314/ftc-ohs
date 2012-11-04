@@ -261,11 +261,11 @@ task main()
 		// in addition to the Y/B/A buttons. Pressing RB divides the speed by 4.
 		// Logarithmic control probably won't be implemented anytime soon.
 
-		if ( Joystick_Button(BUTTON_RB)==1 )
+		if ( Joystick_Button(BUTTON_RB)==1 && Joystick_Button(BUTTON_X)==1 )
 		{
 			powerLift = joystick.joy1_y2 / 4;
 		}
-		else
+		else if ( Joystick_Button(BUTTON_X)==1 )
 		{
 			powerLift = joystick.joy1_y2;
 		}
