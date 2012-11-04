@@ -2,10 +2,8 @@
 #define GLOBAL_VARS_H
 
 
-// The full speed these motors should be PID-regulated at.
-int g_FullPowerL = 100;
-int g_FullPowerR = 100;
-int g_FullPowerLift = 100;
+// The full speed the motors should be PID-regulated at.
+int g_FullMotorPower = 80;
 
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
@@ -20,7 +18,7 @@ int g_BottomLiftAngle = 0;	//TODO
 	// ---------------------
 	//   0000 ??00 0000 ????
 // This information was gleaned from the definition of joy1Btn().
-	// 2^1 +2^2 +2^3 +2^4 +2^11 +2^12 = 2+4+8+16+2048+4096 = 6174
+	// 2^1 + 2^2 + 2^3 + 2^4 + 2^11 + 2^12 = 2+4+8+16+2048+4096 = 6174
 short g_ControllerMask= 6174;
 
 

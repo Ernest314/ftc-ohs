@@ -41,11 +41,11 @@ typedef enum JoystickDirection	//need one more definitive test
 	DIRECTION_F = 0,
 	DIRECTION_FR = 1,
 	DIRECTION_R = 2,
-	DIRECTION_BR = 7,
-	DIRECTION_B = 6,
+	DIRECTION_BR = 3,
+	DIRECTION_B = 4,
 	DIRECTION_BL = 5,
-	DIRECTION_L = 4,
-	DIRECTION_FL = 3,
+	DIRECTION_L = 6,
+	DIRECTION_FL = 7,
 };
 
 #endif
