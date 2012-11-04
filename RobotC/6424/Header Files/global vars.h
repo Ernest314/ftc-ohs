@@ -2,6 +2,11 @@
 #define GLOBAL_VARS_H
 
 
+// The threshold for joystick values to count. "Experience"
+// tells us it should be about 10; the highest we've ever
+// recorded is 6.
+int g_JoystickThreshold = 10;
+
 // The full speed the motors should be PID-regulated at.
 int g_FullMotorPower = 80;
 
