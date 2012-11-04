@@ -171,6 +171,16 @@ Its only useful function is the `void wait(float waitTime)` function.
 - __Bluetooth__
 - __Semaphores__
 - __Miscellaneous__
+	- `bool bSystemLeaveServosEnabledOnProgramStop` _(var)_
+		- leave servos locked in position until poweroff = `true`
+	- `word muxUpdateInterval` _(var)_
+		- amount of time (ms) between updates on TETRIX controller values
+		- default is 25 ms
+	- `short externalBattery` _(var)_
+		- battery level of TETRIX battery in millivolts
+	- `short externalBatteryAvg` _(var)_
+		- battery level of TETRIX battery in millivolts
+		- taken over an averge of 20 samplings
 
 ## Custom Functions/Variables
 _These are all functions. Duh._
@@ -192,21 +202,22 @@ _These are all functions. Duh._
 	- `void Motor_SetPIDInterval(int interval=20)`
 		- in milliseconds; RobotC's default value is 25.
 - __Servos__
-	- `void Servo_ExactRotation(TServoIndex s, short a, int p, bool b)`
+	- `void Servo_Rotate(TServoIndex s, short p, int r, bool b)`
 		- _parameter clarification_:
 			* `TServoIndex s` is `TServoIndex servoName`
-			* `short a` is the angle in degrees
-			* `int p` is the power; default is 75
+			* `short p` is the position of servo (0 - 255)
+			* `int r` is the rate; default is 0
 			* `bool b` is whether to brake; default is `true`
-	- `void Servo_Forward(tMotor motor_name, int power=75)`
-	- `void Servo_Reverse(tMotor motor_name, int power=75)`
-	- `void Servo_Stop(tMotor motor_name, bool brake=true)`
 	- `short Servo_GetPosition(TServoIndex servoName)`
-	- `void Servo_SetUpdateInterval(TServoIndex s, int rate)`
-		- _parameter clarification_:
-			* `TServoIndex s` is `TServoIndex servoName`
+		- returns a value from 0 - 255
+	- `void Servo_SetSpeed(TServoIndex servoName, int rate)`
 		- rate is in positions updated per update
 		- the brick sends 1 update per 20 milliseconds
+		- 0 is top speed
+	- `void Servo_LockPosition(TServoIndex s, bool isLocked=true)`
+		- _parameter clarification_:
+			* `TServoIndex s` is `TServoIndex servoName`
+		- set whether servo holds position after poweroff
 - __Sensors__
 - __Joystick__
 	- `void Joystick_UpdateData()`
