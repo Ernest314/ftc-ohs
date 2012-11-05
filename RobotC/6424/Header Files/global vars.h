@@ -7,6 +7,9 @@
 // recorded is 6.
 int g_JoystickThreshold = 10;
 
+// The factor to divide by when fine-tuning motors.
+int g_FineTuneFactor = 4;
+
 // The full speed the motors should be PID-regulated at.
 int g_FullMotorPower = 80;
 

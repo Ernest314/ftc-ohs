@@ -66,19 +66,19 @@ task main()
 
 		// Get-axis-value is NOT encapsulated. Everything else is.
 
-		if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
-		{
-			powerL = -1 * joystick.joy1_y1 / 4;
-			powerR = -1 * joystick.joy1_y2 / 4;
-		}
-		else
-		{
-			powerL = -1 * joystick.joy1_y1;
-			powerR = -1 * joystick.joy1_y2;
-		}
+		//if ( Joystick_Button(BUTTON_LB)==1 || Joystick_Button(BUTTON_RB)==1 )
+		//{
+		//	powerL = -1 * joystick.joy1_y1 / 4;
+		//	powerR = -1 * joystick.joy1_y2 / 4;
+		//}
+		//else
+		//{
+		//	powerL = -1 * joystick.joy1_y1;
+		//	powerR = -1 * joystick.joy1_y2;
+		//}
 
-		Motor_SetPower( motor_L, powerL );
-		Motor_SetPower( motor_R, powerR );
+		//Motor_SetPower( motor_L, powerL );
+		//Motor_SetPower( motor_R, powerR );
 
 
 
@@ -154,33 +154,33 @@ task main()
 
 		//----------NON-PID LIFT ASSIGNMENTS----------//
 
-		//if ( Joystick_Button(BUTTON_B)==1 && Joystick_Button(BUTTON_RT)==1 )
+		////if ( Joystick_Button(BUTTON_B)==1 && Joystick_Button(BUTTON_RT)==1 )
+		////{
+		////	Motor_SetPower( motor_lift, 25 );
+		////	Time_Wait( 25 );
+		////	Motor_Stop( motor_lift );
+		////}
+		////else
+		//if ( Joystick_Button(BUTTON_B)==1 )
 		//{
-		//	Motor_SetPower( motor_lift, 25 );
+		//	Motor_SetPower( motor_lift, 100 );
 		//	Time_Wait( 25 );
 		//	Motor_Stop( motor_lift );
 		//}
-		//else
-		if ( Joystick_Button(BUTTON_B)==1 )
-		{
-			Motor_SetPower( motor_lift, 100 );
-			Time_Wait( 25 );
-			Motor_Stop( motor_lift );
-		}
 
-		//if ( Joystick_Button(BUTTON_A)==1 && Joystick_Button(BUTTON_RT)==1 )
+		////if ( Joystick_Button(BUTTON_A)==1 && Joystick_Button(BUTTON_RT)==1 )
+		////{
+		////	Motor_SetPower( motor_lift, -25 );
+		////	Time_Wait( 25 );
+		////	Motor_Stop( motor_lift );
+		////}
+		////else
+		//if ( Joystick_Button(BUTTON_A)==1 )
 		//{
-		//	Motor_SetPower( motor_lift, -25 );
+		//	Motor_SetPower( motor_lift, -100 );
 		//	Time_Wait( 25 );
 		//	Motor_Stop( motor_lift );
 		//}
-		//else
-		if ( Joystick_Button(BUTTON_A)==1 )
-		{
-			Motor_SetPower( motor_lift, -100 );
-			Time_Wait( 25 );
-			Motor_Stop( motor_lift );
-		}
 
 
 
@@ -200,22 +200,22 @@ task main()
 		// This is inside an `if` statement to optimize speed (less checking).
 		// `JoystickController` arguments are not passed to increase speed.
 
-		//if ( Joystick_Direction() != DIRECTION_NONE )
-		//{
-		//	switch ( Joystick_Direction() )	//fall-through very intentional
-		//	{
-		//		case DIRECTION_F:
-		//		case DIRECTION_FL:
-		//		case DIRECTION_FR:
-		//			sub_PutRingOn();
-		//			break;
-		//		case DIRECTION_B:
-		//		case DIRECTION_BL:
-		//		case DIRECTION_BR:
-		//			sub_TakeRingOff();
-		//			break;
-		//	}
-		//}
+		if ( Joystick_Direction() != DIRECTION_NONE )
+		{
+			switch ( Joystick_Direction() )	//fall-through very intentional
+			{
+				case DIRECTION_F:
+				case DIRECTION_FL:
+				case DIRECTION_FR:
+					sub_PutRingOn();
+					break;
+				case DIRECTION_B:
+				case DIRECTION_BL:
+				case DIRECTION_BR:
+					sub_TakeRingOff();
+					break;
+			}
+		}
 
 
 
@@ -233,64 +233,84 @@ task main()
 		// A `0` value means no buttons (that we are testing for) are pressed.
 		// Directly using the struct since this is the only possible time to
 		// use it, and this is very low-level anyways.
-		//if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
-		//{
-		//	if ( Joystick_Button(BUTTON_Y)==true )
-		//	{
-		//		sub_LiftToTop();
-		//	}
-		//	if ( Joystick_Button(BUTTON_B)==true )
-		//	{
-		//		sub_LiftToMiddle();
-		//	}
-		//	if ( Joystick_Button(BUTTON_A)==true )
-		//	{
-		//		sub_LiftToBottom();
-		//	}
-		//	if ( Joystick_Button(BUTTON_X)==true )
-		//	{
-		//		if (	(Joystick_Button(BUTTON_JOYL)||
-		//				 Joystick_Button(BUTTON_JOYR)) == true )
-		//		{
-		//			sub_DeployRamp();
-		//		}
-		//	}
-		//}
+		if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
+		{
+			if ( Joystick_Button(BUTTON_Y)==true )
+			{
+				sub_LiftToTop();
+			}
+			if ( Joystick_Button(BUTTON_B)==true )
+			{
+				sub_LiftToMiddle();
+			}
+			if ( Joystick_Button(BUTTON_A)==true )
+			{
+				sub_LiftToBottom();
+			}
+			if ( Joystick_Button(BUTTON_X)==true )
+			{
+				if (	(Joystick_Button(BUTTON_JOYL)||
+						 Joystick_Button(BUTTON_JOYR)) == true )
+				{
+					sub_DeployRamp();
+				}
+			}
+		}
 
 
 
 		// L/R motor code. Only triggered when the left joystick returns a
 		// value greater than the global threshold (`global vars.h`).
 
-		// TODO
+		// TODO: explain how the code below works
 
 		// Logarithmic control probably won't be implemented anytime soon.
-		//if ( joystick.joy1_y1||joystick.joy1_y2 > g_JoystickThreshold )
-		//{
-		//	;
-		//}
-		//else if ( joystick.joy1_y1||joystick.joy1_y2 < g_JoystickThreshold )
-		//{
-		//	;
-		//}
-		//Motor_SetPower(motor_L, powerL);
-		//Motor_SetPower(motor_R, powerR);
+		// Also need to stop using the `joystick` struct and switch to the
+		// encapsulated version (Joystick_Joystick(...)).
+
+		// Y-axis code:
+		if ( 	joystick.joy1_y1 < g_JoystickThreshold ||
+				joystick.joy1_x1 > g_JoystickThreshold )
+		{
+			powerL = Math_ToLogarithmic(joystick.joy1_y1);
+			powerR = Math_ToLogarithmic(joystick.joy1_y1);
+		}
+
+		// X-axis code comes AFTER Y-axis code and SHOULD re-assign
+		// power levels (the ratio the motor should turn by):
+		if ( joystick.joy1_x1 > g_JoystickThreshold )
+		{
+			powerR = powerR - 2*Math_ToLogarithmic(joystick.joy1_x1);
+		}
+		else if ( joystick.joy1_x1 < g_JoystickThreshold )
+		{
+			powerL = powerL + 2*Math_ToLogarithmic(joystick.joy1_x1);
+		}
+
+		Motor_SetPower(motor_L, powerL);
+		Motor_SetPower(motor_R, powerR);
 
 
 
 		// The right joystick on Controller 1 controls the lift ("manual mode")
-		// in addition to the Y/B/A buttons. Pressing RB divides the speed by 4.
+		// in addition to the Y/B/A buttons. Pressing LB triggers fine-tuning.
 		// Logarithmic control probably won't be implemented anytime soon.
 
-		//if ( Joystick_Button(BUTTON_RB)==1 && Joystick_Button(BUTTON_X)==1 )
-		//{
-		//	powerLift = joystick.joy1_y2 / 4;
-		//}
-		//else if ( Joystick_Button(BUTTON_X)==1 )
-		//{
-		//	powerLift = joystick.joy1_y2;
-		//}
-		//Motor_SetPower(motor_lift, powerLift);
+		// This is also only triggered when the joystick value exceeds the
+		// pre-defined threshold (see `global vars.h`).
+		if ( joystick.joy1_y2 > g_JoystickThreshold )
+		{
+			if ( Joystick_Button(BUTTON_LB)==1 )
+			{
+				powerLift = joystick.joy1_y2 / g_FineTuneFactor;
+			}
+			else
+			{
+				powerLift = Math_ToLogarithmic(joystick.joy1_y2);
+			}
+		}
+
+		Motor_SetPower(motor_lift, powerLift);
 
 
 
