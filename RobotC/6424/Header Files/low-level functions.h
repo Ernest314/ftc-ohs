@@ -268,7 +268,29 @@ void Time_Wait(int ms)
 
 
 /////////////////////////////
+//     "namespace" Math    //
+/////////////////////////////
+
+// TODO: make it actually convert to logarithmic values.
+// For converting joystick input to logarithmic values.
+int Math_ToLogarithmic(int input)
+{
+	int convertedInput = 0;
+	if (input >= 0)
+	{
+		convertedInput = input-20;
+	}
+	else if (input < 0)
+	{
+		convertedInput = input+20;
+	}
+	return convertedInput;
+}
+
+
+/////////////////////////////
 //     "namespace" Misc    //
 /////////////////////////////
+
 
 #endif

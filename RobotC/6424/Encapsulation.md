@@ -244,4 +244,7 @@ _These are all functions. Duh._
 - __Display__
 - __Bluetooth__
 - __Semaphores__
+- __Math__
+	- `int Math_ToLogarithmic(int input)`
+		- for converting joystick values to logarithmic values
 - __Miscellaneous__
