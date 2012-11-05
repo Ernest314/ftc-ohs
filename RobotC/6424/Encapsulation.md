@@ -170,6 +170,24 @@ Its only useful function is the `void wait(float waitTime)` function.
 - __Display__
 - __Bluetooth__
 - __Semaphores__
+- __Multitasking__
+	- `void abortTimeslice()` _(fn)_
+		- immediately ends the current timeslice of the current task
+		- timeslices are only used if multiple tasks have same priority
+	- `void hogCPU()` _(fn)_
+		- ignores priorities and gives current task 100% CPU time
+	- `void releaseCPU()` _(fn)_
+		- reverses effects of `void hogCPU()`
+	- `void StartTask(void TaskID, const short nTaskPriority)` _(fn)_
+		- starts a pre-defined task
+		- default task priority is 7
+	- `void StopTask(void TaskID)` _(fn)_
+		- stops a previously started task
+	- `void StopAllTasks()` _(fn)_
+		- ends _all_ tasks, including `task main()`
+	- `word nSchedulePriority` _(var)_
+		- priority of a task from 0 to 255; 0 is lowest & 255 is highest
+		- default for an assigned task is 7
 - __Miscellaneous__
 	- `bool bSystemLeaveServosEnabledOnProgramStop` _(var)_
 		- leave servos locked in position until poweroff = `true`

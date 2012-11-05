@@ -278,11 +278,11 @@ int Math_ToLogarithmic(int input)
 	int convertedInput = 0;
 	if (input >= 0)
 	{
-		convertedInput = input-20;
+		convertedInput = input-28;
 	}
 	else if (input < 0)
 	{
-		convertedInput = input+20;
+		convertedInput = input+28;
 	}
 	return convertedInput;
 }
