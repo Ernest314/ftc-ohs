@@ -150,25 +150,29 @@ task main()
 
 		//----------NON-PID LIFT ASSIGNMENTS----------//
 
-		if ( Joystick_Button(BUTTON_B)==1 && Joystick_Button(BUTTON_RT)==1 )
-		{
-			Motor_SetPower( motor_lift, 25 );
-			Time_Wait( 25 );
-			Motor_Stop( motor_lift );
-		}
-		else
+		//if ( Joystick_Button(BUTTON_B)==1 && Joystick_Button(BUTTON_RT)==1 )
+		//{
+		//	Motor_SetPower( motor_lift, 25 );
+		//	Time_Wait( 25 );
+		//	Motor_Stop( motor_lift );
+		//}
+		if ( Joystick_Button(BUTTON_B)==1)
+		//else
 		{
 			Motor_SetPower( motor_lift, 100 );
 			Time_Wait( 25 );
 			Motor_Stop( motor_lift );
 		}
-		if ( Joystick_Button(BUTTON_A)==1 && Joystick_Button(BUTTON_RT)==1 )
-		{
-			Motor_SetPower( motor_lift, -25 );
-			Time_Wait( 25 );
-			Motor_Stop( motor_lift );
-		}
-		else
+
+		//if ( Joystick_Button(BUTTON_A)==1 && Joystick_Button(BUTTON_RT)==1 )
+		//{
+		//	Motor_SetPower( motor_lift, -25 );
+		//	Time_Wait( 25 );
+		//	Motor_Stop( motor_lift );
+		//}
+
+		if ( Joystick_Button(BUTTON_A)==1)
+		//else
 		{
 			Motor_SetPower( motor_lift, -100 );
 			Time_Wait( 25 );
