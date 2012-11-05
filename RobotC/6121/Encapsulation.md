@@ -1,5 +1,8 @@
 # Encapsulation Scheme (RobotC)
 
+NOTE: The "natural language" advertised by RobotC is actually very limited.  
+Its only useful function is the `void wait(float waitTime)` function.
+
 ## Original Functions/Variables
 - __Motors__
     - `bool bFloatDuringInactiveMotorPWM` _(var)_
@@ -140,7 +143,7 @@
 	- `word nVolume` _(var)_
 		- sets volume, from 0 to 4 (loudest)
 	- `void PlayImmediateTone(const int x, const int y)` _(fn)_
-		- _variable clarification_:
+		- _parameter clarification_:
 			* "x" = `frequency`
 			* "y" = `durationIn10MsecTicks`
 		- plays tone ahead of other queued requests
@@ -158,7 +161,7 @@
 	- `void PlaySoundFile(const string &sFileName)` _(fn)_
 		- plays a sound file present on the NXT file system
 	- `void PlayTone(const int x, const int y)` _(fn)_
-		- _variable clarification_:
+		- _parameter clarification_:
 			* "x" = `frequency`
 			* "y" = `durationIn10MsecTicks`
 		- plays a constant tone
@@ -166,17 +169,68 @@
 		- restores sound playback to volume before mute
 - __Display__
 - __Bluetooth__
+- __Semaphores__
 - __Miscellaneous__
 
 ## Custom Functions/Variables
+_These are all functions. Duh._
 - __Motors__
+	- `void Motor_Forward(tMotor motor_name, int power=75)`
+	- `void Motor_Reverse(tMotor motor_name, int power=75)`
+	- `void Motor_Stop(tMotor motor_name, bool brake=true)`
+	- `void Motor_ExactRotation(tMotor m, int a, int p, bool brake=true)`
+		- _parameter clarification_:
+			* `tMotor m` is `tMotor motor_name`
+			* `int a` is the angle in degrees
+			* `int p` is the power; default is 75
+	- `int Motor_GetEncoder(tMotor motor_name)`
+	- `void Motor_ResetEncoder(tMotor motor_name)`
+		- reset is always absolute (since beginning of program)
+	- `void Motor_SetBrakes(bool isOn=true)`
+		- RobotC doesn't allow individual brakes to be set
+	- `void Motor_SetMaxSpeed(int speed=750)`
+	- `void Motor_SetPIDInterval(int interval=20)`
+		- in milliseconds; RobotC's default value is 25.
 - __Servos__
+	- `void Servo_ExactRotation(TServoIndex s, short a, int p, bool b)`
+		- _parameter clarification_:
+			* `TServoIndex s` is `TServoIndex servoName`
+			* `short a` is the angle in degrees
+			* `int p` is the power; default is 75
+			* `bool b` is whether to brake; default is `true`
+	- `void Servo_Forward(tMotor motor_name, int power=75)`
+	- `void Servo_Reverse(tMotor motor_name, int power=75)`
+	- `void Servo_Stop(tMotor motor_name, bool brake=true)`
+	- `short Servo_GetPosition(TServoIndex servoName)`
+	- `void Servo_SetUpdateInterval(TServoIndex s, int rate)`
+		- _parameter clarification_:
+			* `TServoIndex s` is `TServoIndex servoName`
+		- rate is in positions updated per update
+		- the brick sends 1 update per 20 milliseconds
 - __Sensors__
 - __Joystick__
+	- `void Joystick_UpdateData()`
+	- `bool Joystick_Button(JoystickButton b, JoystickController c = C)`
+	    - _parameter clarification_:
+			* `JoystickButton b` is `JoystickButton button`
+			* `JoystickController c` is `JoystickController controller`
+			* `C` is `CONTROLLER_1`
+	- `int JoyStick_Joystick(J...J... j, J...A... a, J...C... c = C)`
+		- _parameter clarification_:
+			* `J...J... j` is `JoystickJoystick joystick`
+			* `J...A... a` is `JoystickAxis axis`
+			* `J...C... c` is `JoystickController controller`
+			* `C` is `CONTROLLER_1`
+	- `JoystickDirection Joystick_Direction(JoystickController c = C)`
+		- _parameter clarification_:
+			* `c` is `controller`
+			* `C` is `CONTROLLER_1`
 - __NXT Buttons__
 - __File Access__
 - __Timing__
+	- `void Time_Wait(int milliseconds)`
 - __Sound__
 - __Display__
 - __Bluetooth__
+- __Semaphores__
 - __Miscellaneous__
