@@ -165,8 +165,7 @@ task main()
 			}
 			if ( Joystick_Button(BUTTON_X)==true )
 			{
-				if (	(Joystick_Button(BUTTON_JOYL)||
-						 Joystick_Button(BUTTON_JOYR)) == true )
+				if ( Joystick_Button(BUTTON_JOYR) == true )
 				{
 					sub_DeployRamp();
 				}
