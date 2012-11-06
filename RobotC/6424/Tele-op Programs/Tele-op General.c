@@ -108,8 +108,6 @@ task main()
 				//                                              //
 				//////////////////////////////////////////////////
 
-
-
 		// Currently does (at least) 7 checks and 3 assignments per loop.
 
 
@@ -118,22 +116,22 @@ task main()
 		// This is inside an `if` statement to optimize speed (less checking).
 		// `JoystickController` arguments are not passed to increase speed.
 
-		//if ( Joystick_Direction() != DIRECTION_NONE )
-		//{
-		//	switch ( Joystick_Direction() )	//fall-through very intentional
-		//	{
-		//		case DIRECTION_F:
-		//		case DIRECTION_FL:
-		//		case DIRECTION_FR:
-		//			sub_PutRingOn();
-		//			break;
-		//		case DIRECTION_B:
-		//		case DIRECTION_BL:
-		//		case DIRECTION_BR:
-		//			sub_TakeRingOff();
-		//			break;
-		//	}
-		//}
+		if ( Joystick_Direction() != DIRECTION_NONE )
+		{
+			switch ( Joystick_Direction() )	//fall-through very intentional
+			{
+				case DIRECTION_F:
+				case DIRECTION_FL:
+				case DIRECTION_FR:
+					sub_PutRingOn();
+					break;
+				case DIRECTION_B:
+				case DIRECTION_BL:
+				case DIRECTION_BR:
+					sub_TakeRingOff();
+					break;
+			}
+		}
 
 
 
@@ -151,29 +149,29 @@ task main()
 		// A `0` value means no buttons (that we are testing for) are pressed.
 		// Directly using the struct since this is the only possible time to
 		// use it, and this is very low-level anyways.
-		//if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
-		//{
-		//	if ( Joystick_Button(BUTTON_Y)==true )
-		//	{
-		//		sub_LiftToTop();
-		//	}
-		//	if ( Joystick_Button(BUTTON_B)==true )
-		//	{
-		//		sub_LiftToMiddle();
-		//	}
-		//	if ( Joystick_Button(BUTTON_A)==true )
-		//	{
-		//		sub_LiftToBottom();
-		//	}
-		//	if ( Joystick_Button(BUTTON_X)==true )
-		//	{
-		//		if (	(Joystick_Button(BUTTON_JOYL)||
-		//				 Joystick_Button(BUTTON_JOYR)) == true )
-		//		{
-		//			sub_DeployRamp();
-		//		}
-		//	}
-		//}
+		if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
+		{
+			if ( Joystick_Button(BUTTON_Y)==true )
+			{
+				sub_LiftToTop();
+			}
+			if ( Joystick_Button(BUTTON_B)==true )
+			{
+				sub_LiftToMiddle();
+			}
+			if ( Joystick_Button(BUTTON_A)==true )
+			{
+				sub_LiftToBottom();
+			}
+			if ( Joystick_Button(BUTTON_X)==true )
+			{
+				if (	(Joystick_Button(BUTTON_JOYL)||
+						 Joystick_Button(BUTTON_JOYR)) == true )
+				{
+					sub_DeployRamp();
+				}
+			}
+		}
 
 
 
@@ -202,16 +200,15 @@ task main()
 		}
 		else if ( joystick.joy1_x1 < g_JoystickThreshold )
 		{
-			//powerL = powerL + 2*Math_ToLogarithmic(joystick.joy1_x1);
-			powerL = powerL + 2*joystick.joy1_x1;
+			powerL = powerL + 2*Math_ToLogarithmic(joystick.joy1_x1);
 		}
 
 		// Last check: if RB is pressed, fine-tune the power level.
-		//if ( Joystick_Button(BUTTON_RB)==1 )
-		//{
-		//	powerL = powerL / g_FineTuneFactor;
-		//	powerR = powerR / g_FineTuneFactor;
-		//}
+		if ( Joystick_Button(BUTTON_RB)==1 )
+		{
+			powerL = powerL / g_FineTuneFactor;
+			powerR = powerR / g_FineTuneFactor;
+		}
 
 		Motor_SetPower(motor_L, powerL);
 		Motor_SetPower(motor_R, powerR);
@@ -224,24 +221,19 @@ task main()
 
 		// This is also only triggered when the joystick value exceeds the
 		// pre-defined threshold (see `global vars.h`).
-		//if ( joystick.joy1_y2 > g_JoystickThreshold )
-		//{
-		//	if ( Joystick_Button(BUTTON_LB)==1 )
-		//	{
-		//		// powerLift = joystick.joy1_y2 / g_FineTuneFactor;
-		//		Motor_SetPower(motor_lift, joystick.joy1_y2 / g_FineTuneFactor);
-		//	}
-		//	else
-		//	{
-		//		//powerLift = Math_ToLogarithmic(joystick.joy1_y2);
+		if ( joystick.joy1_y2 > g_JoystickThreshold )
+		{
+			if ( Joystick_Button(BUTTON_LB)==1 )
+			{
+				powerLift = joystick.joy1_y2 / g_FineTuneFactor;
+			}
+			else
+			{
+				powerLift = Math_ToLogarithmic(joystick.joy1_y2);
+			}
+		}
 
-		//		//powerLift = joystick.joy1_y2;
-
-		//		Motor_SetPower(motor_lift, joystick.joy1_y2);
-		//	}
-		//}
-
-		////Motor_SetPower(motor_lift, powerLift);
+		Motor_SetPower(motor_lift, powerLift);
 
 
 
