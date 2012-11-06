@@ -220,12 +220,8 @@ _These are all functions. Duh._
 	- `void Motor_SetPIDInterval(int interval=20)`
 		- in milliseconds; RobotC's default value is 25.
 - __Servos__
-	- `void Servo_Rotate(TServoIndex s, short p, int r, bool b)`
-		- _parameter clarification_:
-			* `TServoIndex s` is `TServoIndex servoName`
-			* `short p` is the position of servo (0 - 255)
-			* `int r` is the rate; default is 0
-			* `bool b` is whether to brake; default is `true`
+	- `void Servo_Rotate(TServoIndex servoName, short position)`
+		- turns the servo to a position (0 to 255)
 	- `short Servo_GetPosition(TServoIndex servoName)`
 		- returns a value from 0 - 255
 	- `void Servo_SetSpeed(TServoIndex servoName, int rate)`

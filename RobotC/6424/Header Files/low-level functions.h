@@ -74,12 +74,9 @@ void Motor_SetPIDInterval(int interval=20)
 //    "namespace" Servo    //
 /////////////////////////////
 
-void Servo_Rotate(	TServoIndex servoName,	short position,
-							int rate=0,		bool brake=true)
+void Servo_Rotate(TServoIndex servoName, short position)
 {
-	servoChangeRate[servoName] = rate;
 	servo[servoName] = position;
-	bSystemLeaveServosEnabledOnProgramStop = brake;
 }
 
 short Servo_GetPosition(TServoIndex servoName)

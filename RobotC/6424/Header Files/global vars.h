@@ -2,6 +2,9 @@
 #define GLOBAL_VARS_H
 
 
+// The position the IR servo needs to be in (180 deg)
+int g_IRServo = 230;
+
 // The threshold for joystick values to count. "Experience"
 // tells us it should be about 10; the highest we've ever
 // recorded is 6.
