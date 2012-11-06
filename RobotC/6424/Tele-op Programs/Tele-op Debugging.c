@@ -124,110 +124,89 @@ task main()
 
 
 
-//---#02----------------------------------------------- top-hat routine working (or not)
-		//// Pressing Y should play "downward tones".
-		//// Pressing B should play "low buzz".
-		//// Pressing A should play "upward tones".
-		//// Pressing X should play "beep beep".
+//---#02----------------------------------------------- X/Y/A/B button assignments
+		// Pressing Y should play "downward tones".
+		// Pressing B should play "low buzz".
+		// Pressing A should play "upward tones".
+		// Pressing JOYR then X should play "beep beep".
+		// Pressing only X should play "fast upward tones".
 		//if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
+		//{
+		//	if ( Joystick_Button(BUTTON_Y)==true )
 		//	{
-		//		if ( Joystick_Button(BUTTON_Y)==true )
+		//		sub_LiftToTop();
+		//		PlaySound(soundDownwardTones);
+		//	}
+		//	if ( Joystick_Button(BUTTON_B)==true )
+		//	{
+		//		sub_LiftToMiddle();
+		//		PlaySound(soundLowBuzz);				}
+		//	if ( Joystick_Button(BUTTON_A)==true )
+		//	{
+		//		sub_LiftToBottom();
+		//	}
+		//	if ( Joystick_Button(BUTTON_X)==true )
+		//	{
+		//		if ( Joystick_Button(BUTTON_JOYR) == true )
 		//		{
-		//			sub_LiftToTop();
-		//			PlaySound(soundDownwardTones);
-		//		}
-		//		if ( Joystick_Button(BUTTON_B)==true )
-		//		{
-		//			sub_LiftToMiddle();
-		//			PlaySound(soundLowBuzz);				}
-		//		if ( Joystick_Button(BUTTON_A)==true )
-		//		{
-		//			sub_LiftToBottom();
-		//		}
-		//		if ( Joystick_Button(BUTTON_X)==true )
-		//		{
-		//			if ( Joystick_Button(BUTTON_JOYR) == true )
-		//			{
-		//				sub_DeployRamp();
-		//			}
+		//			sub_DeployRamp();
 		//			PlaySound(soundBeepBeep);
 		//		}
+		//		else
+		//		{
+		//			sub_WeighRings();
+		//			PlaySound(soundFastUpwardTones);
+		//		}
 		//	}
+		//}
+
+
+
+//---#03----------------------------------------------- lift control (right joystick)
+		//// This should work. What else can I say?
+		//if ( joystick.joy1_y2 > g_JoystickThreshold )
+		//{
+		//	if ( Joystick_Button(BUTTON_LB)==1 )
+		//	{
+		//		powerLift = -1 * joystick.joy1_y2 / g_FineTuneFactor;
+		//	}
+		//	else
+		//	{
+		//		powerLift = Math_ToLogarithmic( -1*joystick.joy1_y2 );
+		//	}
+		//}
+		//Motor_SetPower(motor_lift, powerLift);
+
+
 
 ////////////////////////////////////////////////// TODO:
+		//// Y-axis code:
+		//if ( 	joystick.joy1_y1 < g_JoystickThreshold ||
+		//		joystick.joy1_x1 > g_JoystickThreshold )
+		//{
+		//	powerL = Math_ToLogarithmic(-1 * joystick.joy1_y1);
+		//	powerR = Math_ToLogarithmic(-1 * joystick.joy1_y1);
+		//}
 
+		//// X-axis code comes AFTER Y-axis code and SHOULD re-assign
+		//// power levels (the ratio the motor should turn by):
+		//if ( joystick.joy1_x1 > g_JoystickThreshold )
+		//{
+		//	powerR = powerR - 2*Math_ToLogarithmic(joystick.joy1_x1);
+		//}
+		//else if ( joystick.joy1_x1 < g_JoystickThreshold )
+		//{
+		//	powerL = powerL + 2*Math_ToLogarithmic(joystick.joy1_x1);
+		//}
 
+		//// Last check: if RB is pressed, fine-tune the power level.
+		//if ( Joystick_Button(BUTTON_RB)==1 )
+		//{
+		//	powerL = powerL / g_FineTuneFactor;
+		//	powerR = powerR / g_FineTuneFactor;
+		//}
 
-
-		// L/R motor code. Only triggered when the left joystick returns a
-		// value greater than the global threshold (`global vars.h`).
-
-		// TODO: explain how the code below works
-
-		// Logarithmic control probably won't be implemented anytime soon.
-		// Also need to stop using the `joystick` struct and switch to the
-		// encapsulated version (Joystick_Joystick(...)).
-
-		// Y-axis code:
-		if ( 	joystick.joy1_y1 < g_JoystickThreshold ||
-				joystick.joy1_x1 > g_JoystickThreshold )
-		{
-			powerL = Math_ToLogarithmic(-1 * joystick.joy1_y1);
-			powerR = Math_ToLogarithmic(-1 * joystick.joy1_y1);
-		}
-
-		// X-axis code comes AFTER Y-axis code and SHOULD re-assign
-		// power levels (the ratio the motor should turn by):
-		if ( joystick.joy1_x1 > g_JoystickThreshold )
-		{
-			powerR = powerR - 2*Math_ToLogarithmic(joystick.joy1_x1);
-		}
-		else if ( joystick.joy1_x1 < g_JoystickThreshold )
-		{
-			powerL = powerL + 2*Math_ToLogarithmic(joystick.joy1_x1);
-		}
-
-		// Last check: if RB is pressed, fine-tune the power level.
-		if ( Joystick_Button(BUTTON_RB)==1 )
-		{
-			powerL = powerL / g_FineTuneFactor;
-			powerR = powerR / g_FineTuneFactor;
-		}
-
-		Motor_SetPower(motor_L, powerL);
-		Motor_SetPower(motor_R, powerR);
-
-
-
-		// The right joystick on Controller 1 controls the lift ("manual mode")
-		// in addition to the Y/B/A buttons. Pressing LB triggers fine-tuning.
-		// Logarithmic control probably won't be implemented anytime soon.
-
-		// This is also only triggered when the joystick value exceeds the
-		// pre-defined threshold (see `global vars.h`).
-		if ( joystick.joy1_y2 > g_JoystickThreshold )
-		{
-			if ( Joystick_Button(BUTTON_LB)==1 )
-			{
-				powerLift = joystick.joy1_y2 / g_FineTuneFactor;
-			}
-			else
-			{
-				powerLift = Math_ToLogarithmic(joystick.joy1_y2);
-			}
-		}
-
-		Motor_SetPower(motor_lift, powerLift);
-
-
-
-		// Input from CONTROLLER_2 will be processed last. Very low priority.
-
-
-
-		// Flush the controller input buffer periodically (every 1/4 sec?)
-
-
-
+		//Motor_SetPower(motor_L, powerL);
+		//Motor_SetPower(motor_R, powerR);
 	}
 }

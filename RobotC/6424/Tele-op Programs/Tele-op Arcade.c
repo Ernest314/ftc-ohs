@@ -58,57 +58,9 @@ task main()
 
 	while (true)
 	{
-		Joystick_UpdateData();
-
-
-
-		//----------SINGLE-JOYSTICK CONTROL CODE----------//
-
-		//int axisX = joystick.joy1_x1;	// this is low-level code
-		//int axisY = joystick.joy1_y1;	// this is low-level code
-
-		//int axisX = Joystick_Joystick(JOYSTICK_L, AXIS_X);
-		//int axisY = Joystick_Joystick(JOYSTICK_L, AXIS_X);
-
-		//int angle = radiansToDegrees( atan2(axisY,axisX) );	//standard (from theta=0)
-		//int powerTotal = sqrt( axisX*axisX + axisY*axisY );	//Pythagorean theorem
-
-
-		//if ( 0<angle && angle<=90 )	//Quadrant I
-		//{
-		//	powerL = powerTotal;
-		//	powerR = powerTotal*angle/45 - powerTotal;	//I think
-		//}
-		//else if ( 90<angle && angle<=180 )	//Quadrant II
-		//{
-		//	powerL = (-1)*powerTotal*(angle-90)/45 + powerTotal;	//I think
-		//	powerR = powerTotal;
-		//}
-		//else if ( -180<angle && angle<=-90 )	//Quadrant III
-		//{
-		//	powerL = (-1) * powerTotal;
-		//	powerR = (-1) * powerTotal*(angle+180)/45 + powerTotal;	//I think
-		//}
-		//else if ( -90<angle && angle<=0 )	//Quadrant IV
-		//{
-		//	powerL = powerTotal*(angle+90)/45 - powerTotal;	//I think
-		//	powerR = (-1) * powerTotal;
-		//}
-
-		//Motor_SetPower(motor_L, powerL);
-		//Motor_SetPower(motor_R, powerR);
-
-
-
-
-
-				//////////////////////////////////////////////////
-				//                                              //
-				//=========== FINAL DRAFT OF PROGRAM ===========//
-				//                                              //
-				//////////////////////////////////////////////////
-
 		// Currently does (at least) 7 checks and 3 assignments per loop.
+
+		Joystick_UpdateData();
 
 
 
@@ -168,6 +120,10 @@ task main()
 				if ( Joystick_Button(BUTTON_JOYR) == true )
 				{
 					sub_DeployRamp();
+				}
+				else
+				{
+					sub_WeighRings();
 				}
 			}
 		}
@@ -231,7 +187,6 @@ task main()
 				powerLift = Math_ToLogarithmic(joystick.joy1_y2);
 			}
 		}
-
 		Motor_SetPower(motor_lift, powerLift);
 
 
