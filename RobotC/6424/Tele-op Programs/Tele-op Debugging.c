@@ -100,61 +100,6 @@ task main()
 
 
 
-//---#02----------------------------------------------- X/Y/A/B button assignments
-		if ( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
-		{
-			if ( Joystick_Button(BUTTON_Y)==true )
-			{
-				sub_LiftToTop();
-				PlaySound(soundDownwardTones);
-				while (bSoundActive)
-				{
-					;
-				}
-			}
-			if ( Joystick_Button(BUTTON_B)==true )
-			{
-				sub_LiftToMiddle();
-				PlaySound(soundLowBuzz);
-				while (bSoundActive)
-				{
-					;
-				}
-			}
-			if ( Joystick_Button(BUTTON_A)==true )
-			{
-				sub_LiftToBottom();
-				PlaySound(soundUpwardTones);
-				while (bSoundActive)
-				{
-					;
-				}
-			}
-			if ( Joystick_Button(BUTTON_X)==true )
-			{
-				if ( Joystick_Button(BUTTON_JOYR)==true )
-				{
-					sub_WeighRings();
-					PlaySound(soundFastUpwardTones);
-					while (bSoundActive)
-					{
-						;
-					}
-				}
-				else if ( Joystick_Button(BUTTON_X)  == true )
-				{
-					sub_DeployRamp();
-					PlaySound(soundBeepBeep);
-					while (bSoundActive)
-					{
-						;
-					}
-				}
-			}
-		}
-
-
-
 //---#03----------------------------------------------- lift control (right joystick)
 		//// This should work. What else can I say?
 		//if ( joystick.joy1_y2 > g_JoystickThreshold )
