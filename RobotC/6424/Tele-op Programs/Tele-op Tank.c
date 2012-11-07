@@ -64,69 +64,69 @@ task main()
 
 
 
-		//// See if a direction is being pressed, then test for the direction.
-		//// This is inside an `if` statement to optimize speed (less checking).
-		//// `JoystickController` arguments are not passed to increase speed.
+		// See if a direction is being pressed, then test for the direction.
+		// This is inside an `if` statement to optimize speed (less checking).
+		// `JoystickController` arguments are not passed to increase speed.
 
-		//if ( Joystick_Direction() != DIRECTION_NONE )
-		//{
-		//	switch ( Joystick_Direction() )	//fall-through very intentional
-		//	{
-		//		case DIRECTION_F:
-		//		case DIRECTION_FL:
-		//		case DIRECTION_FR:
-		//			sub_PutRingOn();
-		//			break;
-		//		case DIRECTION_B:
-		//		case DIRECTION_BL:
-		//		case DIRECTION_BR:
-		//			sub_TakeRingOff();
-		//			break;
-		//	}
-		//}
+		if ( Joystick_Direction() != DIRECTION_NONE )
+		{
+			switch ( Joystick_Direction() )	//fall-through very intentional
+			{
+				case DIRECTION_F:
+				case DIRECTION_FL:
+				case DIRECTION_FR:
+					sub_PutRingOn();
+					break;
+				case DIRECTION_B:
+				case DIRECTION_BL:
+				case DIRECTION_BR:
+					sub_TakeRingOff();
+					break;
+			}
+		}
 
 
 
-		//// See if a button (no LB/LT/RB) is being pressed, then react.
-		//// This is inside an `if` statement to optimize speed (less checking).
+		// See if a button (no LB/LT/RB) is being pressed, then react.
+		// This is inside an `if` statement to optimize speed (less checking).
 
-		//// The argument to this first `if` statement is a masked version
-		//// of the "bitmap" of buttons directly from the controller.
+		// The argument to this first `if` statement is a masked version
+		// of the "bitmap" of buttons directly from the controller.
 
-		//// Everything other than the buttons used are masked off, to increase
-		//// processing speed (possibly, just speculation). Reasoning:
-		//// `&` compares all bits of the variables, so we might as well mask
-		//// everything we won't need, in case something irrelevant is pressed.
+		// Everything other than the buttons used are masked off, to increase
+		// processing speed (possibly, just speculation). Reasoning:
+		// `&` compares all bits of the variables, so we might as well mask
+		// everything we won't need, in case something irrelevant is pressed.
 
-		//// A `0` value means no buttons (that we are testing for) are pressed.
-		//// Directly using the struct since this is the only possible time to
-		//// use it, and this is very low-level anyways.
-		//if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
-		//{
-		//	if ( Joystick_Button(BUTTON_Y)==true )
-		//	{
-		//		sub_LiftToTop();
-		//	}
-		//	if ( Joystick_Button(BUTTON_B)==true )
-		//	{
-		//		sub_LiftToMiddle();
-		//	}
-		//	if ( Joystick_Button(BUTTON_A)==true )
-		//	{
-		//		sub_LiftToBottom();
-		//	}
-		//	if ( Joystick_Button(BUTTON_X)==true )
-		//	{
-		//		if ( Joystick_Button(BUTTON_JOYR) == true )
-		//		{
-		//			sub_DeployRamp();
-		//		}
-		//		else
-		//		{
-		//			sub_WeighRings();
-		//		}
-		//	}
-		//}
+		// A `0` value means no buttons (that we are testing for) are pressed.
+		// Directly using the struct since this is the only possible time to
+		// use it, and this is very low-level anyways.
+		if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
+		{
+			if ( Joystick_Button(BUTTON_Y)==true )
+			{
+				sub_LiftToTop();
+			}
+			if ( Joystick_Button(BUTTON_B)==true )
+			{
+				sub_LiftToMiddle();
+			}
+			if ( Joystick_Button(BUTTON_A)==true )
+			{
+				sub_LiftToBottom();
+			}
+			if ( Joystick_Button(BUTTON_X)==true )
+			{
+				if ( Joystick_Button(BUTTON_JOYR) == true )
+				{
+					sub_DeployRamp();
+				}
+				else
+				{
+					sub_WeighRings();
+				}
+			}
+		}
 
 
 
