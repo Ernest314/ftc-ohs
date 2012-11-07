@@ -130,43 +130,38 @@ task main()
 
 
 
-		//// L/R motor code. Only triggered when the left joystick returns a
-		//// value greater than the global threshold (`global vars.h`).
+		// L/R motor code. Only triggered when the left joystick returns a
+		// value greater than the global threshold (`global vars.h`).
 
-		//// TODO: explain how the code below works
+		// TODO: explain how the code below works
 
-		//// Logarithmic control probably won't be implemented anytime soon.
-		//// Also need to stop using the `joystick` struct and switch to the
-		//// encapsulated version (Joystick_Joystick(...)).
+		// Logarithmic control probably won't be implemented anytime soon.
+		// Also need to stop using the `joystick` struct and switch to the
+		// encapsulated version (Joystick_Joystick(...)).
 
-		//// Y-axis code:
-		//if ( 	joystick.joy1_y1 < g_JoystickThreshold ||
-		//		joystick.joy1_x1 > g_JoystickThreshold )
-		//{
-		//	powerL = Math_ToLogarithmic(-1 * joystick.joy1_y1);
-		//	powerR = Math_ToLogarithmic(-1 * joystick.joy1_y1);
-		//}
+		powerL = 0;
+		powerR = 0;
 
-		//// X-axis code comes AFTER Y-axis code and SHOULD re-assign
-		//// power levels (the ratio the motor should turn by):
-		//if ( joystick.joy1_x1 > g_JoystickThreshold )
-		//{
-		//	powerR = powerR - 2*Math_ToLogarithmic(joystick.joy1_x1);
-		//}
-		//else if ( joystick.joy1_x1 < g_JoystickThreshold )
-		//{
-		//	powerL = powerL + 2*Math_ToLogarithmic(joystick.joy1_x1);
-		//}
+		// Y-axis code:
+		if ( 	abs(joystick.joy1_y1) > g_JoystickThreshold ||
+				abs(joystick.joy1_y2) > g_JoystickThreshold )
+		{
+			powerL = Math_ToLogarithmic(joystick.joy1_y1);
+			powerR = Math_ToLogarithmic(joystick.joy1_y2);
+		}
 
-		//// Last check: if RB is pressed, fine-tune the power level.
-		//if ( Joystick_Button(BUTTON_RB)==1 )
-		//{
-		//	powerL /= g_FineTuneFactor;
-		//	powerR /= g_FineTuneFactor;
-		//}
+		// Last check: if RB is pressed, fine-tune the power level.
+		if ( Joystick_Button(BUTTON_LB)==1 )
+		{
+			powerL /= g_FineTuneFactor;
+		}
+		if ( Joystick_Button(BUTTON_RB)==1 )
+		{
+			powerR /= g_FineTuneFactor;
+		}
 
-		//Motor_SetPower(motor_L, powerL);
-		//Motor_SetPower(motor_R, powerR);
+		Motor_SetPower(motor_L, powerL);
+		Motor_SetPower(motor_R, powerR);
 
 
 
