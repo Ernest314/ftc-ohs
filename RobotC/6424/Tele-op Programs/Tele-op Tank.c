@@ -143,8 +143,8 @@ task main()
 		powerR = 0;
 
 		// Y-axis code:
-		if ( 	abs(joystick.joy1_y1) > g_JoystickThreshold ||
-				abs(joystick.joy1_y2) > g_JoystickThreshold )
+		if ( 	abs(joystick.joy1_y1) > g_DriveThreshold ||
+				abs(joystick.joy1_y2) > g_DriveThreshold )
 		{
 			powerL = Math_ToLogarithmic(joystick.joy1_y1);
 			powerR = Math_ToLogarithmic(joystick.joy1_y2);
@@ -171,7 +171,8 @@ task main()
 
 		// This is also only triggered when the joystick value exceeds the
 		// pre-defined threshold (see `global vars.h`).
-		if ( abs(joystick.joy1_x2) > g_JoystickThreshold )
+		powerLift = 0;
+		if ( abs(joystick.joy1_x2) > g_LiftThreshold )
 		{
 			powerLift = Math_ToLogarithmic( joystick.joy1_x2 );
 			if ( Joystick_Button(BUTTON_LB)==1 )
