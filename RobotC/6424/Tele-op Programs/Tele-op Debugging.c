@@ -100,23 +100,6 @@ task main()
 
 
 
-//---#03----------------------------------------------- lift control (right joystick)
-		//// This should work. What else can I say?
-		//if ( joystick.joy1_y2 > g_JoystickThreshold )
-		//{
-		//	if ( Joystick_Button(BUTTON_LB)==1 )
-		//	{
-		//		powerLift = -1 * joystick.joy1_y2 / g_FineTuneFactor;
-		//	}
-		//	else
-		//	{
-		//		powerLift = Math_ToLogarithmic( -1*joystick.joy1_y2 );
-		//	}
-		//}
-		//Motor_SetPower(motor_lift, powerLift);
-
-
-
 ////////////////////////////////////////////////// TODO:
 		//// Y-axis code:
 		//if ( 	joystick.joy1_y1 < g_JoystickThreshold ||

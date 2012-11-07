@@ -275,11 +275,13 @@ int Math_ToLogarithmic(int input)
 	int convertedInput = 0;
 	if (input >= 0)
 	{
-		convertedInput = input;
+		//convertedInput = input;
+		convertedInput = input * 100 / 127;
 	}
 	else if (input < 0)
 	{
-		convertedInput = input;
+		//convertedInput = input;
+		convertedInput = input * 100 / 127;
 	}
 	return convertedInput;
 }

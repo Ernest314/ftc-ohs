@@ -161,8 +161,8 @@ task main()
 		// Last check: if RB is pressed, fine-tune the power level.
 		if ( Joystick_Button(BUTTON_RB)==1 )
 		{
-			powerL = powerL / g_FineTuneFactor;
-			powerR = powerR / g_FineTuneFactor;
+			powerL /= g_FineTuneFactor;
+			powerR /= g_FineTuneFactor;
 		}
 
 		Motor_SetPower(motor_L, powerL);
@@ -176,15 +176,12 @@ task main()
 
 		// This is also only triggered when the joystick value exceeds the
 		// pre-defined threshold (see `global vars.h`).
-		if ( joystick.joy1_y2 > g_JoystickThreshold )
+		if ( abs(joystick.joy1_y2) > g_JoystickThreshold )
 		{
+			powerLift = Math_ToLogarithmic( -1*joystick.joy1_y2 );
 			if ( Joystick_Button(BUTTON_LB)==1 )
 			{
-				powerLift = joystick.joy1_y2 / g_FineTuneFactor;
-			}
-			else
-			{
-				powerLift = Math_ToLogarithmic(joystick.joy1_y2);
+				powerLift /= g_FineTuneFactor;
 			}
 		}
 		Motor_SetPower(motor_lift, powerLift);
