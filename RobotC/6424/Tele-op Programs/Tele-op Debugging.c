@@ -100,65 +100,58 @@ task main()
 
 
 
-//---#01----------------------------------------------- top-hat routine working (or not)
-		//// Pressing F/FL/FR should play `soundDownwardTones`.
-		//// Pressing B/BL/BR should play `soundUpwardTones`.
-		//if ( Joystick_Direction() != DIRECTION_NONE )
-		//{
-		//	switch ( Joystick_Direction() )	//fall-through very intentional
-		//	{
-		//		case DIRECTION_F:
-		//		case DIRECTION_FL:
-		//		case DIRECTION_FR:
-		//			sub_PutRingOn();
-		//			PlaySound(soundDownwardTones);
-		//			break;
-		//		case DIRECTION_B:
-		//		case DIRECTION_BL:
-		//		case DIRECTION_BR:
-		//			sub_TakeRingOff();
-		//			PlaySound(soundUpwardTones);
-		//			break;
-		//	}
-		//}
-
-
-
 //---#02----------------------------------------------- X/Y/A/B button assignments
-		// Pressing Y should play "downward tones".
-		// Pressing B should play "low buzz".
-		// Pressing A should play "upward tones".
-		// Pressing JOYR then X should play "beep beep".
-		// Pressing only X should play "fast upward tones".
-		//if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
-		//{
-		//	if ( Joystick_Button(BUTTON_Y)==true )
-		//	{
-		//		sub_LiftToTop();
-		//		PlaySound(soundDownwardTones);
-		//	}
-		//	if ( Joystick_Button(BUTTON_B)==true )
-		//	{
-		//		sub_LiftToMiddle();
-		//		PlaySound(soundLowBuzz);				}
-		//	if ( Joystick_Button(BUTTON_A)==true )
-		//	{
-		//		sub_LiftToBottom();
-		//	}
-		//	if ( Joystick_Button(BUTTON_X)==true )
-		//	{
-		//		if ( Joystick_Button(BUTTON_JOYR) == true )
-		//		{
-		//			sub_DeployRamp();
-		//			PlaySound(soundBeepBeep);
-		//		}
-		//		else
-		//		{
-		//			sub_WeighRings();
-		//			PlaySound(soundFastUpwardTones);
-		//		}
-		//	}
-		//}
+		if ( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
+		{
+			if ( Joystick_Button(BUTTON_Y)==true )
+			{
+				sub_LiftToTop();
+				PlaySound(soundDownwardTones);
+				while (bSoundActive)
+				{
+					;
+				}
+			}
+			if ( Joystick_Button(BUTTON_B)==true )
+			{
+				sub_LiftToMiddle();
+				PlaySound(soundLowBuzz);
+				while (bSoundActive)
+				{
+					;
+				}
+			}
+			if ( Joystick_Button(BUTTON_A)==true )
+			{
+				sub_LiftToBottom();
+				PlaySound(soundUpwardTones);
+				while (bSoundActive)
+				{
+					;
+				}
+			}
+			if ( Joystick_Button(BUTTON_X)==true )
+			{
+				if ( Joystick_Button(BUTTON_JOYR)==true )
+				{
+					sub_WeighRings();
+					PlaySound(soundFastUpwardTones);
+					while (bSoundActive)
+					{
+						;
+					}
+				}
+				else if ( Joystick_Button(BUTTON_X)  == true )
+				{
+					sub_DeployRamp();
+					PlaySound(soundBeepBeep);
+					while (bSoundActive)
+					{
+						;
+					}
+				}
+			}
+		}
 
 
 
