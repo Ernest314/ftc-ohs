@@ -83,46 +83,52 @@ task main()
 
 
 
-		//// See if a button (no LB/LT/RB) is being pressed, then react.
-		//// This is inside an `if` statement to optimize speed (less checking).
+		// See if a button (not masked) is being pressed, then react.
+		// This is inside an `if` statement to optimize speed (less checking).
 
-		//// The argument to this first `if` statement is a masked version
-		//// of the "bitmap" of buttons directly from the controller.
+		// The argument to this first `if` statement is a masked version
+		// of the "bitmap" of buttons directly from the controller.
 
-		//// Everything other than the buttons used are masked off, to increase
-		//// processing speed (possibly, just speculation). Reasoning:
-		//// `&` compares all bits of the variables, so we might as well mask
-		//// everything we won't need, in case something irrelevant is pressed.
+		// Everything other than the buttons used are masked off, to increase
+		// processing speed (possibly, just speculation). Reasoning:
+		// `&` compares all bits of the variables, so we might as well mask
+		// everything we won't need, in case something irrelevant is pressed.
 
-		//// A `0` value means no buttons (that we are testing for) are pressed.
-		//// Directly using the struct since this is the only possible time to
-		//// use it, and this is very low-level anyways.
-		//if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
-		//{
-		//	if ( Joystick_Button(BUTTON_Y)==true )
-		//	{
-		//		sub_LiftToTop();
-		//	}
-		//	if ( Joystick_Button(BUTTON_B)==true )
-		//	{
-		//		sub_LiftToMiddle();
-		//	}
-		//	if ( Joystick_Button(BUTTON_A)==true )
-		//	{
-		//		sub_LiftToBottom();
-		//	}
-		//	if ( Joystick_Button(BUTTON_X)==true )
-		//	{
-		//		if ( Joystick_Button(BUTTON_JOYR) == true )
-		//		{
-		//			sub_DeployRamp();
-		//		}
-		//		else
-		//		{
-		//			sub_WeighRings();
-		//		}
-		//	}
-		//}
+		// A `0` value means no buttons (that we are testing for) are pressed.
+		// Directly using the struct since this is the only possible time to
+		// use it, and this is very low-level anyways.
+
+		if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
+		{
+
+			// Buttons Y/B/A will control lift height.
+			if ( Joystick_Button(BUTTON_Y)==true )
+			{
+				sub_LiftToTop();
+			}
+			if ( Joystick_Button(BUTTON_B)==true )
+			{
+				sub_LiftToMiddle();
+			}
+			if ( Joystick_Button(BUTTON_A)==true )
+			{
+				sub_LiftToBottom();
+			}
+
+			// If only X is pressed, weigh the ring.
+			// If JOYR is pressed as well, deploy ramp.
+			if ( Joystick_Button(BUTTON_X)==true )
+			{
+				if ( Joystick_Button(BUTTON_JOYR) == true )
+				{
+					sub_DeployRamp();
+				}
+				else
+				{
+					sub_WeighRings();
+				}
+			}
+		}
 
 
 
@@ -154,8 +160,8 @@ task main()
 		//	powerL = powerL + 2*Math_ToLogarithmic(joystick.joy1_x1);
 		//}
 
-		//// Last check: if RB is pressed, fine-tune the power level.
-		//if ( Joystick_Button(BUTTON_RB)==1 )
+		//// Last check: if LB is pressed, fine-tune the power level.
+		//if ( Joystick_Button(BUTTON_LB)==1 )
 		//{
 		//	powerL /= g_FineTuneFactor;
 		//	powerR /= g_FineTuneFactor;
@@ -167,19 +173,26 @@ task main()
 
 
 		// The right joystick on Controller 1 controls the lift ("manual mode")
-		// in addition to the Y/B/A buttons. Pressing LB triggers fine-tuning.
+		// in addition to the Y/B/A buttons. Pressing RB triggers fine-tuning.
 		// Logarithmic control probably won't be implemented anytime soon.
+
+		// Reset this value every loop to stop the lift if joystick is released.
+		powerLift = 0;
 
 		// This is also only triggered when the joystick value exceeds the
 		// pre-defined threshold (see `global vars.h`).
-		if ( abs(joystick.joy1_x2) > g_LiftThreshold )
+		if ( abs(joystick.joy1_y2) > g_LiftThreshold )
 		{
-			powerLift = Math_ToLogarithmic( joystick.joy1_x2 );
-			if ( Joystick_Button(BUTTON_LB)==1 )
+
+			// Set power first; then see if fine-tuning is needed.
+			powerLift = Math_ToLogarithmic( joystick.joy1_y2 );
+
+			if ( Joystick_Button(BUTTON_RB)==1 )
 			{
 				powerLift /= g_FineTuneFactor;
 			}
 		}
+
 		Motor_SetPower(motor_lift, powerLift);
 
 
