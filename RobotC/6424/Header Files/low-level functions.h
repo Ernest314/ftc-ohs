@@ -74,12 +74,9 @@ void Motor_SetPIDInterval(int interval=20)
 //    "namespace" Servo    //
 /////////////////////////////
 
-void Servo_Rotate(	TServoIndex servoName,	short position,
-							int rate=0,		bool brake=true)
+void Servo_Rotate(TServoIndex servoName, short position)
 {
-	servoChangeRate[servoName] = rate;
 	servo[servoName] = position;
-	bSystemLeaveServosEnabledOnProgramStop = brake;
 }
 
 short Servo_GetPosition(TServoIndex servoName)
@@ -162,7 +159,7 @@ int Joystick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy1_x2;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joystick.joy2_y2;
+							axisValue = joystick.joy1_y2;
 							break;
 					}
 					break;
@@ -268,7 +265,31 @@ void Time_Wait(int ms)
 
 
 /////////////////////////////
+//     "namespace" Math    //
+/////////////////////////////
+
+// TODO: make it actually convert to logarithmic values.
+// For converting joystick input to logarithmic values.
+int Math_ToLogarithmic(int input)
+{
+	int convertedInput = 0;
+	if (input >= 0)
+	{
+		convertedInput = input;
+		//convertedInput = input * 100 / 127;
+	}
+	else if (input < 0)
+	{
+		convertedInput = input;
+		//convertedInput = input * 100 / 127;
+	}
+	return convertedInput;
+}
+
+
+/////////////////////////////
 //     "namespace" Misc    //
 /////////////////////////////
+
 
 #endif

@@ -170,6 +170,24 @@ Its only useful function is the `void wait(float waitTime)` function.
 - __Display__
 - __Bluetooth__
 - __Semaphores__
+- __Multitasking__
+	- `void abortTimeslice()` _(fn)_
+		- immediately ends the current timeslice of the current task
+		- timeslices are only used if multiple tasks have same priority
+	- `void hogCPU()` _(fn)_
+		- ignores priorities and gives current task 100% CPU time
+	- `void releaseCPU()` _(fn)_
+		- reverses effects of `void hogCPU()`
+	- `void StartTask(void TaskID, const short nTaskPriority)` _(fn)_
+		- starts a pre-defined task
+		- default task priority is 7
+	- `void StopTask(void TaskID)` _(fn)_
+		- stops a previously started task
+	- `void StopAllTasks()` _(fn)_
+		- ends _all_ tasks, including `task main()`
+	- `word nSchedulePriority` _(var)_
+		- priority of a task from 0 to 255; 0 is lowest & 255 is highest
+		- default for an assigned task is 7
 - __Miscellaneous__
 	- `bool bSystemLeaveServosEnabledOnProgramStop` _(var)_
 		- leave servos locked in position until poweroff = `true`
@@ -202,12 +220,8 @@ _These are all functions. Duh._
 	- `void Motor_SetPIDInterval(int interval=20)`
 		- in milliseconds; RobotC's default value is 25.
 - __Servos__
-	- `void Servo_Rotate(TServoIndex s, short p, int r, bool b)`
-		- _parameter clarification_:
-			* `TServoIndex s` is `TServoIndex servoName`
-			* `short p` is the position of servo (0 - 255)
-			* `int r` is the rate; default is 0
-			* `bool b` is whether to brake; default is `true`
+	- `void Servo_Rotate(TServoIndex servoName, short position)`
+		- turns the servo to a position (0 to 255)
 	- `short Servo_GetPosition(TServoIndex servoName)`
 		- returns a value from 0 - 255
 	- `void Servo_SetSpeed(TServoIndex servoName, int rate)`
@@ -244,4 +258,7 @@ _These are all functions. Duh._
 - __Display__
 - __Bluetooth__
 - __Semaphores__
+- __Math__
+	- `int Math_ToLogarithmic(int input)`
+		- for converting joystick values to logarithmic values
 - __Miscellaneous__
