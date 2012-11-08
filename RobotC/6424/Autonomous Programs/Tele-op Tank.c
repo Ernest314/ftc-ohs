@@ -110,16 +110,10 @@ task main()
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
 				sub_LiftToMiddle();
-				Motor_SetPower(motor_lift, 100);
-				Time_Wait(100);
-				Motor_Stop(motor_lift);
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
 				sub_LiftToBottom();
-				Motor_SetPower(motor_lift, -100);
-				Time_Wait(100);
-				Motor_Stop(motor_lift);
 			}
 			if ( Joystick_Button(BUTTON_X)==true )
 			{
@@ -171,22 +165,22 @@ task main()
 
 
 
-		//// The right joystick on Controller 1 controls the lift ("manual mode")
-		//// in addition to the Y/B/A buttons. Pressing LB triggers fine-tuning.
-		//// Logarithmic control probably won't be implemented anytime soon.
+		// The right joystick on Controller 1 controls the lift ("manual mode")
+		// in addition to the Y/B/A buttons. Pressing LB triggers fine-tuning.
+		// Logarithmic control probably won't be implemented anytime soon.
 
-		//// This is also only triggered when the joystick value exceeds the
-		//// pre-defined threshold (see `global vars.h`).
-		//powerLift = 0;
-		//if ( abs(joystick.joy1_x2) > g_LiftThreshold )
-		//{
-		//	powerLift = Math_ToLogarithmic( joystick.joy1_x2 );
-		//	if ( Joystick_Button(BUTTON_LB)==1 )
-		//	{
-		//		powerLift /= g_FineTuneFactor;
-		//	}
-		//}
-		//Motor_SetPower(motor_lift, powerLift);
+		// This is also only triggered when the joystick value exceeds the
+		// pre-defined threshold (see `global vars.h`).
+		powerLift = 0;
+		if ( abs(joystick.joy1_x2) > g_LiftThreshold )
+		{
+			powerLift = Math_ToLogarithmic( joystick.joy1_x2 );
+			if ( Joystick_Button(BUTTON_LB)==1 )
+			{
+				powerLift /= g_FineTuneFactor;
+			}
+		}
+		Motor_SetPower(motor_lift, powerLift);
 
 
 

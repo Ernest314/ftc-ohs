@@ -8,7 +8,7 @@ int g_IRServo = 230;
 // The threshold for joystick values to count for driving/lift.
 // The highest we've ever recorded is +-7.
 int g_DriveThreshold = 10;
-int g_LiftThreshold = 50;
+int g_LiftThreshold = 100;
 
 // The factor to divide by when fine-tuning motors.
 int g_FineTuneFactor = 4;
