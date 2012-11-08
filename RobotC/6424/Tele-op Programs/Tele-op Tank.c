@@ -96,7 +96,7 @@ task main()
 
 
 
-		// See if a button (no LB/LT/RB) is being pressed, then react.
+		// See if a button (not masked) is being pressed, then react.
 		// This is inside an `if` statement to optimize speed (less checking).
 
 		// The argument to this first `if` statement is a masked version

@@ -64,26 +64,22 @@ task main()
 
 
 
-		//// See if a direction is being pressed, then test for the direction.
-		//// This is inside an `if` statement to optimize speed (less checking).
-		//// `JoystickController` arguments are not passed to increase speed.
+		// See if a direction is being pressed, then test for the direction.
+		// This is inside an `if` statement to optimize speed (less checking).
+		// `JoystickController` arguments are not passed to increase speed.
 
-		//if ( Joystick_Direction() != DIRECTION_NONE )
-		//{
-		//	switch ( Joystick_Direction() )	//fall-through very intentional
-		//	{
-		//		case DIRECTION_F:
-		//		case DIRECTION_FL:
-		//		case DIRECTION_FR:
-		//			sub_PutRingOn();
-		//			break;
-		//		case DIRECTION_B:
-		//		case DIRECTION_BL:
-		//		case DIRECTION_BR:
-		//			sub_TakeRingOff();
-		//			break;
-		//	}
-		//}
+		if ( Joystick_Direction() != DIRECTION_NONE )
+		{
+			switch ( Joystick_Direction() )
+			{
+				case DIRECTION_L:
+					sub_PutRingOn();
+					break;
+				case DIRECTION_R:
+					sub_TakeRingOff();
+					break;
+			}
+		}
 
 
 
