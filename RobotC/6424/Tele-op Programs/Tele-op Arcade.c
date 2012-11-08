@@ -176,7 +176,7 @@ task main()
 
 		// This is also only triggered when the joystick value exceeds the
 		// pre-defined threshold (see `global vars.h`).
-		if ( abs(joystick.joy1_x2) > g_JoystickThreshold )
+		if ( abs(joystick.joy1_x2) > g_LiftThreshold )
 		{
 			powerLift = Math_ToLogarithmic( joystick.joy1_x2 );
 			if ( Joystick_Button(BUTTON_LB)==1 )

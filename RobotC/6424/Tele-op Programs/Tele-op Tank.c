@@ -70,16 +70,25 @@ task main()
 
 		if ( Joystick_Direction() != DIRECTION_NONE )
 		{
-			switch ( Joystick_Direction() )	//fall-through very intentional
+			switch ( Joystick_Direction() )
 			{
+
+				// Operate lift at full power if F/B.
 				case DIRECTION_F:
-				case DIRECTION_FL:
-				case DIRECTION_FR:
-					sub_PutRingOn();
+					Motor_SetPower(motor_lift, 100);
+					Time_Wait(100);
+					Motor_Stop(motor_lift);
 					break;
 				case DIRECTION_B:
-				case DIRECTION_BL:
-				case DIRECTION_BR:
+					Motor_SetPower(motor_lift, -100);
+					Time_Wait(100);
+					Motor_Stop(motor_lift);
+					break;
+
+				case DIRECTION_L:
+					sub_PutRingOn();
+					break;
+				case DIRECTION_R:
 					sub_TakeRingOff();
 					break;
 			}
@@ -101,8 +110,11 @@ task main()
 		// A `0` value means no buttons (that we are testing for) are pressed.
 		// Directly using the struct since this is the only possible time to
 		// use it, and this is very low-level anyways.
+
 		if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
 		{
+
+			// Buttons Y/B/A will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
 				sub_LiftToTop();
@@ -110,17 +122,14 @@ task main()
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
 				sub_LiftToMiddle();
-				Motor_SetPower(motor_lift, 100);
-				Time_Wait(100);
-				Motor_Stop(motor_lift);
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
 				sub_LiftToBottom();
-				Motor_SetPower(motor_lift, -100);
-				Time_Wait(100);
-				Motor_Stop(motor_lift);
 			}
+
+			// If only X is pressed, weigh the ring.
+			// If JOYR is pressed as well, deploy ramp.
 			if ( Joystick_Button(BUTTON_X)==true )
 			{
 				if ( Joystick_Button(BUTTON_JOYR) == true )
@@ -132,19 +141,33 @@ task main()
 					sub_WeighRings();
 				}
 			}
+
+			// Buttons LT/RT will fine-tune the lift.
+			if ( Joystick_Button(BUTTON_LT)==true )
+			{
+				Motor_SetPower(motor_lift, 100/g_FineTuneFactor);
+				Time_Wait(100);
+				Motor_Stop(motor_lift);
+			}
+			if ( Joystick_Button(BUTTON_RT)==true )
+			{
+				Motor_SetPower(motor_lift, -100/g_FineTuneFactor);
+				Time_Wait(100);
+				Motor_Stop(motor_lift);
+			}
 		}
 
 
 
-		// L/R motor code. Only triggered when the left joystick returns a
-		// value greater than the global threshold (`global vars.h`).
-
-		// TODO: explain how the code below works
+		// L/R motor code. Only triggered when a joystick returns a
+		// value greater than the "drive" threshold (`global vars.h`).
 
 		// Logarithmic control probably won't be implemented anytime soon.
 		// Also need to stop using the `joystick` struct and switch to the
 		// encapsulated version (Joystick_Joystick(...)).
 
+		// These should be zeroed after every loop. In the case that there
+		// isn't input, the robot won't keep moving at the last speed it had.
 		powerL = 0;
 		powerR = 0;
 
@@ -156,37 +179,15 @@ task main()
 			powerR = Math_ToLogarithmic(joystick.joy1_y2);
 		}
 
-		// Last check: if RB is pressed, fine-tune the power level.
-		if ( Joystick_Button(BUTTON_LB)==1 )
+		// Last check: if LB/RB is pressed, fine-tune the power level.
+		if ( (Joystick_Button(BUTTON_LB)||Joystick_Button(BUTTON_RB)) ==1 )
 		{
 			powerL /= g_FineTuneFactor;
-		}
-		if ( Joystick_Button(BUTTON_RB)==1 )
-		{
 			powerR /= g_FineTuneFactor;
 		}
 
 		Motor_SetPower(motor_L, powerL);
 		Motor_SetPower(motor_R, powerR);
-
-
-
-		//// The right joystick on Controller 1 controls the lift ("manual mode")
-		//// in addition to the Y/B/A buttons. Pressing LB triggers fine-tuning.
-		//// Logarithmic control probably won't be implemented anytime soon.
-
-		//// This is also only triggered when the joystick value exceeds the
-		//// pre-defined threshold (see `global vars.h`).
-		//powerLift = 0;
-		//if ( abs(joystick.joy1_x2) > g_LiftThreshold )
-		//{
-		//	powerLift = Math_ToLogarithmic( joystick.joy1_x2 );
-		//	if ( Joystick_Button(BUTTON_LB)==1 )
-		//	{
-		//		powerLift /= g_FineTuneFactor;
-		//	}
-		//}
-		//Motor_SetPower(motor_lift, powerLift);
 
 
 
