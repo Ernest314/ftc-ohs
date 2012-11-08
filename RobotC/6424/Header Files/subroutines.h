@@ -32,6 +32,11 @@ void sub_LiftToBottom()
 	Motor_ExactRotation(motor_lift, g_BottomLiftAngle, g_FullMotorPower-10);
 }
 
+void sub_WeighRings()
+{
+	//I have no idea how to implement this yet.
+}
+
 void sub_DeployRamp()
 {
 	//do stuff
