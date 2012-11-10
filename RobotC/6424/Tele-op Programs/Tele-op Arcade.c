@@ -197,7 +197,8 @@ task main()
 
 
 
-		// Input from CONTROLLER_2 will be processed last. Very low priority.
+		// Input from CONTROLLER_2 will be used to control the lift in
+		// conjunction with CONTROLLER_1, but cannot override the driver.
 
 
 

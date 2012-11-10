@@ -111,7 +111,7 @@ task main()
 		// Directly using the struct since this is the only possible time to
 		// use it, and this is very low-level anyways.
 
-		if( (g_ControllerMask & joystick.joy1_Buttons) != 0 )
+		if ( (g_ControllerMask & joystick.joy1_Buttons) != false )
 		{
 
 			// Buttons Y/B/A will control lift height.
@@ -143,13 +143,13 @@ task main()
 			}
 
 			// Buttons LT/RT will fine-tune the lift.
-			if ( Joystick_Button(BUTTON_LT)==true )
+			if ( Joystick_Button(BUTTON_RT)==true )
 			{
 				Motor_SetPower(motor_lift, 100/g_FineTuneFactor);
 				Time_Wait(100);
 				Motor_Stop(motor_lift);
 			}
-			if ( Joystick_Button(BUTTON_RT)==true )
+			if ( Joystick_Button(BUTTON_LT)==true )
 			{
 				Motor_SetPower(motor_lift, -100/g_FineTuneFactor);
 				Time_Wait(100);
@@ -172,15 +172,15 @@ task main()
 		powerR = 0;
 
 		// Y-axis code:
-		if ( 	abs(joystick.joy1_y1) > g_DriveThreshold ||
-				abs(joystick.joy1_y2) > g_DriveThreshold )
+		if ( 	abs(joystick.joy1_y1) > g_JoystickThreshold ||
+				abs(joystick.joy1_y2) > g_JoystickThreshold )
 		{
 			powerL = Math_ToLogarithmic(joystick.joy1_y1);
 			powerR = Math_ToLogarithmic(joystick.joy1_y2);
 		}
 
 		// Last check: if LB/RB is pressed, fine-tune the power level.
-		if ( (Joystick_Button(BUTTON_LB)||Joystick_Button(BUTTON_RB)) ==1 )
+		if ( (Joystick_Button(BUTTON_LB)||Joystick_Button(BUTTON_RB)) ==true )
 		{
 			powerL /= g_FineTuneFactor;
 			powerR /= g_FineTuneFactor;
@@ -191,17 +191,18 @@ task main()
 
 
 
-		// Input from CONTROLLER_2 will be processed last. Very low priority.
+		// Input from CONTROLLER_2 will be used to control the lift in
+		// conjunction with CONTROLLER_1, but cannot override the driver.
 
 		powerLift = 0;
 
-		if ( abs(joystick.joy2_y1)>g_LiftThreshold )
+		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
 		{
 			powerLift = Math_ToLogarithmic(-1*joystick.joy2_y1);
 		}
 
 		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
-				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==1 )
+				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
 		{
 			powerLift /= g_FineTuneFactor;
 		}
