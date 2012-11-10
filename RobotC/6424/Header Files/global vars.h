@@ -3,7 +3,10 @@
 
 
 // The position the IR servo needs to be in (180 deg)
-const int g_IRServo = 230;
+const int g_IRServoDefault = 0;
+const int g_IRServoExtended = 230;
+const int g_clawServoDefault = 100;
+const int g_clawServoExtended = 250;
 
 
 // The threshold for joystick values to count (eliminates humming).
