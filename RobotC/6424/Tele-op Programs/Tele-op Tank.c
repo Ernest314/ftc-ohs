@@ -193,6 +193,20 @@ task main()
 
 		// Input from CONTROLLER_2 will be processed last. Very low priority.
 
+		powerLift = 0;
+
+		if ( abs(joystick.joy2_y1)>g_LiftThreshold )
+		{
+			powerLift = Math_ToLogarithmic(-1*joystick.joy2_y1);
+		}
+
+		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
+				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==1 )
+		{
+			powerLift /= g_FineTuneFactor;
+		}
+
+		Motor_SetPower(motor_lift, powerLift);
 
 
 		// Flush the controller input buffer periodically (every 1/4 sec?)
