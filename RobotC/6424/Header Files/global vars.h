@@ -6,10 +6,9 @@
 const int g_IRServo = 230;
 
 
-// The threshold for joystick values to count for driving/lift.
+// The threshold for joystick values to count (eliminates humming).
 // The highest we've ever recorded is +-7.
-const int g_DriveThreshold = 10;
-const int g_LiftThreshold = 100;
+const int g_JoystickThreshold = 10;
 
 
 // The factor to divide by when fine-tuning motors.
