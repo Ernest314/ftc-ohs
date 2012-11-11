@@ -170,6 +170,14 @@ Its only useful function is the `void wait(float waitTime)` function.
 - __Display__
 - __Bluetooth__
 - __Semaphores__
+	- `void SemaphoreInitialize(TSemaphore semaphore)` _(fn)_
+	- `void SemaphoreLock(TSemaphore semaphore, int wait)` _(fn)_
+		- time to wait is (by default) about 32 ms (6FFF in hex)
+	- `void SemaphoreUnlock(TSemaphore semaphore)` _(fn)_
+	- `ubyte getSemaphoreTaskOwner(TSemaphore semaphore)` _(fn)_
+		- returns the task that owns the semaphore
+	- `bool bDoesTaskOwnSemaphore(TSemaphore semaphore)` _(fn)_
+		- returns whether current task owns the semaphore
 - __Multitasking__
 	- `void abortTimeslice()` _(fn)_
 		- immediately ends the current timeslice of the current task
@@ -258,6 +266,22 @@ _These are all functions. Duh._
 - __Display__
 - __Bluetooth__
 - __Semaphores__
+	- `void Semaphore_Initialize(TSemaphore semaphore)`
+	- `void Semaphore_Lock(TSemaphore semaphore, int wait)`
+		- wait time defaults to 6FFF ms (about 32 ms)
+	- `void Semaphore_Unlock(TSemaphore semaphore)`
+	- `bool Semaphore_IsCurrentlyOwned(TSemaphore semaphore)`
+	- `ubyte Semaphore_GetOwner(TSemaphore semaphore)`
+		- returns the "taskID" of the task owning the semaphore
+- __Multitasking__
+	- `void Task_ReleaseTimeslice()`
+		- timeslices are only used if tasks have same priorities
+	- `void Task_StartTask(void taskID, short priority)`
+	- `void Task_StopTask(void taskID)`
+	- `void Task_HogCPU()`
+	- `void Task_ReleaseCPU()`
+	- `void Task_AbortAll()`
+		- also aborts `task main()`
 - __Math__
 	- `int Math_ToLogarithmic(int input)`
 		- for converting joystick values to logarithmic values
