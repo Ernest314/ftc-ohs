@@ -265,6 +265,36 @@ void Time_Wait(int ms)
 
 
 /////////////////////////////
+//  "namespace" Semaphore  //
+/////////////////////////////
+
+void Semaphore_Initialize(TSemaphore semaphore)
+{
+	SemaphoreInitialize(semaphore);
+}
+
+void Semaphore_Lock(TSemaphore semaphore, int wait)
+{
+	SemaphoreLock(semaphore, wait);
+}
+
+void Semaphore_Unlock(TSemaphore semaphore)
+{
+	SemaphoreUnlock(semaphore);
+}
+
+bool Semaphore_IsCurrentlyOwned(TSemaphore semaphore)
+{
+	bDoesTaskOwnSemaphore(semaphore);
+}
+
+ubyte Semaphore_GetOwner(TSemaphore semaphore)
+{
+	getSemaphoreTaskOwner(semaphore);
+}
+
+
+/////////////////////////////
 //  "namespace" Multitask  //
 /////////////////////////////
 
