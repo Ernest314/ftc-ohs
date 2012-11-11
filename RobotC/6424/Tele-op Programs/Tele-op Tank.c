@@ -45,6 +45,8 @@ void initializeRobot()
 	Servo_SetSpeed(servo_IR, 0);	// maximum speed!
 	Servo_SetSpeed(servo_claw, 0);	// maximum speed!
 
+	Motor_ResetEncoder(motor_lift);
+
 	return;
 }
 
@@ -92,10 +94,10 @@ task main()
 					break;
 
 				case DIRECTION_L:
-					sub_PutRingOn();
+					StartTask(sub_PutRingOn);
 					break;
 				case DIRECTION_R:
-					sub_TakeRingOff();
+					StartTask(sub_TakeRingOff);
 					break;
 			}
 		}
@@ -123,15 +125,15 @@ task main()
 			// Buttons Y/B/A will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
-				sub_LiftToTop();
+				StartTask(sub_LiftToTop);
 			}
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
-				sub_LiftToMiddle();
+				StartTask(sub_LiftToMiddle);
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
-				sub_LiftToBottom();
+				StartTask(sub_LiftToBottom);
 			}
 
 			// If only X is pressed, weigh the ring.
@@ -140,11 +142,11 @@ task main()
 			{
 				if ( Joystick_Button(BUTTON_JOYR) == true )
 				{
-					sub_DeployRamp();
+					StartTask(sub_DeployRamp);
 				}
 				else
 				{
-					sub_WeighRings();
+					StartTask(sub_WeighRings);
 				}
 			}
 
