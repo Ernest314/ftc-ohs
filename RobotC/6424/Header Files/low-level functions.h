@@ -265,6 +265,41 @@ void Time_Wait(int ms)
 
 
 /////////////////////////////
+//  "namespace" Multitask  //
+/////////////////////////////
+
+void Task_ReleaseTimeslice()
+{
+	abortTimeslice();
+}
+
+void Task_StartTask(void taskID, short priority)
+{
+	StartTask(taskID, priority);
+}
+
+void Task_StopTask(void taskID)
+{
+	StopTask(taskID);
+}
+
+void Task_HogCPU()
+{
+	hogCPU();
+}
+
+void Task_ReleaseCPU()
+{
+	releaseCPU();
+}
+
+void Task_AbortAll()
+{
+	StopAllTasks();
+}
+
+
+/////////////////////////////
 //     "namespace" Math    //
 /////////////////////////////
 
