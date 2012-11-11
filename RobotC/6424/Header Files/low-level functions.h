@@ -303,7 +303,7 @@ void Task_ReleaseTimeslice()
 	abortTimeslice();
 }
 
-void Task_StartTask(void taskID, short priority)
+void Task_StartTask(void taskID, short priority=7)
 {
 	StartTask(taskID, priority);
 }

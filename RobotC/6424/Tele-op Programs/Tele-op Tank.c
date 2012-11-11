@@ -94,10 +94,10 @@ task main()
 					break;
 
 				case DIRECTION_L:
-					StartTask(sub_PutRingOn);
+					Task_StartTask(sub_PutRingOn);
 					break;
 				case DIRECTION_R:
-					StartTask(sub_TakeRingOff);
+					Task_StartTask(sub_TakeRingOff);
 					break;
 			}
 		}
@@ -125,15 +125,15 @@ task main()
 			// Buttons Y/B/A will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
-				StartTask(sub_LiftToTop);
+				Task_StartTask(sub_LiftToTop);
 			}
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
-				StartTask(sub_LiftToMiddle);
+				Task_StartTask(sub_LiftToMiddle);
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
-				StartTask(sub_LiftToBottom);
+				Task_StartTask(sub_LiftToBottom);
 			}
 
 			// If only X is pressed, weigh the ring.
@@ -142,11 +142,11 @@ task main()
 			{
 				if ( Joystick_Button(BUTTON_JOYR) == true )
 				{
-					StartTask(sub_DeployRamp);
+					Task_StartTask(sub_DeployRamp);
 				}
 				else
 				{
-					StartTask(sub_WeighRings);
+					Task_StartTask(sub_WeighRings);
 				}
 			}
 
