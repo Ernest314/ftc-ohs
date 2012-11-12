@@ -38,11 +38,14 @@ void initializeRobot()
 	Servo_Rotate(servo_IR, g_IRServoDefault);		// fold back up after start of tele-op
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
 
-	Motor_SetMaxSpeed(g_FullMotorPower);
-
 	Servo_SetSpeed(servo_IR, 0);	// maximum speed!
 	Servo_SetSpeed(servo_claw, 0);	// maximum speed!
 
+
+	Motor_SetMaxSpeed(g_FullMotorPower);
+
+	Motor_ResetEncoder(motor_L);
+	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
 	return;
