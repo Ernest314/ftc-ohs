@@ -25,16 +25,12 @@ void Motor_Stop(tMotor motorName, bool brake=true)
 
 // This function does NOT reset the encoder, in case that is being
 // used elsewhere. Reset the encoder periodically to prevent overflow.
-void Motor_ExactRotation(	tMotor motorName,	int angle,
-							int power=75,		bool brake=true)
+void Motor_Target(tMotor motorName, int angle)
 {
 	// Using some variables directly since this code is low-level.
 	int originalAngle = 0;
 	originalAngle = nMotorEncoder[motorName];
 	nMotorEncoderTarget[motorName] = angle + originalAngle;
-	motor[motorName] = power;
-	//motor[motorName] = 0;	//uncomment if nMotorEncoderTarget[] doesn't work
-	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
 void Motor_SetPower(tMotor motorName, int power)
@@ -285,12 +281,12 @@ void Semaphore_Unlock(TSemaphore semaphore)
 
 bool Semaphore_IsCurrentlyOwned(TSemaphore semaphore)
 {
-	bDoesTaskOwnSemaphore(semaphore);
+	return (bool)bDoesTaskOwnSemaphore(semaphore);
 }
 
 ubyte Semaphore_GetOwner(TSemaphore semaphore)
 {
-	getSemaphoreTaskOwner(semaphore);
+	return getSemaphoreTaskOwner(semaphore);
 }
 
 

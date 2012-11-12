@@ -2,65 +2,78 @@
 #define SUBROUTINES_H
 
 
+
 task sub_PutRingOn()
 {
 	//do stuff
-	//EndTimeSlice();
+	EndTimeSlice();
 }
+
 
 task sub_TakeRingOff()
 {
 	//do stuff
-	//EndTimeSlice();
+	EndTimeSlice();
 }
 
+
+// Might add a fine-tune section to this.
 task sub_LiftToTop()
 {
-	// `-10` for a bit more precision. Might even break this up into
-	// a fast section and a slower section (to fine-tune position).
-	Motor_ExactRotation(motor_lift, g_TopLiftAngle, g_FullMotorPower);
-	while( Motor_GetEncoder(motor_lift) != g_TopLiftAngle)
+	Motor_Target(motor_lift, g_TopLiftAngle);
+	Motor_SetPower(motor_lift, g_FullMotorPower);
+	while ( Motor_GetEncoder(motor_lift) != g_TopLiftAngle )
 	{
 		Time_Wait(50);
+		EndTimeSlice();
 	}
-	//EndTimeSlice();
+	Motor_Stop(motor_lift);
+	StopTask(sub_LiftToTop);
 }
 
+
+// Might add a fine-tune section to this.
 task sub_LiftToMiddle()
 {
-	// `-10` for a bit more precision. Might even break this up into
-	// a fast section and a slower section (to fine-tune position).
-	Motor_ExactRotation(motor_lift, g_MiddleLiftAngle, g_FullMotorPower);
-	while( Motor_GetEncoder(motor_lift) != g_MiddleLiftAngle)
+	Motor_Target(motor_lift, g_MiddleLiftAngle);
+	Motor_SetPower(motor_lift, g_FullMotorPower);
+	while ( Motor_GetEncoder(motor_lift) != g_MiddleLiftAngle)
 	{
 		Time_Wait(50);
+		EndTimeSlice();
 	}
-	//EndTimeSlice();
+	Motor_Stop(motor_lift);
+	StopTask(sub_LiftToMiddle);
 }
 
+
+// Might add a fine-tune section to this.
 task sub_LiftToBottom()
 {
-	// `-10` for a bit more precision. Might even break this up into
-	// a fast section and a slower section (to fine-tune position).
-	Motor_ExactRotation(motor_lift, g_BottomLiftAngle, g_FullMotorPower);
-	while( Motor_GetEncoder(motor_lift) != g_BottomLiftAngle)
+	Motor_Target(motor_lift, g_BottomLiftAngle);
+	while ( Motor_GetEncoder(motor_lift) != g_BottomLiftAngle)
 	{
 		Time_Wait(50);
+		EndTimeSlice();
 	}
-	//EndTimeSlice();
+	Motor_Stop(motor_lift);
+	StopTask(sub_LiftToTop);
 }
+
 
 task sub_WeighRings()
 {
-	//I have no idea how to implement this yet.
-	//EndTimeSlice();
+	// We might not implement this at all. Heh.
+	EndTimeSlice();
 }
+
 
 task sub_DeployRamp()
 {
-	//do stuff
-	//EndTimeSlice();
+	Servo_Rotate(servo_ramp, g_rampServoDeployed);
+	EndTimeSlice();
 }
+
 
 
 #endif
