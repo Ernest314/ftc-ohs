@@ -75,7 +75,14 @@ task main()
 
 	while (true)
 	{
-		motor[motor_eyeCandy] = 50;
+		if ( Joystick_Button(BUTTON_B, CONTROLLER_2)==true )
+		{
+			motor[motor_eyeCandy] = 100;
+		}
+		else if ( Joystick_Button(BUTTON_A, CONTROLLER_2)==true )
+		{
+			motor[motor_eyeCandy] = 75;
+		}
 
 		// Currently does (at least) 7 checks and 3 assignments per loop.
 
@@ -240,6 +247,10 @@ task main()
 			if ( Joystick_Button(BUTTON_X, CONTROLLER_2)==true )
 			{
 				StartTask(sub_MOO);
+			}
+			if ( Joystick_Button(BUTTON_Y, CONTROLLER_2)==true )
+			{
+				StopTask(sub_MOO);
 			}
 
 		}
