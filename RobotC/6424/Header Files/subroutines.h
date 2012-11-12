@@ -57,7 +57,7 @@ task sub_LiftToBottom()
 		EndTimeSlice();
 	}
 	Motor_Stop(motor_lift);
-	StopTask(sub_LiftToTop);
+	StopTask(sub_LiftToBottom);
 }
 
 
@@ -72,6 +72,21 @@ task sub_DeployRamp()
 {
 	Servo_Rotate(servo_ramp, g_rampServoDeployed);
 	EndTimeSlice();
+}
+
+
+task sub_MOO()
+{
+	PlaySoundFile("moo.rso");
+
+	//// Uncomment this next section if "moo.rso" won't play.
+	//while (bSoundActive)
+	//{
+	//	Time_Wait(10);
+	//	EndTimeSlice();
+	//}
+
+	StopTask(sub_MOO);
 }
 
 
