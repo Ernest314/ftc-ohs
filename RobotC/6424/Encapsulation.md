@@ -214,11 +214,7 @@ _These are all functions. Duh._
 	- `void Motor_Forward(tMotor motor_name, int power=75)`
 	- `void Motor_Reverse(tMotor motor_name, int power=75)`
 	- `void Motor_Stop(tMotor motor_name, bool brake=true)`
-	- `void Motor_ExactRotation(tMotor m, int a, int p, bool brake=true)`
-		- _parameter clarification_:
-			* `tMotor m` is `tMotor motor_name`
-			* `int a` is the angle in degrees
-			* `int p` is the power; default is 75
+	- `void Motor_Target(tMotor motor_name, int angle)`
 	- `int Motor_GetEncoder(tMotor motor_name)`
 	- `void Motor_ResetEncoder(tMotor motor_name)`
 		- reset is always absolute (since beginning of program)
