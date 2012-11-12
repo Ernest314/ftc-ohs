@@ -285,12 +285,12 @@ void Semaphore_Unlock(TSemaphore semaphore)
 
 bool Semaphore_IsCurrentlyOwned(TSemaphore semaphore)
 {
-	bDoesTaskOwnSemaphore(semaphore);
+	return (bool)bDoesTaskOwnSemaphore(semaphore);
 }
 
 ubyte Semaphore_GetOwner(TSemaphore semaphore)
 {
-	getSemaphoreTaskOwner(semaphore);
+	return getSemaphoreTaskOwner(semaphore);
 }
 
 
