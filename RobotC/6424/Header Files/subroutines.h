@@ -32,7 +32,6 @@ task sub_LiftToTop()
 }
 
 
-// Might add a fine-tune section to this.
 task sub_LiftToMiddle()
 {
 	Motor_Target(motor_lift, g_MiddleLiftAngle);
@@ -51,10 +50,11 @@ task sub_LiftToMiddle()
 task sub_LiftToBottom()
 {
 	Motor_Target(motor_lift, g_BottomLiftAngle);
+	Motor_SetPower(motor_lift, g_FullMotorPower);
 	while ( Motor_GetEncoder(motor_lift) != g_BottomLiftAngle)
 	{
 		Time_Wait(50);
-		EndTimeSlice();
+		//EndTimeSlice();
 	}
 	Motor_Stop(motor_lift);
 	StopTask(sub_LiftToBottom);
