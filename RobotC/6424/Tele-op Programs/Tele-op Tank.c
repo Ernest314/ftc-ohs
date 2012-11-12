@@ -75,7 +75,7 @@ task main()
 
 	while (true)
 	{
-		motor[motor_eyeCandy] = 100;
+		motor[motor_eyeCandy] = 50;
 
 		// Currently does (at least) 7 checks and 3 assignments per loop.
 
