@@ -31,6 +31,7 @@ const int g_MiddleLiftAngle = 360;	//TODO
 const int g_BottomLiftAngle = 90;	//TODO
 
 
+// (CONTROLLER_1):
 // Mask for the "bitmap" values from the controller for everything
 // we don't need (other than A/B/X/Y/LT/RT/JOYL/JOYR):
 	//   0000 1100 1100 1111
@@ -41,10 +42,24 @@ const int g_BottomLiftAngle = 90;	//TODO
 	//   2^0 + 2^1 + 2^2 + 2^3 + 2^6 + 2^7 + 2^10 + 2^11
 	// = 1 + 2 + 4 + 8 + 64 + 128 + 1024 + 2048
 	// = 3279
-
 // If it doesn't work, use the commented-out line:
 //const short g_ControllerMask = 6559;
-const short g_ControllerMask = 3279;
+const short g_ControllerMaskA = 3279;	//CONTROLLER_1
+
+// (CONTROLLER_2):
+// Masks for the "bitmap" values from the controller for everything
+// we don't need (other than A/B/X/Y):
+	//   0000 0000 0000 1111
+	// & ???? ???? ???? ????
+	// ---------------------
+	//   0000 0000 0000 ????
+// This information was gleaned from the definition of joy1Btn().
+	//   2^0 + 2^1 + 2^2 + 2^3
+	// = 1 + 2 + 4 + 8
+	// = 15
+// If it doesn't work, use the commented-out line:
+//const short g_ControllerMask = 31;
+const short g_ControllerMaskB = 15;	//CONTROLLER_2
 
 
 #endif
