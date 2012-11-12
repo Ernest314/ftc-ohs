@@ -2,11 +2,13 @@
 #define SUBROUTINES_H
 
 
+
 task sub_PutRingOn()
 {
 	//do stuff
 	EndTimeSlice();
 }
+
 
 task sub_TakeRingOff()
 {
@@ -14,38 +16,50 @@ task sub_TakeRingOff()
 	EndTimeSlice();
 }
 
+
+// Might add a fine-tune section to this.
 task sub_LiftToTop()
 {
-	// Might add a fine-tune section to this.
-	Motor_ExactRotation(motor_lift, g_TopLiftAngle, g_FullMotorPower);
-	while( Motor_GetEncoder(motor_lift) != g_TopLiftAngle)
+	Motor_Target(motor_lift, g_TopLiftAngle);
+	Motor_SetPower(motor_lift, g_FullMotorPower);
+	while ( Motor_GetEncoder(motor_lift) != g_TopLiftAngle )
 	{
 		Time_Wait(50);
+		EndTimeSlice();
 	}
-	EndTimeSlice();
+	Motor_Stop(motor_lift);
+	StopTask(sub_LiftToTop);
 }
 
+
+// Might add a fine-tune section to this.
 task sub_LiftToMiddle()
 {
-	// Might add a fine-tune section to this.
-	Motor_ExactRotation(motor_lift, g_MiddleLiftAngle, g_FullMotorPower);
-	while( Motor_GetEncoder(motor_lift) != g_MiddleLiftAngle)
+	Motor_Target(motor_lift, g_MiddleLiftAngle);
+	Motor_SetPower(motor_lift, g_FullMotorPower);
+	while ( Motor_GetEncoder(motor_lift) != g_MiddleLiftAngle)
 	{
 		Time_Wait(50);
+		EndTimeSlice();
 	}
-	EndTimeSlice();
+	Motor_Stop(motor_lift);
+	StopTask(sub_LiftToMiddle);
 }
 
+
+// Might add a fine-tune section to this.
 task sub_LiftToBottom()
 {
-	// Might add a fine-tune section to this.
-	Motor_ExactRotation(motor_lift, g_BottomLiftAngle, g_FullMotorPower);
-	while( Motor_GetEncoder(motor_lift) != g_BottomLiftAngle)
+	Motor_Target(motor_lift, g_BottomLiftAngle);
+	while ( Motor_GetEncoder(motor_lift) != g_BottomLiftAngle)
 	{
 		Time_Wait(50);
+		EndTimeSlice();
 	}
-	EndTimeSlice();
+	Motor_Stop(motor_lift);
+	StopTask(sub_LiftToTop);
 }
+
 
 task sub_WeighRings()
 {
@@ -53,11 +67,13 @@ task sub_WeighRings()
 	EndTimeSlice();
 }
 
+
 task sub_DeployRamp()
 {
-	//do stuff
-	//EndTimeSlice();
+	Servo_Rotate(servo_ramp, g_rampServoDeployed);
+	EndTimeSlice();
 }
+
 
 
 #endif
