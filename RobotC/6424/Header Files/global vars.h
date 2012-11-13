@@ -2,6 +2,13 @@
 #define GLOBAL_VARS_H
 
 
+
+// The amount of forward driving time (section A).
+const int g_ForwardTimeA = 350;
+// The amount of turning to the right (section A).
+const int g_RightTimeA = 100;
+
+
 // The position the IR servo needs to be in (180 deg)
 const int g_IRServoDefault = 0;
 const int g_IRServoExtended = 230;
