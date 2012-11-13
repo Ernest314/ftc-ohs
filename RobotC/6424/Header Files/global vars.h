@@ -2,6 +2,13 @@
 #define GLOBAL_VARS_H
 
 
+
+// The amount of forward driving time (section A).
+const int g_ForwardTimeA = 350;
+// The amount of turning to the right (section A).
+const int g_RightTimeA = 100;
+
+
 // The position the IR servo needs to be in (180 deg)
 const int g_IRServoDefault = 0;
 const int g_IRServoExtended = 230;
@@ -26,9 +33,9 @@ const int g_FullMotorPower = 80;
 
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
-const int g_TopLiftAngle = 720;		//TODO
-const int g_MiddleLiftAngle = 360;	//TODO
-const int g_BottomLiftAngle = 90;	//TODO
+const int g_TopLiftAngle = 300;		//TODO
+const int g_MiddleLiftAngle = 200;	//TODO
+const int g_BottomLiftAngle = 100;	//TODO
 
 
 // (CONTROLLER_1):
