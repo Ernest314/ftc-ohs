@@ -78,15 +78,37 @@ task main()
 	int IRdirD = 0;
 	int IRdirE = 0;
 
+
+
 	waitForStart();
+
+
 
 	Move_Forward(70, 100);
 	Turn_Left(50, 100, 100);
 	Move_Forward(100, 80);
-	Turn_Right(130, 100, 100);
-	Move_Forward(30, 100);
-
 	HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+	if (IRdirE > g_IRthreshold)
+	{
+		Turn_Right(130, 100, 100);
+		Move_Forward(30, 100);
+	}
+	else
+	{
+		Move_Forward(100, 80);
+		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+		if (IRdirE > g_IRthreshold)
+		{
+			Turn_Right(130, 100, 100);
+			Move_Forward(30, 100);
+		}
+		else
+		{
+			Move_Forward(100, 80);
+			Turn_Right(130, 100, 100);
+			Move_Forward(30, 100);
+		}
+	}
 
 	while (true)
 	{
