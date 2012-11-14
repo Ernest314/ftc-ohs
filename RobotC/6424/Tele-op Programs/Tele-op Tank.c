@@ -50,6 +50,10 @@ void initializeRobot()
 
 	nMotorEncoder[motor_lift] = 0;
 
+
+	HTIRS2setDSPMode(infrared, g_IRsensorMode);
+
+
 	Time_Wait(100);
 
 	return;
