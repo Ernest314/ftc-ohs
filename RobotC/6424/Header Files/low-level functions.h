@@ -229,19 +229,9 @@ JoystickDirection Joystick_Direction(JoystickController controller =
 /////////////////////////////
 
 // breaks down time to wait into 10ms and 1ms chunks
-void Time_Wait(int ms)
+void Time_Wait(int time)
 {
-	int waitTime10ms = (ms - (ms%320)) / 320;
-	int waitTime1ms = (ms - (ms%32)) / 32;
-
-	for (int i=0; i<waitTime10ms; i++)
-	{
-		wait10Msec(320);
-	}
-	for (int i=0; i<waitTime1ms; i++)
-	{
-		wait1Msec(32);
-	}
+	wait10Msec(time);
 }
 
 
@@ -337,11 +327,13 @@ int Math_ToLogarithmic(int input)
 	if (input >= 0)
 	{
 		convertedInput = input;
+		//convertedInput = input*input / 163.84;
 		//convertedInput = input * 100 / 127;
 	}
 	else if (input < 0)
 	{
 		convertedInput = input;
+		//convertedInput = (-1)*input*input / 161.29;
 		//convertedInput = input * 100 / 127;
 	}
 	return convertedInput;

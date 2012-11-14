@@ -3,6 +3,13 @@
 
 
 
+// The mode the IR sensor is set at.
+const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
+
+// The threshold for IR values to count as detected.
+const int g_IRthreshold = 100;
+
+
 // The amount of forward driving time (section A).
 const int g_ForwardTimeA = 350;
 // The amount of turning to the right (section A).

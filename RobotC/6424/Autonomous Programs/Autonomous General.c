@@ -3,7 +3,7 @@
 #pragma config(Sensor, S2,     infrared,       sensorHiTechnicIRSeeker1200)
 #pragma config(Sensor, S3,     weight,         sensorHiTechnicTouchMux)
 #pragma config(Sensor, S4,     touch,          sensorTouch)
-#pragma config(Motor,  motorA,          motor_A,       tmotorNXT, openLoop)
+#pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop, reversed)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
@@ -36,11 +36,11 @@ void initializeRobot()
 	// Also add any settings that need to be set (other than global
 	// variables), such as max PID speed, servo update rate, etc.
 
-	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
-	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
-
 	Servo_SetSpeed(servo_IR, 0);	// maximum speed!
 	Servo_SetSpeed(servo_claw, 0);	// maximum speed!
+
+	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
+	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
 
 
 	Motor_SetMaxSpeed(g_FullMotorPower);
@@ -50,6 +50,12 @@ void initializeRobot()
 	Motor_ResetEncoder(motor_lift);
 
 	nMotorEncoder[motor_lift] = 0;
+
+
+	HTIRS2setDSPMode(infrared, g_IRsensorMode);
+
+
+	Time_Wait(100);
 
 	return;
 }
@@ -66,13 +72,43 @@ task main()
 	int powerR = 0;
 	int powerLift = 0;
 
+	int IRdirA = 0;
+	int IRdirB = 0;
+	int IRdirC = 0;
+	int IRdirD = 0;
+	int IRdirE = 0;
+
+
+
 	waitForStart();
+
+
 
 	Move_Forward(70, 100);
 	Turn_Left(50, 100, 100);
 	Move_Forward(100, 80);
-	Turn_Right(130, 100, 100);
-	Move_Forward(30, 100);
+	HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+	if (IRdirE > g_IRthreshold)
+	{
+		Turn_Right(130, 100, 100);
+		Move_Forward(30, 100);
+	}
+	else
+	{
+		Move_Forward(100, 80);
+		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+		if (IRdirE > g_IRthreshold)
+		{
+			Turn_Right(130, 100, 100);
+			Move_Forward(30, 100);
+		}
+		else
+		{
+			Move_Forward(100, 80);
+			Turn_Right(130, 100, 100);
+			Move_Forward(30, 100);
+		}
+	}
 
 	while (true)
 	{
