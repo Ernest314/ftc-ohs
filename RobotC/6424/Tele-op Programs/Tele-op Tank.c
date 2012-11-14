@@ -42,6 +42,7 @@ void initializeRobot()
 	Servo_Rotate(servo_IR, g_IRServoDefault);		// fold back up after start of tele-op
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
 
+
 	Motor_SetMaxSpeed(g_FullMotorPower);
 
 	Motor_ResetEncoder(motor_L);
@@ -49,9 +50,6 @@ void initializeRobot()
 	Motor_ResetEncoder(motor_lift);
 
 	nMotorEncoder[motor_lift] = 0;
-
-
-	HTIRS2setDSPMode(infrared, g_IRsensorMode);
 
 
 	Time_Wait(100);
