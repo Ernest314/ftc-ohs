@@ -7,18 +7,43 @@
 const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
 
 // The threshold for IR values to count as detected.
-const int g_IRthreshold = 100;
+const int g_IRthreshold = 10;
 
 
-// The amount of forward driving time (section A).
-const int g_ForwardTimeA = 350;
-// The amount of turning to the right (section A).
-const int g_RightTimeA = 100;
+// The amount of forward driving time (segment A).
+const int g_ForwardTimeA = 150;
+
+// The amount of turning to the right (segment A).
+const int g_RightTimeB = 90;
+// Bleh.
+const int g_ForwardTimeB = 120;
+// Bleh.
+const int g_LiftTimeB = 200;
+
+// Bleh.
+const int g_ForwardTimeC = 100;
+
+// Bleh.
+const int g_RightTimeD = 90;
+// Bleh.
+const int g_ForwardTimeD = 120;
+// Bleh.
+const int g_LiftTimeD = 200;
+
+// Bleh.
+const int g_ForwardTimeE = 100;
+
+// Bleh.
+const int g_RightTimeF = 90;
+// Bleh.
+const int g_ForwardTimeF = 120;
+// Bleh.
+const int g_LiftTimeF = 200;
 
 
 // The position the IR servo needs to be in (180 deg)
 const int g_IRServoDefault = 0;
-const int g_IRServoExtended = 230;
+const int g_IRServoExtended = 220;
 const int g_clawServoDefault = 100;
 const int g_clawServoExtended = 250;
 // No "default" position is provided for fear of deployment.

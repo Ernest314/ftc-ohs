@@ -52,10 +52,10 @@ void initializeRobot()
 	nMotorEncoder[motor_lift] = 0;
 
 
-	HTIRS2setDSPMode(infrared, g_IRsensorMode);
+	//HTIRS2setDSPMode(infrared, g_IRsensorMode);
 
 
-	Time_Wait(100);
+	Time_Wait(10);
 
 	return;
 }
@@ -68,10 +68,6 @@ task main()
 
 	// These will be used later and are declared here to save from having to
 	// declare them every single loop.
-	int powerL = 0;
-	int powerR = 0;
-	int powerLift = 0;
-
 	int IRdirA = 0;
 	int IRdirB = 0;
 	int IRdirC = 0;
@@ -84,34 +80,34 @@ task main()
 
 
 
-	Move_Forward(70, 100);
-	Turn_Left(50, 100, 100);
-	Move_Forward(100, 80);
-	HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-	if (IRdirE > g_IRthreshold)
+	Move_Forward(g_ForwardTimeA, 100);
+	Time_Wait(50);
+
+	//HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+
+	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 	{
-		Turn_Right(130, 100, 100);
-		Move_Forward(30, 100);
+		Turn_Right(g_RightTimeB, 100, 100);
+		Move_Forward(g_ForwardTimeB, 100);
+		Lift_Lift(g_LiftTimeB, 50);
 	}
 	else
 	{
-		Move_Forward(100, 80);
-		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-		if (IRdirE > g_IRthreshold)
+		Move_Forward(g_ForwardTimeC, 100);
+		Time_Wait(50);
+		//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 		{
-			Turn_Right(130, 100, 100);
-			Move_Forward(30, 100);
+			Turn_Right(g_RightTimeD, 100, 100);
+			Move_Forward(g_ForwardTimeD, 100);
+			Lift_Lift(g_LiftTimeD, 50);
 		}
 		else
 		{
-			Move_Forward(100, 80);
-			Turn_Right(130, 100, 100);
-			Move_Forward(30, 100);
+			Move_Forward(g_ForwardTimeE, 80);
+			Turn_Right(g_RightTimeF, 100, 100);
+			Move_Forward(g_ForwardTimeF, 100);
+			Lift_Lift(g_LiftTimeF, 50);
 		}
-	}
-
-	while (true)
-	{
-		;
 	}
 }
