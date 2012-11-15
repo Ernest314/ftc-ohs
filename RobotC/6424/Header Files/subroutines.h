@@ -1,40 +1,139 @@
 #ifndef SUBROUTINES_H
 #define SUBROUTINES_H
 
-void sub_PutRingOn()
+
+
+task sub_PutRingOn()
 {
 	//do stuff
+	EndTimeSlice();
 }
 
-void sub_TakeRingOff()
+
+task sub_TakeRingOff()
 {
 	//do stuff
+	EndTimeSlice();
 }
 
-void sub_LiftToTop()
+
+// Might add a fine-tune section to this.
+task sub_LiftToTop()
 {
-	// `-10` for a bit more precision. Might even break this up into
-	// a fast section and a slower section (to fine-tune position).
-	Motor_ExactRotation(motor_lift, g_TopLiftAngle, g_FullMotorPower-10);
+	//Motor_Target(motor_lift, g_TopLiftAngle);
+	for (int i = 0; i < 2; i++)
+	{
+		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
+		{
+			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
+			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
+			{
+				Time_Wait(10);
+				EndTimeSlice();
+			}
+		}
+		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
+		{
+			Motor_SetPower(motor_lift, g_FullMotorPower);
+			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
+			{
+				Time_Wait(10);
+				EndTimeSlice();
+			}
+		}
+		Motor_Stop(motor_lift);
+	}
+	StopTask(sub_LiftToTop);
 }
 
-void sub_LiftToMiddle()
+
+task sub_LiftToMiddle()
 {
-	// `-10` for a bit more precision. Might even break this up into
-	// a fast section and a slower section (to fine-tune position).
-	Motor_ExactRotation(motor_lift, g_MiddleLiftAngle, g_FullMotorPower-10);
+	//Motor_Target(motor_lift, g_MiddleLiftAngle);
+	for (int i = 0; i < 2; i++)
+	{
+		if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
+		{
+			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
+			while ( Motor_GetEncoder(motor_lift) > g_MiddleLiftAngle)
+			{
+				Time_Wait(10);
+				EndTimeSlice();
+			}
+		}
+		if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
+		{
+			Motor_SetPower(motor_lift, g_FullMotorPower);
+			while ( Motor_GetEncoder(motor_lift) < g_MiddleLiftAngle)
+			{
+				Time_Wait(10);
+				EndTimeSlice();
+			}
+		}
+		Motor_Stop(motor_lift);
+	}
+	StopTask(sub_LiftToMiddle);
 }
 
-void sub_LiftToBottom()
+
+// Might add a fine-tune section to this.
+task sub_LiftToBottom()
 {
-	// `-10` for a bit more precision. Might even break this up into
-	// a fast section and a slower section (to fine-tune position).
-	Motor_ExactRotation(motor_lift, g_BottomLiftAngle, g_FullMotorPower-10);
+	//Motor_Target(motor_lift, g_BottomLiftAngle);
+	for (int i = 0; i < 2; i++)
+	{
+		if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
+		{
+			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
+			while ( Motor_GetEncoder(motor_lift) > g_BottomLiftAngle)
+			{
+				Time_Wait(10);
+				EndTimeSlice();
+			}
+		}
+		if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
+		{
+			Motor_SetPower(motor_lift, g_FullMotorPower);
+			while ( Motor_GetEncoder(motor_lift) < g_BottomLiftAngle)
+			{
+				Time_Wait(10);
+				EndTimeSlice();
+			}
+		}
+		Motor_Stop(motor_lift);
+	}
+	StopTask(sub_LiftToBottom);
 }
 
-void sub_DeployRamp()
+
+task sub_WeighRings()
 {
-	//do stuff
+	// We might not implement this at all. Heh.
+	EndTimeSlice();
 }
+
+
+task sub_DeployRamp()
+{
+	Servo_Rotate(servo_ramp, g_rampServoDeployed);
+	EndTimeSlice();
+}
+
+
+task sub_MOO()
+{
+	PlaySoundFile("moo.rso");
+
+	//// Uncomment this next section if "moo.rso" won't play.
+	//while (bSoundActive)
+	//{
+	//	Time_Wait(10);
+	//	EndTimeSlice();
+	//}
+
+	StopTask(sub_MOO);
+}
+
+
 
 #endif

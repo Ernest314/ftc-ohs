@@ -170,6 +170,32 @@ Its only useful function is the `void wait(float waitTime)` function.
 - __Display__
 - __Bluetooth__
 - __Semaphores__
+	- `void SemaphoreInitialize(TSemaphore semaphore)` _(fn)_
+	- `void SemaphoreLock(TSemaphore semaphore, int wait)` _(fn)_
+		- time to wait is (by default) about 32 ms (6FFF in hex)
+	- `void SemaphoreUnlock(TSemaphore semaphore)` _(fn)_
+	- `ubyte getSemaphoreTaskOwner(TSemaphore semaphore)` _(fn)_
+		- returns the task that owns the semaphore
+	- `bool bDoesTaskOwnSemaphore(TSemaphore semaphore)` _(fn)_
+		- returns whether current task owns the semaphore
+- __Multitasking__
+	- `void abortTimeslice()` _(fn)_
+		- immediately ends the current timeslice of the current task
+		- timeslices are only used if multiple tasks have same priority
+	- `void hogCPU()` _(fn)_
+		- ignores priorities and gives current task 100% CPU time
+	- `void releaseCPU()` _(fn)_
+		- reverses effects of `void hogCPU()`
+	- `void StartTask(void TaskID, const short nTaskPriority)` _(fn)_
+		- starts a pre-defined task
+		- default task priority is 7
+	- `void StopTask(void TaskID)` _(fn)_
+		- stops a previously started task
+	- `void StopAllTasks()` _(fn)_
+		- ends _all_ tasks, including `task main()`
+	- `word nSchedulePriority` _(var)_
+		- priority of a task from 0 to 255; 0 is lowest & 255 is highest
+		- default for an assigned task is 7
 - __Miscellaneous__
 	- `bool bSystemLeaveServosEnabledOnProgramStop` _(var)_
 		- leave servos locked in position until poweroff = `true`
@@ -188,11 +214,7 @@ _These are all functions. Duh._
 	- `void Motor_Forward(tMotor motor_name, int power=75)`
 	- `void Motor_Reverse(tMotor motor_name, int power=75)`
 	- `void Motor_Stop(tMotor motor_name, bool brake=true)`
-	- `void Motor_ExactRotation(tMotor m, int a, int p, bool brake=true)`
-		- _parameter clarification_:
-			* `tMotor m` is `tMotor motor_name`
-			* `int a` is the angle in degrees
-			* `int p` is the power; default is 75
+	- `void Motor_Target(tMotor motor_name, int angle)`
 	- `int Motor_GetEncoder(tMotor motor_name)`
 	- `void Motor_ResetEncoder(tMotor motor_name)`
 		- reset is always absolute (since beginning of program)
@@ -202,12 +224,8 @@ _These are all functions. Duh._
 	- `void Motor_SetPIDInterval(int interval=20)`
 		- in milliseconds; RobotC's default value is 25.
 - __Servos__
-	- `void Servo_Rotate(TServoIndex s, short p, int r, bool b)`
-		- _parameter clarification_:
-			* `TServoIndex s` is `TServoIndex servoName`
-			* `short p` is the position of servo (0 - 255)
-			* `int r` is the rate; default is 0
-			* `bool b` is whether to brake; default is `true`
+	- `void Servo_Rotate(TServoIndex servoName, short position)`
+		- turns the servo to a position (0 to 255)
 	- `short Servo_GetPosition(TServoIndex servoName)`
 		- returns a value from 0 - 255
 	- `void Servo_SetSpeed(TServoIndex servoName, int rate)`
@@ -244,4 +262,23 @@ _These are all functions. Duh._
 - __Display__
 - __Bluetooth__
 - __Semaphores__
+	- `void Semaphore_Initialize(TSemaphore semaphore)`
+	- `void Semaphore_Lock(TSemaphore semaphore, int wait)`
+		- wait time defaults to 6FFF ms (about 32 ms)
+	- `void Semaphore_Unlock(TSemaphore semaphore)`
+	- `bool Semaphore_IsCurrentlyOwned(TSemaphore semaphore)`
+	- `ubyte Semaphore_GetOwner(TSemaphore semaphore)`
+		- returns the "taskID" of the task owning the semaphore
+- __Multitasking__
+	- `void Task_ReleaseTimeslice()`
+		- timeslices are only used if tasks have same priorities
+	- `void Task_StartTask(void taskID, short priority)`
+	- `void Task_StopTask(void taskID)`
+	- `void Task_HogCPU()`
+	- `void Task_ReleaseCPU()`
+	- `void Task_AbortAll()`
+		- also aborts `task main()`
+- __Math__
+	- `int Math_ToLogarithmic(int input)`
+		- for converting joystick values to logarithmic values
 - __Miscellaneous__
