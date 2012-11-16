@@ -25,16 +25,12 @@ void Motor_Stop(tMotor motorName, bool brake=true)
 
 // This function does NOT reset the encoder, in case that is being
 // used elsewhere. Reset the encoder periodically to prevent overflow.
-void Motor_ExactRotation(	tMotor motorName,	int angle,
-							int power=75,		bool brake=true)
+void Motor_Target(tMotor motorName, int angle)
 {
 	// Using some variables directly since this code is low-level.
 	int originalAngle = 0;
 	originalAngle = nMotorEncoder[motorName];
 	nMotorEncoderTarget[motorName] = angle + originalAngle;
-	motor[motorName] = power;
-	//motor[motorName] = 0;	//uncomment if nMotorEncoderTarget[] doesn't work
-	bFloatDuringInactiveMotorPWM = !(brake);
 }
 
 void Motor_SetPower(tMotor motorName, int power)
@@ -74,42 +70,24 @@ void Motor_SetPIDInterval(int interval=20)
 //    "namespace" Servo    //
 /////////////////////////////
 
-void Servo_ExactRotation(	TServoIndex servoName,	short angle,
-							int power=75,			bool brake=true)
+void Servo_Rotate(TServoIndex servoName, short position)
 {
-	servo[servoName] = angle;
-	// Braking & power are not implemented.
-	// Implementation of power will require calibration.
-}
-
-void Servo_Forward(tMotor motorName, int power=75)
-{
-	// No idea how to work this yet. Will wait until robot is done.
-	// May or may not be implemented.
-}
-
-void Servo_Reverse(tMotor motorName, int power=75)
-{
-	// No idea how to work this yet. Will wait until robot is done.
-	// May or may not be implemented.
-}
-
-void Servo_Stop(tMotor motorName, bool brake=true)
-{
-	// No idea how to work this yet. Will wait until robot is done.
-	// May or may not be implemented.
+	servo[servoName] = position;
 }
 
 short Servo_GetPosition(TServoIndex servoName)
 {
-	short rotation = 0;
-	rotation = ServoValue[servoName];
-	return rotation;
+	return ServoValue[servoName];
 }
 
-void Servo_SetUpdateInterval(TServoIndex servoName, int rate)
+void Servo_SetSpeed(TServoIndex servoName, int rate)
 {
 	servoChangeRate[servoName] = rate;
+}
+
+void Servo_LockPosition(TServoIndex servoName, bool isLocked=true)
+{
+	bSystemLeaveServosEnabledOnProgramStop = isLocked;
 }
 
 
@@ -177,7 +155,7 @@ int Joystick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy1_x2;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joystick.joy2_y2;
+							axisValue = joystick.joy1_y2;
 							break;
 					}
 					break;
@@ -251,19 +229,9 @@ JoystickDirection Joystick_Direction(JoystickController controller =
 /////////////////////////////
 
 // breaks down time to wait into 10ms and 1ms chunks
-void Time_Wait(int ms)
+void Time_Wait(int time)
 {
-	int waitTime10ms = (ms - (ms%320)) / 320;
-	int waitTime1ms = (ms - (ms%32)) / 32;
-
-	for (int i=0; i<waitTime10ms; i++)
-	{
-		wait10Msec(320);
-	}
-	for (int i=0; i<waitTime1ms; i++)
-	{
-		wait1Msec(32);
-	}
+	wait10Msec(time);
 }
 
 
@@ -283,7 +251,98 @@ void Time_Wait(int ms)
 
 
 /////////////////////////////
+//  "namespace" Semaphore  //
+/////////////////////////////
+
+void Semaphore_Initialize(TSemaphore semaphore)
+{
+	SemaphoreInitialize(semaphore);
+}
+
+void Semaphore_Lock(TSemaphore semaphore, int wait)
+{
+	SemaphoreLock(semaphore, wait);
+}
+
+void Semaphore_Unlock(TSemaphore semaphore)
+{
+	SemaphoreUnlock(semaphore);
+}
+
+bool Semaphore_IsCurrentlyOwned(TSemaphore semaphore)
+{
+	return (bool)bDoesTaskOwnSemaphore(semaphore);
+}
+
+ubyte Semaphore_GetOwner(TSemaphore semaphore)
+{
+	return getSemaphoreTaskOwner(semaphore);
+}
+
+
+/////////////////////////////
+//  "namespace" Multitask  //
+/////////////////////////////
+
+void Task_ReleaseTimeslice()
+{
+	abortTimeslice();
+}
+
+void Task_StartTask(void taskID, short priority=7)
+{
+	StartTask(taskID, priority);
+}
+
+void Task_StopTask(void taskID)
+{
+	StopTask(taskID);
+}
+
+void Task_HogCPU()
+{
+	hogCPU();
+}
+
+void Task_ReleaseCPU()
+{
+	releaseCPU();
+}
+
+void Task_AbortAll()
+{
+	StopAllTasks();
+}
+
+
+/////////////////////////////
+//     "namespace" Math    //
+/////////////////////////////
+
+// TODO: make it actually convert to logarithmic values.
+// For converting joystick input to logarithmic values.
+int Math_ToLogarithmic(int input)
+{
+	int convertedInput = 0;
+	if (input >= 0)
+	{
+		convertedInput = input;
+		//convertedInput = input*input / 163.84;
+		//convertedInput = input * 100 / 127;
+	}
+	else if (input < 0)
+	{
+		convertedInput = input;
+		//convertedInput = (-1)*input*input / 161.29;
+		//convertedInput = input * 100 / 127;
+	}
+	return convertedInput;
+}
+
+
+/////////////////////////////
 //     "namespace" Misc    //
 /////////////////////////////
+
 
 #endif

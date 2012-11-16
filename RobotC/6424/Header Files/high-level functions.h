@@ -40,13 +40,6 @@ void Turn_Left(int time, int steerL, int steerR)
 	Motor_Stop(motor_R);
 }
 
-void Lift_Lift(int time, int power)
-{
-	Motor_Forward(motor_lift, power);
-	Time_Wait(time);
-	Motor_Stop(motor_lift);
-}
-
 
 
 #endif
