@@ -147,7 +147,7 @@ bool Joystick_Button(	JoystickButton button,
 
 // Takes an input of "Joystick" instead of "joystick" to
 // avoid conflict with name of built-in struct "joystick";
-int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
+int Joystick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 						JoystickAxis axis,
 						JoystickController controller = CONTROLLER_1)
 {
@@ -169,6 +169,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy1_y1;
 							break;
 					}
+					break;
 				case JOYSTICK_R:
 					switch (axis)
 					{
@@ -179,6 +180,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy2_y2;
 							break;
 					}
+					break;
 			}
 			break;
 
@@ -195,6 +197,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy2_y1;
 							break;
 					}
+					break;
 				case JOYSTICK_R:
 					switch (axis)
 					{
@@ -205,6 +208,7 @@ int JoyStick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy2_y2;
 							break;
 					}
+					break;
 			}
 			break;
 	}
@@ -224,7 +228,6 @@ JoystickDirection Joystick_Direction(JoystickController controller =
 			direction = (JoystickDirection)joystick.joy1_TopHat;
 			break;
 		case CONTROLLER_2:
-			// Using the struct since "joy2..." isn't a data type
 			direction = (JoystickDirection)joystick.joy2_TopHat;
 			break;
 	}
