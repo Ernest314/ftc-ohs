@@ -62,6 +62,10 @@ const int g_FineTuneFactor = 4;
 // The full speed the motors should be PID-regulated at.
 const int g_FullMotorPower = 80;
 
+// The speed motors should ve PID-regulated at for the autonomous period,
+// since the movement needs to be much more accurate.
+const int g_AccurateMotorPower = 65;
+
 
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).

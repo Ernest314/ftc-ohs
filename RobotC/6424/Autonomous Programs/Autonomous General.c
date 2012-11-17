@@ -36,8 +36,8 @@ void initializeRobot()
 	// Also add any settings that need to be set (other than global
 	// variables), such as max PID speed, servo update rate, etc.
 
-	Servo_SetSpeed(servo_IR, 0);	// maximum speed!
-	Servo_SetSpeed(servo_claw, 0);	// maximum speed!
+	Servo_SetSpeed(servo_IR, 10);	// maximum speed!
+	Servo_SetSpeed(servo_claw, 10);	// maximum speed!
 
 	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op

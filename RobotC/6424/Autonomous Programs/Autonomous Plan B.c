@@ -39,20 +39,17 @@ void initializeRobot()
 	Servo_SetSpeed(servo_IR, 10);	// maximum speed!
 	Servo_SetSpeed(servo_claw, 10);	// maximum speed!
 
-	Servo_Rotate(servo_IR, g_IRServoDefault);		// fold back up after start of tele-op
+	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
 
 
 	Motor_SetMaxSpeed(g_FullMotorPower);
 
-	Motor_ResetEncoder(motor_L);
-	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
 	nMotorEncoder[motor_lift] = 0;
 
-
-	Time_Wait(100);
+	Time_Wait(10);
 
 	return;
 }
@@ -63,12 +60,19 @@ task main()
 {
 	initializeRobot();
 
-	// These will be used later and are declared here to save from having to
-	// declare them every single loop.
-
 	waitForStart();
 
-	while (true)
-	{
-	}
+	const int forwardTimeA = 100;
+	const int leftTimeB = 50;
+	const int forwardTimeC = 100;
+	const int leftTimeD = 50;
+	const int forwardTimeE = 50;
+	const int liftTimeF = 20;
+
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	Turn_Left		(leftTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
+	Turn_Left		(leftTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeE, g_AccurateMotorPower);
+	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
 }
