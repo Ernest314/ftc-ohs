@@ -124,12 +124,13 @@ task sub_MOO()
 {
 	PlaySoundFile("moo.rso");
 
-	//// Uncomment this next section if "moo.rso" won't play.
-	//while (bSoundActive)
-	//{
-	//	Time_Wait(10);
-	//	EndTimeSlice();
-	//}
+	// Uncomment this next section if "moo.rso" won't play.
+	while (bSoundActive)
+	{
+		Time_Wait(10);
+		Joystick_UpdateData();
+		EndTimeSlice();
+	}
 
 	StopTask(sub_MOO);
 }

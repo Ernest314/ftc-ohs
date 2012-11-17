@@ -49,8 +49,6 @@ void initializeRobot()
 	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
-	nMotorEncoder[motor_lift] = 0;
-
 
 	Time_Wait(100);
 
@@ -67,6 +65,11 @@ task main()
 	// declare them every single loop.
 
 	waitForStart();
+
+	int encoderValue = 0;
+	encoderValue = nMotorEncoder[motor_lift];
+	Motor_ResetEncoder(motor_lift);
+	encoderValue = nMotorEncoder[motor_lift];
 
 	while (true)
 	{

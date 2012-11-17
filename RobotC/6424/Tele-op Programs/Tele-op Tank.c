@@ -49,8 +49,6 @@ void initializeRobot()
 	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
-	nMotorEncoder[motor_lift] = 0;
-
 
 	Time_Wait(100);
 
@@ -142,6 +140,7 @@ task main()
 		// Directly using the struct since this is the only possible time to
 		// use it, and this is very low-level anyways.
 
+		if ( joystick.joy1_Buttons != false )
 		//if ( (g_ControllerMaskA & joystick.joy1_Buttons) != false )
 		{
 
@@ -247,6 +246,7 @@ task main()
 
 		// CONTROLLER_2 is only tested for button X (currently).
 
+		if ( joystick.joy2_Buttons != false )
 		//if ( (g_ControllerMaskB & joystick.joy2_Buttons) != false )
 		{
 
