@@ -86,11 +86,11 @@ task main()
 		powerPopcorn = 0;
 		if ( Joystick_Button(BUTTON_B, CONTROLLER_2)==true )
 		{
-			powerPopcorn = g_FullMotorPower;
+			powerPopcorn = g_FullMotorPower*(abs(powerL)+abs(powerR))/2;
 		}
 		else if ( Joystick_Button(BUTTON_A, CONTROLLER_2)==true )
 		{
-			powerPopcorn = g_FullMotorPower*0.75;
+			powerPopcorn = g_FullMotorPower*(abs(powerL)+abs(powerR))/2*0.75;
 		}
 		Motor_SetPower(motor_popcorn, powerPopcorn);
 
