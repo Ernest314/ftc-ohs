@@ -61,9 +61,9 @@ const int g_LiftAccuracyFine = 5;
 
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
-const int g_TopLiftAngle = 1000;		//TODO
-const int g_MiddleLiftAngle = 0;	//TODO
-const int g_BottomLiftAngle = 0;	//TODO
+const int g_TopLiftAngle = 5000;		//TODO
+const int g_MiddleLiftAngle = 2000;	//TODO
+const int g_BottomLiftAngle = 1000;	//TODO
 
 
 // (CONTROLLER_1):
