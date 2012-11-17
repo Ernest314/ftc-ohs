@@ -45,15 +45,9 @@ void initializeRobot()
 
 	Motor_SetMaxSpeed(g_FullMotorPower);
 
-	Motor_ResetEncoder(motor_L);
-	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
 	nMotorEncoder[motor_lift] = 0;
-
-
-	//HTIRS2setDSPMode(infrared, g_IRsensorMode);
-
 
 	Time_Wait(10);
 
@@ -66,48 +60,19 @@ task main()
 {
 	initializeRobot();
 
-	// These will be used later and are declared here to save from having to
-	// declare them every single loop.
-	int IRdirA = 0;
-	int IRdirB = 0;
-	int IRdirC = 0;
-	int IRdirD = 0;
-	int IRdirE = 0;
-
-
-
 	waitForStart();
 
+	const int forwardTimeA = 100;
+	const int leftTimeB = 50;
+	const int forwardTimeC = 100;
+	const int leftTimeD = 50;
+	const int forwardTimeE = 50;
+	const int liftTimeF = 20;
 
-
-	Move_Forward(g_ForwardTimeA, 100);
-	Time_Wait(50);
-
-	//HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-
-	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
-	{
-		Turn_Right(g_RightTimeB, 100, 100);
-		Move_Forward(g_ForwardTimeB, 100);
-		Lift_Lift(g_LiftTimeB, 50);
-	}
-	else
-	{
-		Move_Forward(g_ForwardTimeC, 100);
-		Time_Wait(50);
-		//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
-		{
-			Turn_Right(g_RightTimeD, 100, 100);
-			Move_Forward(g_ForwardTimeD, 100);
-			Lift_Lift(g_LiftTimeD, 50);
-		}
-		else
-		{
-			Move_Forward(g_ForwardTimeE, 80);
-			Turn_Right(g_RightTimeF, 100, 100);
-			Move_Forward(g_ForwardTimeF, 100);
-			Lift_Lift(g_LiftTimeF, 50);
-		}
-	}
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	Turn_Left		(leftTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
+	Turn_Left		(leftTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeE, g_AccurateMotorPower);
+	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
 }

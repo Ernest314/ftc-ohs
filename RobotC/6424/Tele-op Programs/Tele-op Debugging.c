@@ -39,7 +39,7 @@ void initializeRobot()
 	Servo_SetSpeed(servo_IR, 10);	// maximum speed!
 	Servo_SetSpeed(servo_claw, 10);	// maximum speed!
 
-	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
+	Servo_Rotate(servo_IR, g_IRServoDefault);		// fold back up after start of tele-op
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
 
 
@@ -49,13 +49,8 @@ void initializeRobot()
 	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
-	nMotorEncoder[motor_lift] = 0;
 
-
-	//HTIRS2setDSPMode(infrared, g_IRsensorMode);
-
-
-	Time_Wait(10);
+	Time_Wait(100);
 
 	return;
 }
@@ -68,46 +63,51 @@ task main()
 
 	// These will be used later and are declared here to save from having to
 	// declare them every single loop.
-	int IRdirA = 0;
-	int IRdirB = 0;
-	int IRdirC = 0;
-	int IRdirD = 0;
-	int IRdirE = 0;
-
-
 
 	waitForStart();
 
-
-
-	Move_Forward(g_ForwardTimeA, 100);
-	Time_Wait(50);
-
-	//HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-
-	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+	while ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
 	{
-		Turn_Right(g_RightTimeB, 100, 100);
-		Move_Forward(g_ForwardTimeB, 100);
-		Lift_Lift(g_LiftTimeB, 50);
+		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
+		{
+			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
+			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
+			{
+				Time_Wait(0.1);
+				EndTimeSlice();
+			}
+		}
+		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
+		{
+			Motor_SetPower(motor_lift, g_FullMotorPower);
+			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
+			{
+				Time_Wait(0.1);
+				EndTimeSlice();
+			}
+		}
+		Motor_Stop(motor_lift);
 	}
-	else
+	while ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
 	{
-		Move_Forward(g_ForwardTimeC, 100);
-		Time_Wait(50);
-		//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
 		{
-			Turn_Right(g_RightTimeD, 100, 100);
-			Move_Forward(g_ForwardTimeD, 100);
-			Lift_Lift(g_LiftTimeD, 50);
+			Motor_SetPower(motor_lift, -1*g_FullMotorPower/g_FineTuneFactor);
+			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
+			{
+				Time_Wait(0.1);
+				EndTimeSlice();
+			}
 		}
-		else
+		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
 		{
-			Move_Forward(g_ForwardTimeE, 80);
-			Turn_Right(g_RightTimeF, 100, 100);
-			Move_Forward(g_ForwardTimeF, 100);
-			Lift_Lift(g_LiftTimeF, 50);
+			Motor_SetPower(motor_lift, g_FullMotorPower/g_FineTuneFactor);
+			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
+			{
+				Time_Wait(0.1);
+				EndTimeSlice();
+			}
 		}
+		Motor_Stop(motor_lift);
 	}
 }
