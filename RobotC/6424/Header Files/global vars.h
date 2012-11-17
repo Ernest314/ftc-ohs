@@ -10,34 +10,21 @@ const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
 const int g_IRthreshold = 10;
 
 
-// The amount of forward driving time (segment A).
-const int g_ForwardTimeA = 150;
-
-// The amount of turning to the right (segment A).
+// The amount of motor movement time for the different sections of the
+// autonomous period. For an explanation of the segment names, see our
+// diagram in our engineering notebook (segments may be offset).
+const int g_RightTimeA = 40;
+const int g_ForwardTimeA = 200;
 const int g_RightTimeB = 90;
-// Bleh.
 const int g_ForwardTimeB = 120;
-// Bleh.
 const int g_LiftTimeB = 200;
-
-// Bleh.
 const int g_ForwardTimeC = 100;
-
-// Bleh.
 const int g_RightTimeD = 90;
-// Bleh.
 const int g_ForwardTimeD = 120;
-// Bleh.
 const int g_LiftTimeD = 200;
-
-// Bleh.
 const int g_ForwardTimeE = 100;
-
-// Bleh.
 const int g_RightTimeF = 90;
-// Bleh.
 const int g_ForwardTimeF = 120;
-// Bleh.
 const int g_LiftTimeF = 200;
 
 

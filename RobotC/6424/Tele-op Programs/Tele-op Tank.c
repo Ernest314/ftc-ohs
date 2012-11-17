@@ -150,16 +150,18 @@ task main()
 			// Buttons Y/B/A will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
-				//sub_LiftToTopB();
-				StartTask(sub_LiftToTopB);
+				sub_LiftToTopB();
+				//StartTask(sub_LiftToTopB);
 			}
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
-				StartTask(sub_LiftToMiddleB);
+				sub_LiftToMiddleB();
+				//StartTask(sub_LiftToMiddleB);
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
-				StartTask(sub_LiftToBottomB);
+				sub_LiftToBottomB();
+				//StartTask(sub_LiftToBottomB);
 			}
 
 			// If only X is pressed, weigh the ring.
