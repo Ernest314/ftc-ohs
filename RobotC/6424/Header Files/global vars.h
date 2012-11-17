@@ -67,9 +67,14 @@ const int g_FullMotorPower = 80;
 const int g_AccurateMotorPower = 65;
 
 
+// Threshold for encoder target thingy.
+const int g_LiftAccuracyRough = 50;
+const int g_LiftAccuracyFine = 5;
+
+
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
-const int g_TopLiftAngle = 0;		//TODO
+const int g_TopLiftAngle = 1000;		//TODO
 const int g_MiddleLiftAngle = 0;	//TODO
 const int g_BottomLiftAngle = 0;	//TODO
 

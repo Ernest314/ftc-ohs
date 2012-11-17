@@ -70,7 +70,10 @@ task main()
 	int powerPopcorn = 0;
 
 
+
 	waitForStart();
+
+
 
 	while (true)
 	{
@@ -140,22 +143,23 @@ task main()
 		// Directly using the struct since this is the only possible time to
 		// use it, and this is very low-level anyways.
 
-		if ( joystick.joy1_Buttons != false )
+		//if ( joystick.joy1_Buttons != false )
 		//if ( (g_ControllerMaskA & joystick.joy1_Buttons) != false )
 		{
 
 			// Buttons Y/B/A will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
-				StartTask(sub_LiftToTop);
+				//sub_LiftToTopB();
+				StartTask(sub_LiftToTopB);
 			}
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
-				StartTask(sub_LiftToMiddle);
+				StartTask(sub_LiftToMiddleB);
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
-				StartTask(sub_LiftToBottom);
+				StartTask(sub_LiftToBottomB);
 			}
 
 			// If only X is pressed, weigh the ring.
@@ -246,7 +250,7 @@ task main()
 
 		// CONTROLLER_2 is only tested for button X (currently).
 
-		if ( joystick.joy2_Buttons != false )
+		//if ( joystick.joy2_Buttons != false )
 		//if ( (g_ControllerMaskB & joystick.joy2_Buttons) != false )
 		{
 
