@@ -33,8 +33,8 @@ const int g_IRServoDefault = 0;
 const int g_IRServoExtended = 220;
 const int g_clawServoDefault = 100;
 const int g_clawServoExtended = 250;
-// No "default" position is provided for fear of deployment.
-const int g_rampServoDeployed = 0;	// TODO!!
+const int g_rampServoDefault = 185;
+const int g_rampServoDeployed = 172;
 
 
 // The threshold for joystick values to count (eliminates humming).

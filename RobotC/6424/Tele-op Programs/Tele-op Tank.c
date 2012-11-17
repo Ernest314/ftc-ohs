@@ -178,7 +178,7 @@ task main()
 			{
 				if ( Joystick_Button(BUTTON_JOYR) == true )
 				{
-					StartTask(sub_DeployRamp);
+					Servo_Rotate(servo_ramp, g_rampServoDeployed);
 				}
 				else
 				{
