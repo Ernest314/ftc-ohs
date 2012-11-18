@@ -65,49 +65,4 @@ task main()
 	// declare them every single loop.
 
 	waitForStart();
-
-	while ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
-			{
-				Time_Wait(0.1);
-				EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
-			{
-				Time_Wait(0.1);
-				EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	while ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower/g_FineTuneFactor);
-			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
-			{
-				Time_Wait(0.1);
-				EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullMotorPower/g_FineTuneFactor);
-			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
-			{
-				Time_Wait(0.1);
-				EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
 }
