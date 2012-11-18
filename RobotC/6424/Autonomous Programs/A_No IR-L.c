@@ -82,21 +82,21 @@ task main()
 
 
 
-	int forwardA = 150;
-	int turnB = 40;
-	int forwardC = 155;
-	int liftF = 65;
-	int forwardG = 65;
-	int liftH = 53;
-	int forwardI = 200;
+	const int forwardTimeA	= 150;
+	const int turnTimeB		= 40;
+	const int forwardTimeC	= 155;
+	const int liftTimeF		= 65;
+	const int forwardTimeG	= 65;
+	const int liftTimeH		= 53;
+	const int forwardTimeI	= 200;
 
-	Move_Forward(forwardA, g_AccurateMotorPower);
-	Turn_Left(turnB, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward(forwardC, g_AccurateMotorPower);
-	Lift_Lift(liftF, g_AccurateMotorPower);
-	Move_Forward(forwardG, g_AccurateMotorPower);
-	Lift_Lift(liftH, (-1) * g_AccurateMotorPower);
-	Move_Backward(forwardI, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
+	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeG, g_AccurateMotorPower);
+	Lift_Lift		(liftTimeH, (-1) * g_AccurateMotorPower);
+	Move_Backward	(forwardTimeI, g_AccurateMotorPower);
 
 	//Turn_Left(g_TurnTimeA, 100, 100);
 	//Move_Forward(g_ForwardTimeA, 100);
