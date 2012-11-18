@@ -62,11 +62,19 @@ task main()
 
 	waitForStart();
 
+	// The amount of time the robot...
+
+	// ...drives forward a bit.
 	const int forwardTimeA	= 70;
+	// .. turns 90 deg (to be parallel to the wall).
 	const int turnTimeB		= 80;
+	// ...moves forward (lined up with a dispenser).
 	const int forwardTimeC	= 130;
+	// ...turns 90 deg (to be facing the dispenser).
 	const int turnTimeD		= 85;
+	// ...drives up to the dispenser.
 	const int forwardTimeE	= 30;
+	// ...lifts the claw up slightly because it CAN.
 	const int liftTimeF		= 20;
 
 	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
