@@ -38,16 +38,24 @@ void initializeRobot()
 
 	Servo_SetSpeed(servo_IR, 10);	// maximum speed!
 	Servo_SetSpeed(servo_claw, 10);	// maximum speed!
+	Servo_SetSpeed(servo_ramp, 10);	// maximum speed!
 
 	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
+	Servo_Rotate(servo_ramp, g_rampServoDefault);	// stop ramp from deploying
 
 
 	Motor_SetMaxSpeed(g_FullMotorPower);
 
+	Motor_ResetEncoder(motor_L);
+	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
 	nMotorEncoder[motor_lift] = 0;
+
+
+	//HTIRS2setDSPMode(infrared, g_IRsensorMode);
+
 
 	Time_Wait(10);
 
@@ -60,19 +68,74 @@ task main()
 {
 	initializeRobot();
 
+	//// These will be used later and are declared here to save from having to
+	//// declare them every single loop.
+	//int IRdirA = 0;
+	//int IRdirB = 0;
+	//int IRdirC = 0;
+	//int IRdirD = 0;
+	//int IRdirE = 0;
+
+
+
 	waitForStart();
 
-	const int forwardTimeA = 100;
-	const int leftTimeB = 50;
-	const int forwardTimeC = 100;
-	const int leftTimeD = 50;
-	const int forwardTimeE = 50;
-	const int liftTimeF = 20;
+
+
+	// The amount of time the robot...
+
+	// ...moves forward at an angle.
+	const int forwardTimeA	= 150;
+	// ...turns to line up perpendicular to the center rack.
+	const int turnTimeB		= 40;
+	// ...drives up to the peg before lifting the lift up.
+	const int forwardTimeC	= 155;
+	// ...lifts the claw to put a ring on.
+	const int liftTimeF		= 65;
+	// ...moves forward, putting the ring onto the peg
+	const int forwardTimeG	= 65;
+	// ...lowers its lift to get rid of the ring.
+	const int liftTimeH		= 53;
+	// ...backs up and gets ready to go to a dispenser.
+	const int backwardTimeI	= 200;
 
 	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
-	Turn_Left		(leftTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	Turn_Right		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
-	Turn_Left		(leftTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeE, g_AccurateMotorPower);
 	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeG, g_AccurateMotorPower);
+	Lift_Lift		(liftTimeH, (-1) * g_AccurateMotorPower);
+	Move_Backward	(backwardTimeI, g_AccurateMotorPower);
+
+	//Turn_Left(g_TurnTimeA, 100, 100);
+	//Move_Forward(g_ForwardTimeA, 100);
+	//Time_Wait(50);
+
+	////HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+
+	//if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+	//{
+	//	Turn_Left(g_TurnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	//	Move_Forward(g_ForwardTimeB, g_AccurateMotorPower);
+	//	Lift_Lift(g_LiftTimeB, g_AccurateMotorPower);
+	//}
+	//else
+	//{
+	//	Move_Forward(g_ForwardTimeC, g_AccurateMotorPower);
+	//	Time_Wait(50);
+	//	//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+	//	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+	//	{
+	//		Turn_Left(g_TurnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+	//		Move_Forward(g_ForwardTimeD, g_AccurateMotorPower);
+	//		Lift_Lift(g_LiftTimeD, g_AccurateMotorPower);
+	//	}
+	//	else
+	//	{
+	//		Move_Forward(g_ForwardTimeE, g_AccurateMotorPower);
+	//		Turn_Left(g_TurnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
+	//		Move_Forward(g_ForwardTimeF, g_AccurateMotorPower);
+	//		Lift_Lift(g_LiftTimeF, g_AccurateMotorPower);
+	//	}
+	//}
 }

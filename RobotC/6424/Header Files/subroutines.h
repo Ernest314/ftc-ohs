@@ -113,13 +113,6 @@ task sub_WeighRings()
 }
 
 
-task sub_DeployRamp()
-{
-	Servo_Rotate(servo_ramp, g_rampServoDeployed);
-	EndTimeSlice();
-}
-
-
 task sub_MOO()
 {
 	PlaySoundFile("moo.rso");

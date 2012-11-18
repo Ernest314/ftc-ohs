@@ -39,18 +39,17 @@ void initializeRobot()
 	Servo_SetSpeed(servo_IR, 10);	// maximum speed!
 	Servo_SetSpeed(servo_claw, 10);	// maximum speed!
 
-	Servo_Rotate(servo_IR, g_IRServoDefault);		// fold back up after start of tele-op
+	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
 
 
 	Motor_SetMaxSpeed(g_FullMotorPower);
 
-	Motor_ResetEncoder(motor_L);
-	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
+	nMotorEncoder[motor_lift] = 0;
 
-	Time_Wait(100);
+	Time_Wait(10);
 
 	return;
 }
@@ -61,8 +60,27 @@ task main()
 {
 	initializeRobot();
 
-	// These will be used later and are declared here to save from having to
-	// declare them every single loop.
-
 	waitForStart();
+
+	// The amount of time the robot...
+
+	// ...drives forward a bit.
+	const int forwardTimeA	= 70;
+	// .. turns 90 deg (to be parallel to the wall).
+	const int turnTimeB		= 80;
+	// ...moves forward (lined up with a dispenser).
+	const int forwardTimeC	= 130;
+	// ...turns 90 deg (to be facing the dispenser).
+	const int turnTimeD		= 85;
+	// ...drives up to the dispenser.
+	const int forwardTimeE	= 30;
+	// ...lifts the claw up slightly because it CAN.
+	const int liftTimeF		= 20;
+
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	Turn_Right		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
+	Turn_Right		(turnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeE, g_AccurateMotorPower);
+	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
 }
