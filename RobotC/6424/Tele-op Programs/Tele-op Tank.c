@@ -1,10 +1,9 @@
 #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     infrared,       sensorHiTechnicIRSeeker1200)
 #pragma config(Sensor, S3,     weight,         sensorHiTechnicTouchMux)
 #pragma config(Sensor, S4,     touch,          sensorTouch)
 #pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop, reversed)
-#pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
+#pragma config(Motor,  motorB,          motor_pancake, tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
@@ -49,8 +48,6 @@ void initializeRobot()
 	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
-	nMotorEncoder[motor_lift] = 0;
-
 
 	Time_Wait(100);
 
@@ -70,9 +67,13 @@ task main()
 	int powerLift = 0;
 	int powerLiftB = 0;
 	int powerPopcorn = 0;
+	int powerPancake = 0;
+
 
 
 	waitForStart();
+
+
 
 	while (true)
 	{
@@ -85,13 +86,21 @@ task main()
 		powerPopcorn = 0;
 		if ( Joystick_Button(BUTTON_B, CONTROLLER_2)==true )
 		{
-			powerPopcorn = g_FullMotorPower;
+			powerPopcorn = g_FullMotorPower*(abs(powerL)+abs(powerR))/2;
 		}
 		else if ( Joystick_Button(BUTTON_A, CONTROLLER_2)==true )
 		{
-			powerPopcorn = g_FullMotorPower*0.75;
+			powerPopcorn = g_FullMotorPower*(abs(powerL)+abs(powerR))/2*0.75;
 		}
 		Motor_SetPower(motor_popcorn, powerPopcorn);
+
+		// PANCAKE!!! (This only comes second because John built it second.)
+		powerPancake = 0;
+		if ( Joystick_Button(BUTTON_Y, CONTROLLER_2)==true )
+		{
+			powerPancake = g_FullMotorPower;
+		}
+		Motor_SetPower(motor_pancake, powerPancake);
 
 
 
@@ -107,12 +116,12 @@ task main()
 				// Operate lift at full power if F/B.
 				case DIRECTION_F:
 					Motor_SetPower(motor_lift, 100);
-					Time_Wait(10);
+					Time_Wait(5);
 					Motor_Stop(motor_lift);
 					break;
 				case DIRECTION_B:
 					Motor_SetPower(motor_lift, -100);
-					Time_Wait(10);
+					Time_Wait(5);
 					Motor_Stop(motor_lift);
 					break;
 
@@ -142,21 +151,25 @@ task main()
 		// Directly using the struct since this is the only possible time to
 		// use it, and this is very low-level anyways.
 
+		//if ( joystick.joy1_Buttons != false )
 		//if ( (g_ControllerMaskA & joystick.joy1_Buttons) != false )
 		{
 
 			// Buttons Y/B/A will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
-				StartTask(sub_LiftToTop);
+				sub_LiftToTopB();
+				//StartTask(sub_LiftToTopB);
 			}
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
-				StartTask(sub_LiftToMiddle);
+				sub_LiftToMiddleB();
+				//StartTask(sub_LiftToMiddleB);
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
-				StartTask(sub_LiftToBottom);
+				sub_LiftToBottomB();
+				//StartTask(sub_LiftToBottomB);
 			}
 
 			// If only X is pressed, weigh the ring.
@@ -165,7 +178,7 @@ task main()
 			{
 				if ( Joystick_Button(BUTTON_JOYR) == true )
 				{
-					StartTask(sub_DeployRamp);
+					Servo_Rotate(servo_ramp, g_rampServoDeployed);
 				}
 				else
 				{
@@ -177,13 +190,13 @@ task main()
 			if ( Joystick_Button(BUTTON_RT)==true )
 			{
 				Motor_SetPower(motor_lift, 100/g_FineTuneFactor);
-				Time_Wait(10);
+				Time_Wait(5);
 				Motor_Stop(motor_lift);
 			}
 			if ( Joystick_Button(BUTTON_LT)==true )
 			{
 				Motor_SetPower(motor_lift, -100/g_FineTuneFactor);
-				Time_Wait(10);
+				Time_Wait(5);
 				Motor_Stop(motor_lift);
 			}
 		}
@@ -247,6 +260,7 @@ task main()
 
 		// CONTROLLER_2 is only tested for button X (currently).
 
+		//if ( joystick.joy2_Buttons != false )
 		//if ( (g_ControllerMaskB & joystick.joy2_Buttons) != false )
 		{
 

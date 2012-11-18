@@ -36,8 +36,8 @@ void initializeRobot()
 	// Also add any settings that need to be set (other than global
 	// variables), such as max PID speed, servo update rate, etc.
 
-	Servo_SetSpeed(servo_IR, 0);	// maximum speed!
-	Servo_SetSpeed(servo_claw, 0);	// maximum speed!
+	Servo_SetSpeed(servo_IR, 10);	// maximum speed!
+	Servo_SetSpeed(servo_claw, 10);	// maximum speed!
 
 	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
@@ -45,15 +45,9 @@ void initializeRobot()
 
 	Motor_SetMaxSpeed(g_FullMotorPower);
 
-	Motor_ResetEncoder(motor_L);
-	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
 	nMotorEncoder[motor_lift] = 0;
-
-
-	//HTIRS2setDSPMode(infrared, g_IRsensorMode);
-
 
 	Time_Wait(10);
 
@@ -66,48 +60,27 @@ task main()
 {
 	initializeRobot();
 
-	// These will be used later and are declared here to save from having to
-	// declare them every single loop.
-	int IRdirA = 0;
-	int IRdirB = 0;
-	int IRdirC = 0;
-	int IRdirD = 0;
-	int IRdirE = 0;
-
-
-
 	waitForStart();
 
+	// The amount of time the robot...
 
+	// ...drives forward a bit.
+	const int forwardTimeA	= 70;
+	// .. turns 90 deg (to be parallel to the wall).
+	const int turnTimeB		= 80;
+	// ...moves forward (lined up with a dispenser).
+	const int forwardTimeC	= 130;
+	// ...turns 90 deg (to be facing the dispenser).
+	const int turnTimeD		= 85;
+	// ...drives up to the dispenser.
+	const int forwardTimeE	= 30;
+	// ...lifts the claw up slightly because it CAN.
+	const int liftTimeF		= 20;
 
-	Move_Forward(g_ForwardTimeA, 100);
-	Time_Wait(50);
-
-	//HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-
-	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
-	{
-		Turn_Right(g_RightTimeB, 100, 100);
-		Move_Forward(g_ForwardTimeB, 100);
-		Lift_Lift(g_LiftTimeB, 50);
-	}
-	else
-	{
-		Move_Forward(g_ForwardTimeC, 100);
-		Time_Wait(50);
-		//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
-		{
-			Turn_Right(g_RightTimeD, 100, 100);
-			Move_Forward(g_ForwardTimeD, 100);
-			Lift_Lift(g_LiftTimeD, 50);
-		}
-		else
-		{
-			Move_Forward(g_ForwardTimeE, 80);
-			Turn_Right(g_RightTimeF, 100, 100);
-			Move_Forward(g_ForwardTimeF, 100);
-			Lift_Lift(g_LiftTimeF, 50);
-		}
-	}
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
+	Turn_Left		(turnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeE, g_AccurateMotorPower);
+	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
 }

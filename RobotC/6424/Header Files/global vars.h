@@ -10,34 +10,21 @@ const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
 const int g_IRthreshold = 10;
 
 
-// The amount of forward driving time (segment A).
-const int g_ForwardTimeA = 150;
-
-// The amount of turning to the right (segment A).
-const int g_RightTimeB = 90;
-// Bleh.
+// The amount of motor movement time for the different sections of the
+// autonomous period. For an explanation of the segment names, see our
+// diagram in our engineering notebook (segments may be offset).
+const int g_TurnTimeA = 40;
+const int g_ForwardTimeA = 200;
+const int g_TurnTimeB = 90;
 const int g_ForwardTimeB = 120;
-// Bleh.
 const int g_LiftTimeB = 200;
-
-// Bleh.
 const int g_ForwardTimeC = 100;
-
-// Bleh.
-const int g_RightTimeD = 90;
-// Bleh.
+const int g_TurnTimeD = 90;
 const int g_ForwardTimeD = 120;
-// Bleh.
 const int g_LiftTimeD = 200;
-
-// Bleh.
 const int g_ForwardTimeE = 100;
-
-// Bleh.
-const int g_RightTimeF = 90;
-// Bleh.
+const int g_TurnTimeF = 90;
 const int g_ForwardTimeF = 120;
-// Bleh.
 const int g_LiftTimeF = 200;
 
 
@@ -46,8 +33,8 @@ const int g_IRServoDefault = 0;
 const int g_IRServoExtended = 220;
 const int g_clawServoDefault = 100;
 const int g_clawServoExtended = 250;
-// No "default" position is provided for fear of deployment.
-const int g_rampServoDeployed = 0;	// TODO!!
+const int g_rampServoDefault = 185;
+const int g_rampServoDeployed = 172;
 
 
 // The threshold for joystick values to count (eliminates humming).
@@ -62,12 +49,21 @@ const int g_FineTuneFactor = 4;
 // The full speed the motors should be PID-regulated at.
 const int g_FullMotorPower = 80;
 
+// The speed motors should ve PID-regulated at for the autonomous period,
+// since the movement needs to be much more accurate.
+const int g_AccurateMotorPower = 65;
+
+
+// Threshold for encoder target thingy.
+const int g_LiftAccuracyRough = 50;
+const int g_LiftAccuracyFine = 5;
+
 
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
-const int g_TopLiftAngle = 300;		//TODO
-const int g_MiddleLiftAngle = 200;	//TODO
-const int g_BottomLiftAngle = 100;	//TODO
+const int g_TopLiftAngle = 5000;		//TODO
+const int g_MiddleLiftAngle = 2000;	//TODO
+const int g_BottomLiftAngle = 1000;	//TODO
 
 
 // (CONTROLLER_1):
