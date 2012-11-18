@@ -42,7 +42,7 @@ void Turn_Left(int time, int steerL, int steerR)
 
 void Lift_Lift(int time, int power)
 {
-	Motor_Forward(motor_lift, power);
+	Motor_Forward(motor_lift, (-1) * power);
 	Time_Wait(time);
 	Motor_Stop(motor_lift);
 }

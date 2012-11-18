@@ -82,34 +82,51 @@ task main()
 
 
 
-	Move_Forward(g_ForwardTimeA, 100);
-	Time_Wait(50);
+	int forwardA = 150;
+	int turnB = 40;
+	int forwardC = 155;
+	int liftF = 65;
+	int forwardG = 65;
+	int liftH = 53;
+	int forwardI = 200;
 
-	//HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+	Move_Forward(forwardA, g_AccurateMotorPower);
+	Turn_Left(turnB, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward(forwardC, g_AccurateMotorPower);
+	Lift_Lift(liftF, g_AccurateMotorPower);
+	Move_Forward(forwardG, g_AccurateMotorPower);
+	Lift_Lift(liftH, (-1) * g_AccurateMotorPower);
+	Move_Backward(forwardI, g_AccurateMotorPower);
 
-	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
-	{
-		Turn_Right(g_RightTimeB, 100, 100);
-		Move_Forward(g_ForwardTimeB, 100);
-		Lift_Lift(g_LiftTimeB, 50);
-	}
-	else
-	{
-		Move_Forward(g_ForwardTimeC, 100);
-		Time_Wait(50);
-		//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
-		{
-			Turn_Right(g_RightTimeD, 100, 100);
-			Move_Forward(g_ForwardTimeD, 100);
-			Lift_Lift(g_LiftTimeD, 50);
-		}
-		else
-		{
-			Move_Forward(g_ForwardTimeE, 80);
-			Turn_Right(g_RightTimeF, 100, 100);
-			Move_Forward(g_ForwardTimeF, 100);
-			Lift_Lift(g_LiftTimeF, 50);
-		}
-	}
+	//Turn_Left(g_TurnTimeA, 100, 100);
+	//Move_Forward(g_ForwardTimeA, 100);
+	//Time_Wait(50);
+
+	////HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+
+	//if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+	//{
+	//	Turn_Left(g_TurnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	//	Move_Forward(g_ForwardTimeB, g_AccurateMotorPower);
+	//	Lift_Lift(g_LiftTimeB, g_AccurateMotorPower);
+	//}
+	//else
+	//{
+	//	Move_Forward(g_ForwardTimeC, g_AccurateMotorPower);
+	//	Time_Wait(50);
+	//	//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+	//	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+	//	{
+	//		Turn_Left(g_TurnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+	//		Move_Forward(g_ForwardTimeD, g_AccurateMotorPower);
+	//		Lift_Lift(g_LiftTimeD, g_AccurateMotorPower);
+	//	}
+	//	else
+	//	{
+	//		Move_Forward(g_ForwardTimeE, g_AccurateMotorPower);
+	//		Turn_Left(g_TurnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
+	//		Move_Forward(g_ForwardTimeF, g_AccurateMotorPower);
+	//		Lift_Lift(g_LiftTimeF, g_AccurateMotorPower);
+	//	}
+	//}
 }

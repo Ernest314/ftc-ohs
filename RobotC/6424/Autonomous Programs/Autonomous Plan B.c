@@ -62,17 +62,17 @@ task main()
 
 	waitForStart();
 
-	const int forwardTimeA = 100;
-	const int leftTimeB = 50;
-	const int forwardTimeC = 100;
-	const int leftTimeD = 50;
-	const int forwardTimeE = 50;
+	const int forwardTimeA = 70;
+	const int turnTimeB = 80;
+	const int forwardTimeC = 130;
+	const int turnTimeD = 85;
+	const int forwardTimeE = 30;
 	const int liftTimeF = 20;
 
 	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
-	Turn_Left		(leftTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
-	Turn_Left		(leftTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+	Turn_Left		(turnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeE, g_AccurateMotorPower);
 	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
 }

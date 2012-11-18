@@ -13,17 +13,17 @@ const int g_IRthreshold = 10;
 // The amount of motor movement time for the different sections of the
 // autonomous period. For an explanation of the segment names, see our
 // diagram in our engineering notebook (segments may be offset).
-const int g_RightTimeA = 40;
+const int g_TurnTimeA = 40;
 const int g_ForwardTimeA = 200;
-const int g_RightTimeB = 90;
+const int g_TurnTimeB = 90;
 const int g_ForwardTimeB = 120;
 const int g_LiftTimeB = 200;
 const int g_ForwardTimeC = 100;
-const int g_RightTimeD = 90;
+const int g_TurnTimeD = 90;
 const int g_ForwardTimeD = 120;
 const int g_LiftTimeD = 200;
 const int g_ForwardTimeE = 100;
-const int g_RightTimeF = 90;
+const int g_TurnTimeF = 90;
 const int g_ForwardTimeF = 120;
 const int g_LiftTimeF = 200;
 
