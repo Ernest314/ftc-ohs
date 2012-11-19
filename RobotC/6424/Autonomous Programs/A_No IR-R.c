@@ -66,7 +66,7 @@ void initializeRobot()
 
 task main()
 {
-	initializeRobot();
+
 
 	//// These will be used later and are declared here to save from having to
 	//// declare them every single loop.
@@ -80,7 +80,7 @@ task main()
 
 	waitForStart();
 
-
+	initializeRobot();
 
 	// The amount of time the robot...
 
@@ -91,7 +91,7 @@ task main()
 	// ...drives up to the peg before lifting the lift up.
 	const int forwardTimeC	= 155;
 	// ...lifts the claw to put a ring on.
-	const int liftTimeF		= 65;
+	const int liftTimeF		= 79;
 	// ...moves forward, putting the ring onto the peg
 	const int forwardTimeG	= 65;
 	// ...lowers its lift to get rid of the ring.

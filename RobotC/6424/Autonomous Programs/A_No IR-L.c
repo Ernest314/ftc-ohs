@@ -66,7 +66,7 @@ void initializeRobot()
 
 task main()
 {
-	initializeRobot();
+
 
 	//// These will be used later and are declared here to save from having to
 	//// declare them every single loop.
@@ -80,6 +80,8 @@ task main()
 
 	waitForStart();
 
+	initializeRobot();
+
 
 
 	// The amount of time the robot...
@@ -91,22 +93,25 @@ task main()
 	// ...drives up to the peg before lifting the lift up.
 	const int forwardTimeC	= 155;
 	// ...lifts the claw to put a ring on.
-	const int liftTimeF		= 65;
+	const int liftTimeF		= 79;
 	// ...moves forward, putting the ring onto the peg
 	const int forwardTimeG	= 65;
 	// ...lowers its lift to get rid of the ring.
-	const int liftTimeH		= 53;
+	const int liftTimeH		= 55;
 	// ...backs up and gets ready to go to a dispenser.
-	const int backwardTimeI	= 200;
+	const int backwardTimeI	= 300;
 
 	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
 	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
 	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeG, g_AccurateMotorPower);
+	StartTask(sub_MOO);
 	// Lift power is negative so that the lift goes DOWN, not UP.
 	Lift_Lift		(liftTimeH, (-1) * g_AccurateMotorPower);
 	Move_Backward	(backwardTimeI, g_AccurateMotorPower);
+	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+
 
 	//Turn_Left(g_TurnTimeA, 100, 100);
 	//Move_Forward(g_ForwardTimeA, 100);
