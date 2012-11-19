@@ -106,11 +106,16 @@ task main()
 	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
 	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeG, g_AccurateMotorPower);
-	StartTask(sub_MOO);
+
 	// Lift power is negative so that the lift goes DOWN, not UP.
 	Lift_Lift		(liftTimeH, (-1) * g_AccurateMotorPower);
 	Move_Backward	(backwardTimeI, g_AccurateMotorPower);
 	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+
+	PlaySoundFile("moo.rso");
+	while(bSoundActive == true)
+	{
+	}
 
 
 	//Turn_Left(g_TurnTimeA, 100, 100);
