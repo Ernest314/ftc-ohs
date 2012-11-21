@@ -69,6 +69,8 @@ task main()
 	int powerPopcorn = 0;
 	int powerPancake = 0;
 
+	Servo_Rotate(servo_claw, g_clawServoDefault);
+
 
 
 	waitForStart();
