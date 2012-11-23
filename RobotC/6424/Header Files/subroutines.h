@@ -140,7 +140,7 @@ void sub_LiftToTopB()
 			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
 			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
 			{
-				Time_Wait(0.1);
+				//Time_Wait(0.1);
 				//EndTimeSlice();
 			}
 		}
@@ -149,7 +149,7 @@ void sub_LiftToTopB()
 			Motor_SetPower(motor_lift, g_FullMotorPower);
 			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
 			{
-				Time_Wait(0.1);
+				//Time_Wait(0.1);
 				//EndTimeSlice();
 			}
 		}
@@ -162,7 +162,7 @@ void sub_LiftToTopB()
 			Motor_SetPower(motor_lift, -1*g_FullMotorPower/g_FineTuneFactor);
 			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
 			{
-				Time_Wait(0.1);
+				//Time_Wait(0.1);
 				//EndTimeSlice();
 			}
 		}
@@ -171,7 +171,7 @@ void sub_LiftToTopB()
 			Motor_SetPower(motor_lift, g_FullMotorPower/g_FineTuneFactor);
 			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
 			{
-				Time_Wait(0.1);
+				//Time_Wait(0.1);
 				//EndTimeSlice();
 			}
 		}
