@@ -42,7 +42,7 @@ void initializeRobot()
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
 
 
-	Motor_SetMaxSpeed(g_FullMotorPower);
+	Motor_SetMaxSpeed(g_FullRegulatedPower);
 
 	Motor_ResetEncoder(motor_L);
 	Motor_ResetEncoder(motor_R);
@@ -65,7 +65,6 @@ task main()
 	int powerL = 0;
 	int powerR = 0;
 	int powerLift = 0;
-	int powerLiftB = 0;
 	int powerPopcorn = 0;
 	int powerPancake = 0;
 
@@ -110,6 +109,26 @@ task main()
 		// This is inside an `if` statement to optimize speed (less checking).
 		// `JoystickController` arguments are not passed to increase speed.
 
+		// Input from CONTROLLER_2 will be used to control the lift in
+		// conjunction with CONTROLLER_1, but shouldn't override the driver,
+		// since driver #1's input is processed last.
+
+		powerLift = 0;
+
+		// This is the code for CONTROLLER_2:
+		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
+		{
+			powerLift = Math_ToLogarithmic(joystick.joy2_y1);
+		}
+
+		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
+				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
+		{
+			powerLift /= g_FineTuneFactor;
+		}
+
+		// This is the code for CONTROLLER_1, along with two unimplemented
+		// functions for putting rings on and taking rings off.
 		if ( Joystick_Direction() != DIRECTION_NONE )
 		{
 			switch ( Joystick_Direction() )
@@ -117,14 +136,10 @@ task main()
 
 				// Operate lift at full power if F/B.
 				case DIRECTION_F:
-					Motor_SetPower(motor_lift, 100);
-					Time_Wait(5);
-					Motor_Stop(motor_lift);
+					powerLift = g_FullLiftPower;
 					break;
 				case DIRECTION_B:
-					Motor_SetPower(motor_lift, -100);
-					Time_Wait(5);
-					Motor_Stop(motor_lift);
+					powerLift = (-1)*g_FullLiftPower;
 					break;
 
 				case DIRECTION_L:
@@ -135,6 +150,8 @@ task main()
 					break;
 			}
 		}
+
+		Motor_SetPower(motor_lift, powerLift);
 
 
 
@@ -234,26 +251,6 @@ task main()
 
 		Motor_SetPower(motor_L, powerL);
 		Motor_SetPower(motor_R, powerR);
-
-
-
-		// Input from CONTROLLER_2 will be used to control the lift in
-		// conjunction with CONTROLLER_1, but shouldn't override the driver.
-
-		powerLiftB = 0;
-
-		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
-		{
-			powerLiftB = Math_ToLogarithmic(joystick.joy2_y1);
-		}
-
-		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
-				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
-		{
-			powerLiftB /= g_FineTuneFactor;
-		}
-
-		Motor_SetPower(motor_lift, powerLiftB);
 
 
 
