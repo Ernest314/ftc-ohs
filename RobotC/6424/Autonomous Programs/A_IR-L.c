@@ -32,6 +32,10 @@ void initializeRobot()
 {
 	// Sensors are config'ed and setup by RobotC (need to stabalize).
 
+	// The IR sensor needs this command (it seems like RobotC doesn't
+	// initialize third-party sensors automatically.
+	HTIRS2setDSPMode(infrared, g_IRsensorMode);
+
 	Servo_SetSpeed(servo_IR, 10);		// maximum speed!
 	Servo_SetSpeed(servo_claw, 10);		// maximum speed!
 	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
