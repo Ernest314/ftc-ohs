@@ -132,7 +132,7 @@ task main()
 					break;
 
 				case DIRECTION_L:
-					StartTask(sub_PutRingOn);
+					sub_PutRingOn();
 					break;
 				case DIRECTION_R:
 					StartTask(sub_TakeRingOff);

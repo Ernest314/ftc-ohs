@@ -3,10 +3,10 @@
 
 
 
-task sub_PutRingOn()
+void sub_PutRingOn()
 {
-	//do stuff
-	EndTimeSlice();
+	Move_Forward(g_PutRingOnTime, g_FullDrivePower);
+	Lift_Down(50, g_FullLiftPower);
 }
 
 

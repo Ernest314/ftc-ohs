@@ -10,6 +10,9 @@ const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
 const int g_IRthreshold = 10;
 
 
+// Time to drive forward to put a ring on.
+const int g_PutRingOnTime = 10;
+
 // The various positions of the various servos.
 const int g_IRServoLowered		= 0;
 const int g_IRServoExtended		= 220;
@@ -43,14 +46,14 @@ const int g_AccurateMotorPower = 65;
 
 
 // Threshold for encoder target thingy.
-const int g_LiftAccuracyRough = 50;
-const int g_LiftAccuracyFine = 5;
+const int g_LiftAccuracyRough = 75;
+const int g_LiftAccuracyFine = 10;
 
 
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
-const int g_TopLiftAngle = 6 *1000;		//TODO
-const int g_MiddleLiftAngle = 5 *1000;	//TODO
+const int g_TopLiftAngle = 5 *1000;		//TODO
+const int g_MiddleLiftAngle = 4 *1000;	//TODO
 const int g_BottomLiftAngle = 3 *1000;	//TODO
 
 
