@@ -123,4 +123,15 @@ task main()
 			Lift_Lift		(liftTimeF, g_AccurateMotorPower);
 		}
 	}
+
+
+
+	while (true)
+	{
+		PlaySoundFile("moo.rso");
+		while(bSoundActive == true)
+		{
+			Time_Wait(1);
+		}
+	}
 }

@@ -75,9 +75,9 @@ task main()
 	const int turnTimeB		= 40;
 	// ...drives up to the peg before lifting the lift up.
 	const int forwardTimeC	= 155;
-	// ...lifts the claw to put a ring on.
+	// ...lifts the claw to put a ring on (row 2).
 	const int liftTimeF		= 79;
-	// ...moves forward, putting the ring onto the peg
+	// ...moves forward, putting the ring onto the peg.
 	const int forwardTimeG	= 65;
 	// ...lowers its lift to get rid of the ring.
 	const int liftTimeH		= 55;
@@ -105,9 +105,9 @@ task main()
 	Move_Backward	(backwardTimeI, g_AccurateMotorPower);
 
 	// Turn power doesn't need to be negative (turns in-place).
-	Turn_Left		(turnTimeJ, g_AccurateMotorPower, g_AccurateMotorPower);
+	Turn_Right		(turnTimeJ, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeK, g_AccurateMotorPower);
-	Turn_Left		(turnTimeL, g_AccurateMotorPower, g_AccurateMotorPower);
+	Turn_Right		(turnTimeL, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeM, g_AccurateMotorPower);
 
 
@@ -116,6 +116,7 @@ task main()
 		PlaySoundFile("moo.rso");
 		while(bSoundActive == true)
 		{
+			Time_Wait(1);
 		}
 	}
 
