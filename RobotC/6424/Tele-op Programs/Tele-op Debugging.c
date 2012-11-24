@@ -43,7 +43,7 @@ void initializeRobot()
 	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
 
 
-	Motor_SetMaxSpeed(g_FullMotorPower);
+	Motor_SetMaxSpeed(g_FullDrivePower);
 
 	Motor_ResetEncoder(motor_L);
 	Motor_ResetEncoder(motor_R);
@@ -61,8 +61,7 @@ task main()
 {
 	initializeRobot();
 
-	// These will be used later and are declared here to save from having to
-	// declare them every single loop.
+
 
 	waitForStart();
 }
