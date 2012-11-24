@@ -30,32 +30,28 @@
 
 void initializeRobot()
 {
-	// Place code here to init servos to starting positions.
 	// Sensors are config'ed and setup by RobotC (need to stabalize).
-	// Also add any settings that need to be set (other than global
-	// variables), such as max PID speed, servo update rate, etc.
 
-	Servo_SetSpeed(servo_IR, 10);	// maximum speed!
-	Servo_SetSpeed(servo_claw, 10);	// maximum speed!
-	Servo_SetSpeed(servo_ramp, 10);	// maximum speed!
+	Servo_SetSpeed(servo_IR, 10);		// maximum speed!
+	Servo_SetSpeed(servo_claw, 10);		// maximum speed!
+	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
 
-	Servo_Rotate(servo_IR, g_IRServoExtended);		// fold back up after start of tele-op
-	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
-	Servo_Rotate(servo_ramp, g_rampServoDefault);	// stop ramp from deploying
+	Servo_Rotate(servo_IR, g_IRServoExtended);		// will fold back up in tele-op
+	Servo_Rotate(servo_claw, g_clawServoExtended);	// will be folded in tele-op
+	Servo_Rotate(servo_ramp, g_rampServoDefault);	// stops ramp from deploying
 
-
-	Motor_SetMaxSpeed(g_FullDrivePower);
+	Motor_SetMaxSpeed(g_FullRegulatedPower);
 
 	Motor_ResetEncoder(motor_L);
 	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
-	nMotorEncoder[motor_lift] = 0;
-
-
-	HTIRS2setDSPMode(infrared, g_IRsensorMode);
-
-
+	// Wait this long so the claw & IR servos get to update.
+	// The ramp-release servo shouldn't move; the long update time
+	// is to prevent sudden jerks that might release the ramp.
+	// We don't need to wait for the IR sensor to stabalize since
+	// the robot doesn't read from it until it's at the first column,
+	// which should be ample time for RobotC to setup the sensor.
 	Time_Wait(10);
 
 	return;
@@ -65,6 +61,7 @@ void initializeRobot()
 
 task main()
 {
+	// The IR signal strengh in all 5 directions.
 	int IRdirA = 0;
 	int IRdirB = 0;
 	int IRdirC = 0;

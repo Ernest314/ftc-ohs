@@ -10,13 +10,14 @@ const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
 const int g_IRthreshold = 10;
 
 
-// The position the IR servo needs to be in (180 deg)
-const int g_IRServoDefault = 0;
-const int g_IRServoExtended = 220;
-const int g_clawServoDefault = 100;
-const int g_clawServoExtended = 250;
-const int g_rampServoDefault = 185;
-const int g_rampServoDeployed = 172;
+// The various positions of the various servos.
+const int g_IRServoLowered		= 0;
+const int g_IRServoExtended		= 220;
+const int g_clawServoDefault	= 100;
+const int g_clawServoExtended	= 250;
+const int g_clawServoFolded		= 230;	// (just a guess)
+const int g_rampServoDefault	= 0;	// TODO!
+const int g_rampServoDeployed	= 0;	// TODO!
 
 
 // The threshold for joystick values to count (eliminates humming).
