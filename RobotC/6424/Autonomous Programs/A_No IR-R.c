@@ -45,7 +45,7 @@ void initializeRobot()
 	Servo_Rotate(servo_ramp, g_rampServoDefault);	// stop ramp from deploying
 
 
-	Motor_SetMaxSpeed(g_FullMotorPower);
+	Motor_SetMaxSpeed(g_FullDrivePower);
 
 	Motor_ResetEncoder(motor_L);
 	Motor_ResetEncoder(motor_R);

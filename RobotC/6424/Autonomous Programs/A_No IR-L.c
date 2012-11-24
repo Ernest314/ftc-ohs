@@ -1,6 +1,5 @@
 #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Sensor, S2,     infrared,       sensorHiTechnicIRSeeker1200)
+#pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     weight,         sensorHiTechnicTouchMux)
 #pragma config(Sensor, S4,     touch,          sensorTouch)
 #pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop, reversed)
@@ -45,7 +44,7 @@ void initializeRobot()
 	Servo_Rotate(servo_ramp, g_rampServoDefault);	// stop ramp from deploying
 
 
-	Motor_SetMaxSpeed(g_FullMotorPower);
+	Motor_SetMaxSpeed(g_FullDrivePower);
 
 	Motor_ResetEncoder(motor_L);
 	Motor_ResetEncoder(motor_R);
@@ -54,7 +53,7 @@ void initializeRobot()
 	nMotorEncoder[motor_lift] = 0;
 
 
-	//HTIRS2setDSPMode(infrared, g_IRsensorMode);
+	HTIRS2setDSPMode(infrared, g_IRsensorMode);
 
 
 	Time_Wait(10);
@@ -68,13 +67,13 @@ task main()
 {
 
 
-	//// These will be used later and are declared here to save from having to
-	//// declare them every single loop.
-	//int IRdirA = 0;
-	//int IRdirB = 0;
-	//int IRdirC = 0;
-	//int IRdirD = 0;
-	//int IRdirE = 0;
+	// These will be used later and are declared here to save from having to
+	// declare them every single loop.
+	int IRdirA = 0;
+	int IRdirB = 0;
+	int IRdirC = 0;
+	int IRdirD = 0;
+	int IRdirE = 0;
 
 
 
@@ -84,69 +83,86 @@ task main()
 
 
 
+	//// The amount of time the robot...
+
+	//// ...moves forward at an angle.
+	//const int forwardTimeA	= 150;
+	//// ...turns to line up perpendicular to the center rack.
+	//const int turnTimeB		= 40;
+	//// ...drives up to the peg before lifting the lift up.
+	//const int forwardTimeC	= 155;
+	//// ...lifts the claw to put a ring on.
+	//const int liftTimeF		= 79;
+	//// ...moves forward, putting the ring onto the peg
+	//const int forwardTimeG	= 65;
+	//// ...lowers its lift to get rid of the ring.
+	//const int liftTimeH		= 55;
+	//// ...backs up and gets ready to go to a dispenser.
+	//const int backwardTimeI	= 300;
+
+	//Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	//Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	//Move_Forward	(forwardTimeC, g_AccurateMotorPower);
+	//Lift_Lift		(liftTimeF, g_AccurateMotorPower);
+	//Move_Forward	(forwardTimeG, g_AccurateMotorPower);
+
+	//// Lift power is negative so that the lift goes DOWN, not UP.
+	//Lift_Lift		(liftTimeH, (-1) * g_AccurateMotorPower);
+	//Move_Backward	(backwardTimeI, g_AccurateMotorPower);
+	//Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+
+	//PlaySoundFile("moo.rso");
+	//while(bSoundActive == true)
+	//{
+	//}
+
+
+
 	// The amount of time the robot...
+	const int turnTimeA = 40;
+	const int forwardTimeA = 50;
+	const int turnTimeB = 80;
+	const int forwardTimeB = 30;
+	const int liftTimeB = 60;
+	const int forwardTimeC = 50;
+	const int turnTimeD = 80;
+	const int forwardTimeD = 30;
+	const int liftTimeD = 60;
+	const int forwardTimeE = 50;
+	const int turnTimeF = 80;
+	const int forwardTimeF = 30;
+	const int liftTimeF = 60;
 
-	// ...moves forward at an angle.
-	const int forwardTimeA	= 150;
-	// ...turns to line up perpendicular to the center rack.
-	const int turnTimeB		= 40;
-	// ...drives up to the peg before lifting the lift up.
-	const int forwardTimeC	= 155;
-	// ...lifts the claw to put a ring on.
-	const int liftTimeF		= 79;
-	// ...moves forward, putting the ring onto the peg
-	const int forwardTimeG	= 65;
-	// ...lowers its lift to get rid of the ring.
-	const int liftTimeH		= 55;
-	// ...backs up and gets ready to go to a dispenser.
-	const int backwardTimeI	= 300;
 
-	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
-	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
-	Lift_Lift		(liftTimeF, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeG, g_AccurateMotorPower);
+	Turn_Left(turnTimeA, 100, 100);
+	Move_Forward(forwardTimeA, 100);
+	Time_Wait(50);
 
-	// Lift power is negative so that the lift goes DOWN, not UP.
-	Lift_Lift		(liftTimeH, (-1) * g_AccurateMotorPower);
-	Move_Backward	(backwardTimeI, g_AccurateMotorPower);
-	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+	HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
 
-	PlaySoundFile("moo.rso");
-	while(bSoundActive == true)
+	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 	{
+		Turn_Left(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+		Move_Forward(forwardTimeB, g_AccurateMotorPower);
+		Lift_Lift(liftTimeB, g_AccurateMotorPower);
 	}
-
-
-	//Turn_Left(g_TurnTimeA, 100, 100);
-	//Move_Forward(g_ForwardTimeA, 100);
-	//Time_Wait(50);
-
-	////HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-
-	//if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
-	//{
-	//	Turn_Left(g_TurnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
-	//	Move_Forward(g_ForwardTimeB, g_AccurateMotorPower);
-	//	Lift_Lift(g_LiftTimeB, g_AccurateMotorPower);
-	//}
-	//else
-	//{
-	//	Move_Forward(g_ForwardTimeC, g_AccurateMotorPower);
-	//	Time_Wait(50);
-	//	//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-	//	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
-	//	{
-	//		Turn_Left(g_TurnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
-	//		Move_Forward(g_ForwardTimeD, g_AccurateMotorPower);
-	//		Lift_Lift(g_LiftTimeD, g_AccurateMotorPower);
-	//	}
-	//	else
-	//	{
-	//		Move_Forward(g_ForwardTimeE, g_AccurateMotorPower);
-	//		Turn_Left(g_TurnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
-	//		Move_Forward(g_ForwardTimeF, g_AccurateMotorPower);
-	//		Lift_Lift(g_LiftTimeF, g_AccurateMotorPower);
-	//	}
-	//}
+	else
+	{
+		Move_Forward(ForwardTimeC, g_AccurateMotorPower);
+		Time_Wait(50);
+		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+		{
+			Turn_Left(turnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward(forwardTimeD, g_AccurateMotorPower);
+			Lift_Lift(liftTimeD, g_AccurateMotorPower);
+		}
+		else
+		{
+			Move_Forward(forwardTimeE, g_AccurateMotorPower);
+			Turn_Left(turnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward(forwardTimeF, g_AccurateMotorPower);
+			Lift_Lift(liftTimeF, g_AccurateMotorPower);
+		}
+	}
 }

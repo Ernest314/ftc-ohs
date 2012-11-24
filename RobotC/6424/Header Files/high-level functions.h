@@ -3,7 +3,7 @@
 
 
 
-void Move_Forward(int time, int power=g_FullMotorPower)
+void Move_Forward(int time, int power=g_FullDrivePower)
 {
 	Motor_Forward(motor_L, power);
 	Motor_Forward(motor_R, power);
@@ -13,7 +13,7 @@ void Move_Forward(int time, int power=g_FullMotorPower)
 }
 
 
-void Move_Backward(int time, int power=g_FullMotorPower)
+void Move_Backward(int time, int power=g_FullDrivePower)
 {
 	Motor_Reverse(motor_L, power);
 	Motor_Reverse(motor_R, power);
