@@ -1,6 +1,19 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
+typedef enum LiftState
+{
+	LIFT_JOYSTICK = 0,
+	LIFT_BOTTOM = 1,
+	LIFT_MIDDLE = 2,
+	LIFT_TOP = 3,
+};
+
+typedef enum MotorState
+{
+	MOTOR_JOYSTICK = 0,
+};
+
 typedef enum JoystickButton
 {
 	BUTTON_A = 2,

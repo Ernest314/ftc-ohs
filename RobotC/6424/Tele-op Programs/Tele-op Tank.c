@@ -58,18 +58,21 @@ void initializeRobot()
 
 task main()
 {
-	initializeRobot();
-
 	// These will be used later and are declared here to save from having to
 	// declare them every single loop.
 	int powerL = 0;
 	int powerR = 0;
 	int powerLift = 0;
 	int powerPopcorn = 0;
+	LiftState isLiftState = LIFT_JOYSTICK;
+	MotorState isMotorStateL = MOTOR_JOYSTICK;
+	MotorState isMotorStateR = MOTOR_JOYSTICK;
 
 
 
 	waitForStart();
+
+	initializeRobot();
 
 
 
@@ -80,8 +83,14 @@ task main()
 
 
 
-		// POPCORN!!! (This comes first, obviously.)
+		// These should be zeroed after every loop. In the case that there
+		// isn't input, the motors won't keep moving at the last speed it had.
+		powerL = 0;
+		powerR = 0;
+		powerLift = 0;
 		powerPopcorn = 0;
+
+		// POPCORN!!! (This comes first, obviously.)
 		if ( Joystick_Button(BUTTON_B, CONTROLLER_2)==true )
 		{
 			powerPopcorn = g_FullDrivePower*(abs(powerL)+abs(powerR))/2;
@@ -107,12 +116,13 @@ task main()
 		// This is the code for CONTROLLER_2:
 		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
 		{
+			isLiftState = LIFT_JOYSTICK;
 			powerLift = Math_ToLogarithmic(joystick.joy2_y1);
 		}
-
 		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
 				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
 		{
+			isLiftState = LIFT_JOYSTICK;
 			powerLift /= g_FineTuneFactor;
 		}
 
@@ -125,9 +135,11 @@ task main()
 
 				// Operate lift at full power if F/B.
 				case DIRECTION_F:
+					isLiftState = LIFT_JOYSTICK;
 					powerLift = g_FullLiftPower;
 					break;
 				case DIRECTION_B:
+					isLiftState = LIFT_JOYSTICK;
 					powerLift = (-1)*g_FullLiftPower;
 					break;
 
@@ -139,8 +151,6 @@ task main()
 					break;
 			}
 		}
-
-		Motor_SetPower(motor_lift, powerLift);
 
 
 
@@ -166,18 +176,15 @@ task main()
 			// Buttons Y/B/A will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
-				sub_LiftToTopB();
-				//StartTask(sub_LiftToTopB);
+				isLiftState = LIFT_TOP;
 			}
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
-				sub_LiftToMiddleB();
-				//StartTask(sub_LiftToMiddleB);
+				isLiftState = LIFT_MIDDLE;
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
-				sub_LiftToBottomB();
-				//StartTask(sub_LiftToBottomB);
+				isLiftState = LIFT_BOTTOM;
 			}
 
 			// If only X is pressed, weigh the ring.
@@ -197,16 +204,15 @@ task main()
 			// Buttons LT/RT will fine-tune the lift.
 			if ( Joystick_Button(BUTTON_RT)==true )
 			{
-				Motor_SetPower(motor_lift, 100/g_FineTuneFactor);
-				Time_Wait(5);
-				Motor_Stop(motor_lift);
+				isLiftState = LIFT_JOYSTICK;
+				powerLift = g_FullLiftPower/g_FineTuneFactor;
 			}
 			if ( Joystick_Button(BUTTON_LT)==true )
 			{
-				Motor_SetPower(motor_lift, -100/g_FineTuneFactor);
-				Time_Wait(5);
-				Motor_Stop(motor_lift);
+				isLiftState = LIFT_JOYSTICK;
+				powerLift = (-1)*g_FullLiftPower/g_FineTuneFactor;
 			}
+
 		}
 
 
@@ -218,10 +224,7 @@ task main()
 		// Also need to stop using the `joystick` struct and switch to the
 		// encapsulated version (Joystick_Joystick(...)).
 
-		// These should be zeroed after every loop. In the case that there
-		// isn't input, the robot won't keep moving at the last speed it had.
-		powerL = 0;
-		powerR = 0;
+
 
 		// Y-axis code:
 		if ( 	abs(joystick.joy1_y1) > g_JoystickThreshold ||
@@ -237,9 +240,6 @@ task main()
 			powerL /= g_FineTuneFactor;
 			powerR /= g_FineTuneFactor;
 		}
-
-		Motor_SetPower(motor_L, powerL);
-		Motor_SetPower(motor_R, powerR);
 
 
 
@@ -267,6 +267,13 @@ task main()
 
 
 		// Flush the controller input buffer periodically (every 1/4 sec?)
+
+
+
+		Motor_SetPower(motor_L, powerL);
+		Motor_SetPower(motor_R, powerR);
+		Motor_SetPower(motor_lift, powerLift);
+		Motor_SetPower(motor_popcorn, powerPopcorn);
 
 
 
