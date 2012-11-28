@@ -99,7 +99,6 @@ task main()
 		{
 			powerPopcorn = g_FullDrivePower*(abs(powerL)+abs(powerR))/2*0.75;
 		}
-		Motor_SetPower(motor_popcorn, powerPopcorn);
 
 
 
@@ -110,8 +109,6 @@ task main()
 		// Input from CONTROLLER_2 will be used to control the lift in
 		// conjunction with CONTROLLER_1, but shouldn't override the driver,
 		// since driver #1's input is processed last.
-
-		powerLift = 0;
 
 		// This is the code for CONTROLLER_2:
 		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
