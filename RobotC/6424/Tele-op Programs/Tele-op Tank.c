@@ -1,13 +1,14 @@
 #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
+#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     weight,         sensorHiTechnicTouchMux)
 #pragma config(Sensor, S4,     touch,          sensorTouch)
-#pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop, reversed)
+#pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
-#pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_2,     motor_G,       tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C1_1,    servo_IR,             tServoStandard)
 #pragma config(Servo,  srvo_S1_C1_2,    servo_claw,           tServoStandard)
@@ -93,11 +94,11 @@ task main()
 		// POPCORN!!! (This comes first, obviously.)
 		if ( Joystick_Button(BUTTON_B, CONTROLLER_2)==true )
 		{
-			powerPopcorn = g_FullDrivePower*(abs(powerL)+abs(powerR))/2;
+			powerPopcorn = g_FullDrivePower;
 		}
 		else if ( Joystick_Button(BUTTON_A, CONTROLLER_2)==true )
 		{
-			powerPopcorn = g_FullDrivePower*(abs(powerL)+abs(powerR))/2*0.75;
+			powerPopcorn = (-1)*g_FullDrivePower;
 		}
 
 
@@ -114,7 +115,8 @@ task main()
 		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
 		{
 			isLiftState = LIFT_JOYSTICK;
-			powerLift = Math_ToLogarithmic(joystick.joy2_y1);
+			//powerLift = Math_ToLogarithmic(joystick.joy2_y1);
+			powerLift = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_L, AXIS_Y, CONTROLLER_2));
 		}
 		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
 				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
@@ -224,11 +226,11 @@ task main()
 
 
 		// Y-axis code:
-		if ( 	abs(joystick.joy1_y1) > g_JoystickThreshold ||
-				abs(joystick.joy1_y2) > g_JoystickThreshold )
+		if ( 	abs(Joystick_Joystick(JOYSTICK_L, AXIS_Y)) > g_JoystickThreshold ||
+				abs(Joystick_Joystick(JOYSTICK_R, AXIS_Y)) > g_JoystickThreshold )
 		{
-			powerL = Math_ToLogarithmic(joystick.joy1_y1);
-			powerR = Math_ToLogarithmic(joystick.joy1_y2);
+			powerL = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_L, AXIS_Y));
+			powerR = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_R, AXIS_Y));
 		}
 
 		// Last check: if LB/RB is pressed, fine-tune the power level.
