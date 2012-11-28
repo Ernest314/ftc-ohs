@@ -17,93 +17,93 @@ task sub_TakeRingOff()
 }
 
 
-// Might add a fine-tune section to this.
-task sub_LiftToTop()
-{
-	//Motor_Target(motor_lift, g_TopLiftAngle);
-	for (int i = 0; i < 2; i++)
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, (-1)*g_FullDrivePower);
-			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullDrivePower);
-			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	StopTask(sub_LiftToTop);
-}
+//// Might add a fine-tune section to this.
+//task sub_LiftToTop()
+//{
+//	//Motor_Target(motor_lift, g_TopLiftAngle);
+//	for (int i = 0; i < 2; i++)
+//	{
+//		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, (-1)*g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		Motor_Stop(motor_lift);
+//	}
+//	StopTask(sub_LiftToTop);
+//}
 
 
-task sub_LiftToMiddle()
-{
-	//Motor_Target(motor_lift, g_MiddleLiftAngle);
-	for (int i = 0; i < 2; i++)
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullDrivePower);
-			while ( Motor_GetEncoder(motor_lift) > g_MiddleLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullDrivePower);
-			while ( Motor_GetEncoder(motor_lift) < g_MiddleLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	StopTask(sub_LiftToMiddle);
-}
+//task sub_LiftToMiddle()
+//{
+//	//Motor_Target(motor_lift, g_MiddleLiftAngle);
+//	for (int i = 0; i < 2; i++)
+//	{
+//		if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, -1*g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) > g_MiddleLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) < g_MiddleLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		Motor_Stop(motor_lift);
+//	}
+//	StopTask(sub_LiftToMiddle);
+//}
 
 
-// Might add a fine-tune section to this.
-task sub_LiftToBottom()
-{
-	//Motor_Target(motor_lift, g_BottomLiftAngle);
-	for (int i = 0; i < 2; i++)
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullDrivePower);
-			while ( Motor_GetEncoder(motor_lift) > g_BottomLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullDrivePower);
-			while ( Motor_GetEncoder(motor_lift) < g_BottomLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	StopTask(sub_LiftToBottom);
-}
+//// Might add a fine-tune section to this.
+//task sub_LiftToBottom()
+//{
+//	//Motor_Target(motor_lift, g_BottomLiftAngle);
+//	for (int i = 0; i < 2; i++)
+//	{
+//		if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, -1*g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) > g_BottomLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) < g_BottomLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		Motor_Stop(motor_lift);
+//	}
+//	StopTask(sub_LiftToBottom);
+//}
 
 
 task sub_WeighRings()
@@ -131,7 +131,7 @@ task sub_MOO()
 
 
 //-----------------------------------------------------------
-void sub_LiftToTopB()
+void sub_LiftToTop()
 {
 	while ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
 	{
@@ -181,7 +181,7 @@ void sub_LiftToTopB()
 }
 
 
-void sub_LiftToMiddleB()
+void sub_LiftToMiddle()
 {
 	while ( abs(g_MiddleLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
 	{
@@ -231,7 +231,7 @@ void sub_LiftToMiddleB()
 }
 
 
-void sub_LiftToBottomB()
+void sub_LiftToBottom()
 {
 	while ( abs(g_BottomLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
 	{
@@ -280,6 +280,12 @@ void sub_LiftToBottomB()
 	//StopTask(sub_LiftToBottomB);
 }
 //-------------------------------------------------------------------------------
+
+
+
+void sub_CowsWithGuns()
+{
+}
 
 
 
