@@ -65,6 +65,7 @@ task main()
 	int powerR = 0;
 	int powerLift = 0;
 	int powerPopcorn = 0;
+	bool isFineTuneLift = false;
 	LiftState isLiftState = LIFT_JOYSTICK;
 	MotorState isMotorStateL = MOTOR_JOYSTICK;
 	MotorState isMotorStateR = MOTOR_JOYSTICK;
@@ -254,13 +255,30 @@ task main()
 			// If X is pressed, the MOO shall be released!
 			if ( Joystick_Button(BUTTON_X, CONTROLLER_2)==true )
 			{
-				StartTask(sub_MOO);
+				//StartTask(sub_MOO);
+				PlaySoundFile("moo.rso");
 			}
 			if ( Joystick_Button(BUTTON_Y, CONTROLLER_2)==true )
 			{
-				StopTask(sub_MOO);
+				//StopTask(sub_MOO);
+				sub_CowsWithGuns();
 			}
 
+		}
+
+
+
+		switch (isLiftState)
+		{
+			case LIFT_BOTTOM:
+				sub_LiftToBottom();
+				break;
+			case LIFT_MIDDLE:
+				sub_LiftToMiddle();
+				break;
+			case LIFT_TOP:
+				sub_LiftToTop();
+				break;
 		}
 
 
