@@ -28,6 +28,10 @@ const int g_rampServoDeployed	= 0;	// TODO!
 const int g_JoystickThreshold = 10;
 
 
+int powerLift = 0;
+LiftState isLiftState = LIFT_JOYSTICK;
+
+
 // The factor to divide by when fine-tuning motors.
 const int g_FineTuneFactor = 4;
 
@@ -46,14 +50,14 @@ const int g_AccurateMotorPower = 65;
 
 
 // Threshold for encoder target thingy.
-const int g_LiftAccuracyRough = 75;
+const int g_LiftAccuracyRough = 50;
 const int g_LiftAccuracyFine = 10;
 
 
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
-const int g_TopLiftAngle = 5 *1000;		//TODO
-const int g_MiddleLiftAngle = 4 *1000;	//TODO
+const int g_TopLiftAngle = 6 *1000;		//TODO
+const int g_MiddleLiftAngle = 5 *1000;	//TODO
 const int g_BottomLiftAngle = 3 *1000;	//TODO
 
 
