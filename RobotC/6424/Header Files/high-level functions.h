@@ -3,7 +3,7 @@
 
 
 
-void Move_Forward(int time, int power=g_FullMotorPower)
+void Move_Forward(int time, int power=g_FullDrivePower)
 {
 	Motor_Forward(motor_L, power);
 	Motor_Forward(motor_R, power);
@@ -13,7 +13,7 @@ void Move_Forward(int time, int power=g_FullMotorPower)
 }
 
 
-void Move_Backward(int time, int power=g_FullMotorPower)
+void Move_Backward(int time, int power=g_FullDrivePower)
 {
 	Motor_Reverse(motor_L, power);
 	Motor_Reverse(motor_R, power);
@@ -40,9 +40,16 @@ void Turn_Left(int time, int steerL, int steerR)
 	Motor_Stop(motor_R);
 }
 
-void Lift_Lift(int time, int power)
+void Lift_Up(int time, int power)
 {
 	Motor_Forward(motor_lift, power);
+	Time_Wait(time);
+	Motor_Stop(motor_lift);
+}
+
+void Lift_Down(int time, int power)
+{
+	Motor_Forward(motor_lift, (-1) * power);
 	Time_Wait(time);
 	Motor_Stop(motor_lift);
 }

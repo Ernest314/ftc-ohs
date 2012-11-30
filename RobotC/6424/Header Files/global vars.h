@@ -10,44 +10,17 @@ const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
 const int g_IRthreshold = 10;
 
 
-// The amount of forward driving time (segment A).
-const int g_ForwardTimeA = 150;
+// Time to drive forward to put a ring on.
+const int g_PutRingOnTime = 10;
 
-// The amount of turning to the right (segment A).
-const int g_RightTimeB = 90;
-// Bleh.
-const int g_ForwardTimeB = 120;
-// Bleh.
-const int g_LiftTimeB = 200;
-
-// Bleh.
-const int g_ForwardTimeC = 100;
-
-// Bleh.
-const int g_RightTimeD = 90;
-// Bleh.
-const int g_ForwardTimeD = 120;
-// Bleh.
-const int g_LiftTimeD = 200;
-
-// Bleh.
-const int g_ForwardTimeE = 100;
-
-// Bleh.
-const int g_RightTimeF = 90;
-// Bleh.
-const int g_ForwardTimeF = 120;
-// Bleh.
-const int g_LiftTimeF = 200;
-
-
-// The position the IR servo needs to be in (180 deg)
-const int g_IRServoDefault = 0;
-const int g_IRServoExtended = 220;
-const int g_clawServoDefault = 100;
-const int g_clawServoExtended = 250;
-// No "default" position is provided for fear of deployment.
-const int g_rampServoDeployed = 0;	// TODO!!
+// The various positions of the various servos.
+const int g_IRServoLowered		= 0;
+const int g_IRServoExtended		= 220;
+const int g_clawServoDefault	= 100;
+const int g_clawServoExtended	= 250;
+const int g_clawServoFolded		= 230;	// (just a guess)
+const int g_rampServoDefault	= 0;	// TODO!
+const int g_rampServoDeployed	= 0;	// TODO!
 
 
 // The threshold for joystick values to count (eliminates humming).
@@ -55,19 +28,37 @@ const int g_rampServoDeployed = 0;	// TODO!!
 const int g_JoystickThreshold = 10;
 
 
+int powerLift = 0;
+LiftState isLiftState = LIFT_JOYSTICK;
+
+
 // The factor to divide by when fine-tuning motors.
 const int g_FineTuneFactor = 4;
 
 
 // The full speed the motors should be PID-regulated at.
-const int g_FullMotorPower = 80;
+const int g_FullRegulatedPower = 80;
+
+// The full speed the drive motors runs at.
+const int g_FullDrivePower = 80;
+// The full speed the lift motor runs at.
+const int g_FullLiftPower = 80;
+
+// The speed motors should ve PID-regulated at for the autonomous period,
+// since the movement needs to be much more accurate.
+const int g_AccurateMotorPower = 65;
+
+
+// Threshold for encoder target thingy.
+const int g_LiftAccuracyRough = 50;
+const int g_LiftAccuracyFine = 10;
 
 
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
-const int g_TopLiftAngle = 300;		//TODO
-const int g_MiddleLiftAngle = 200;	//TODO
-const int g_BottomLiftAngle = 100;	//TODO
+const int g_TopLiftAngle = 6 *1000;		//TODO
+const int g_MiddleLiftAngle = 5 *1000;	//TODO
+const int g_BottomLiftAngle = 3 *1000;	//TODO
 
 
 // (CONTROLLER_1):
