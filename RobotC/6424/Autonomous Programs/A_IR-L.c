@@ -89,15 +89,16 @@ task main()
 	const int forwardTimeB 	= 100;
 	const int liftTimeB 	= 45;
 
-	const int forwardTimeC 	= 150;
+	const int forwardTimeCA	= 110;	//TODO
+	const int forwardTimeCB = 40;	//TODO
 	const int turnTimeD 	= 152;
 	const int forwardTimeD 	= 110;
 	const int liftTimeD 	= 135;
 
 	const int forwardTimeE 	= 95;	//TODO
-	const int turnTimeF 	= 112;	//TODO
-	const int forwardTimeF 	= 80;	//TODO
-	const int liftTimeF 	= 47;	//TODO
+	const int turnTimeF 	= 112;
+	const int forwardTimeF 	= 80;
+	const int liftTimeF 	= 47;
 
 	const int liftTimeG		= 30;	//TODO
 	const int backwardTimeG	= 100;	//TODO
@@ -114,14 +115,20 @@ task main()
 	const int turnTimeI		= 70;	//TODO
 	const int forwardTimeI	= 170;	//TODO
 
+	const int forwardTimeJ	= 50;	//TODO
+	const int turnTimeK		= 90;	//TODO
+	const int liftTimeK		= 30;	//TODO
+	const int forwardTimeK	= 50;	//TODO
 
 
-	Move_Forward(forwardTimeAA, g_AccurateMotorPower);
-	Turn_Left(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward(forwardTimeA, g_AccurateMotorPower);
+
+	Move_Forward	(forwardTimeAA, g_AccurateMotorPower);
+	Turn_Left		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+
 	Time_Wait(50);
 	HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-	//IRdirA = 100;
+
 	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 	{
 		Turn_Right		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
@@ -136,9 +143,11 @@ task main()
 	}
 	else
 	{
-		Move_Forward(forwardTimeC, g_AccurateMotorPower);
+		Move_Forward	(forwardTimeCA, g_AccurateMotorPower);
 		Time_Wait(50);
 		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+		Move_Forward	(forwardTimeCB, g_AccurateMotorPower);
+
 		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 		{
 			Turn_Right		(turnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
@@ -166,6 +175,10 @@ task main()
 			Move_Forward	(forwardTimeI, g_AccurateMotorPower);
 		}
 	}
+	Move_Forward	(forwardTimeJ, g_AccurateMotorPower);
+	Turn_Right		(turnTimeK, g_AccurateMotorPower, g_AccurateMotorPower);
+	Lift_Up			(liftTimeK, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeK, g_AccurateMotorPower);
 
 
 

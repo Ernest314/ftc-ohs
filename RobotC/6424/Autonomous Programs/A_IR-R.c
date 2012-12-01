@@ -81,54 +81,104 @@ task main()
 
 
 	// The amount of time the robot...
-	const int forwardTimeX	= 25;
-	const int turnTimeA 	= 40;
-	const int forwardTimeA 	= 50;
-	const int turnTimeB 	= 80;
-	const int forwardTimeB 	= 30;
-	const int liftTimeB 	= 60;
-	const int forwardTimeC 	= 50;
-	const int turnTimeD 	= 80;
-	const int forwardTimeD 	= 30;
-	const int liftTimeD 	= 60;
-	const int forwardTimeE 	= 50;
-	const int turnTimeF 	= 80;
-	const int forwardTimeF 	= 30;
-	const int liftTimeF 	= 60;
+	const int forwardTimeAA	= 25;
+	const int turnTimeA 	= 50;
+
+	const int forwardTimeA 	= 170;
+	const int turnTimeB 	= 110;
+	const int forwardTimeB 	= 100;
+	const int liftTimeB 	= 45;
+
+	const int forwardTimeCA	= 110;	//TODO
+	const int forwardTimeCB = 40;	//TODO
+	const int turnTimeD 	= 152;
+	const int forwardTimeD 	= 110;
+	const int liftTimeD 	= 135;
+
+	const int forwardTimeE 	= 95;	//TODO
+	const int turnTimeF 	= 112;
+	const int forwardTimeF 	= 80;
+	const int liftTimeF 	= 47;
+
+	const int liftTimeG		= 30;	//TODO
+	const int backwardTimeG	= 100;	//TODO
+	const int turnTimeG		= 70;	//TODO
+	const int forwardTimeG	= 20;	//TODO
+
+	const int liftTimeH		= 50;	//TODO
+	const int backwardTimeH	= 90;	//TODO
+	const int turnTimeH		= 100;	//TODO
+	const int forwardTimeH	= 70;	//TODO
+
+	const int liftTimeI		= 30;	//TODO
+	const int backwardTimeI	= 130;	//TODO
+	const int turnTimeI		= 70;	//TODO
+	const int forwardTimeI	= 170;	//TODO
+
+	const int forwardTimeJ	= 50;	//TODO
+	const int turnTimeK		= 90;	//TODO
+	const int liftTimeK		= 30;	//TODO
+	const int forwardTimeK	= 50;	//TODO
 
 
-	Move_Forward(forwardTimeX, g_AccurateMotorPower);
-	Turn_Right(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward(forwardTimeA, g_AccurateMotorPower);
+
+	Move_Forward	(forwardTimeAA, g_AccurateMotorPower);
+	Turn_Right		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+
 	Time_Wait(50);
-
 	HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
 
 	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 	{
 		Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
-		Move_Forward	(forwardTimeB, g_AccurateMotorPower);
 		Lift_Up			(liftTimeB, g_AccurateMotorPower);
+		Move_Forward	(forwardTimeB, g_AccurateMotorPower);
+
+		Lift_Down		(liftTimeG, g_AccurateMotorPower);
+		Move_Backward	(backwardTimeG, g_AccurateMotorPower);
+		Turn_Left		(turnTimeG, g_AccurateMotorPower, g_AccurateMotorPower);
+
+		Move_Forward	(forwardTimeG, g_AccurateMotorPower);
 	}
 	else
 	{
-		Move_Forward(forwardTimeC, g_AccurateMotorPower);
+		Move_Forward	(forwardTimeCA, g_AccurateMotorPower);
 		Time_Wait(50);
 		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+		Move_Forward	(forwardTimeCB, g_AccurateMotorPower);
+
 		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 		{
 			Turn_Left		(turnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeD, g_AccurateMotorPower);
 			Lift_Up			(liftTimeD, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeD, g_AccurateMotorPower);
+
+			Lift_Down		(liftTimeH, g_AccurateMotorPower);
+			Move_Backward	(backwardTimeH, g_AccurateMotorPower);
+			Turn_Left		(turnTimeH, g_AccurateMotorPower, g_AccurateMotorPower);
+
+			Move_Forward	(forwardTimeH, g_AccurateMotorPower);
 		}
 		else
 		{
 			Move_Forward	(forwardTimeE, g_AccurateMotorPower);
+
 			Turn_Left		(turnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeF, g_AccurateMotorPower);
 			Lift_Up			(liftTimeF, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeF, g_AccurateMotorPower);
+
+			Lift_Down		(liftTimeI, g_AccurateMotorPower);
+			Move_Backward	(backwardTimeI, g_AccurateMotorPower);
+			Turn_Left		(turnTimeI, g_AccurateMotorPower, g_AccurateMotorPower);
+
+			Move_Forward	(forwardTimeI, g_AccurateMotorPower);
 		}
 	}
+	Move_Forward	(forwardTimeJ, g_AccurateMotorPower);
+	Turn_Left		(turnTimeK, g_AccurateMotorPower, g_AccurateMotorPower);
+	Lift_Up			(liftTimeK, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeK, g_AccurateMotorPower);
 
 
 
