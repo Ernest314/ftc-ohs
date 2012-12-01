@@ -6,9 +6,9 @@
 #pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, reversed, encoder)
-#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C3_2,     motor_G,       tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C1_1,    servo_IR,             tServoStandard)
 #pragma config(Servo,  srvo_S1_C1_2,    servo_claw,           tServoStandard)
@@ -32,6 +32,10 @@
 void initializeRobot()
 {
 	// Sensors are config'ed and setup by RobotC (need to stabalize).
+
+	// The IR sensor needs this command (it seems like RobotC doesn't
+	// initialize third-party sensors automatically.
+	HTIRS2setDSPMode(infrared, g_IRsensorMode);
 
 	Servo_SetSpeed(servo_IR, 10);		// maximum speed!
 	Servo_SetSpeed(servo_claw, 10);		// maximum speed!
@@ -62,6 +66,15 @@ void initializeRobot()
 
 task main()
 {
+	// The IR signal strengh in all 5 directions.
+	int IRdirA = 0;
+	int IRdirB = 0;
+	int IRdirC = 0;
+	int IRdirD = 0;
+	int IRdirE = 0;
+
+
+
 	waitForStart();
 
 	initializeRobot();
@@ -69,47 +82,55 @@ task main()
 
 
 	// The amount of time the robot...
-
-	// ...moves forward at an angle.
-	const int forwardTimeA	= 150;
-	// ...turns to line up perpendicular to the center rack.
-	const int turnTimeB		= 40;
-	// ...drives up to the peg before lifting the lift up.
-	const int forwardTimeC	= 155;
-	// ...lifts the claw to put a ring on (row 2).
-	const int liftTimeF		= 79;
-	// ...moves forward, putting the ring onto the peg.
-	const int forwardTimeG	= 65;
-	// ...lowers its lift to get rid of the ring.
-	const int liftTimeH		= 55;
-	// ...backs up and gets ready to go to a dispenser.
-	const int backwardTimeI	= 300;
-
-	// ...turns to face parallel to the walls.
-	const int turnTimeJ		= 40;
-	// ...moves forward to align itself with a dispenser.
-	const int forwardTimeK	= 100;
-	// ...turns to face the dispenser.
-	const int turnTimeL		= 80;
-	// ...moves forward to be under the dispenser.
-	const int forwardTimeM	= 50;
+	const int forwardTimeX	= 25;
+	const int turnTimeA 	= 40;
+	const int forwardTimeA 	= 50;
+	const int turnTimeB 	= 80;
+	const int forwardTimeB 	= 30;
+	const int liftTimeB 	= 60;
+	const int forwardTimeC 	= 50;
+	const int turnTimeD 	= 80;
+	const int forwardTimeD 	= 30;
+	const int liftTimeD 	= 60;
+	const int forwardTimeE 	= 50;
+	const int turnTimeF 	= 80;
+	const int forwardTimeF 	= 30;
+	const int liftTimeF 	= 60;
 
 
-	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
-	Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeC, g_AccurateMotorPower);
-	Lift_Up			(liftTimeF, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeG, g_AccurateMotorPower);
+	Move_Forward(forwardTimeX, g_AccurateMotorPower);
+	Turn_Right(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward(forwardTimeA, g_AccurateMotorPower);
+	Time_Wait(50);
 
-	// Lift power is negative so that the lift goes DOWN, not UP.
-	Lift_Down		(liftTimeH, g_AccurateMotorPower);
-	Move_Backward	(backwardTimeI, g_AccurateMotorPower);
+	HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
 
-	// Turn power doesn't need to be negative (turns in-place).
-	Turn_Left		(turnTimeJ, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeK, g_AccurateMotorPower);
-	Turn_Left		(turnTimeL, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeM, g_AccurateMotorPower);
+	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+	{
+		Turn_Left		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
+		Move_Forward	(forwardTimeB, g_AccurateMotorPower);
+		Lift_Up			(liftTimeB, g_AccurateMotorPower);
+	}
+	else
+	{
+		Move_Forward(forwardTimeC, g_AccurateMotorPower);
+		Time_Wait(50);
+		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
+		{
+			Turn_Left		(turnTimeD, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeD, g_AccurateMotorPower);
+			Lift_Up			(liftTimeD, g_AccurateMotorPower);
+		}
+		else
+		{
+			Move_Forward	(forwardTimeE, g_AccurateMotorPower);
+			Turn_Left		(turnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeF, g_AccurateMotorPower);
+			Lift_Up			(liftTimeF, g_AccurateMotorPower);
+		}
+	}
+
 
 
 	while (true)
@@ -120,7 +141,4 @@ task main()
 			Time_Wait(1);
 		}
 	}
-
-
-
 }

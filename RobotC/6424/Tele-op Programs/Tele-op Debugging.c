@@ -1,6 +1,5 @@
 #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Sensor, S2,     infrared,       sensorHiTechnicIRSeeker1200)
+#pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     weight,         sensorHiTechnicTouchMux)
 #pragma config(Sensor, S4,     touch,          sensorTouch)
 #pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop, reversed)
@@ -31,26 +30,26 @@
 
 void initializeRobot()
 {
-	// Place code here to init servos to starting positions.
 	// Sensors are config'ed and setup by RobotC (need to stabalize).
-	// Also add any settings that need to be set (other than global
-	// variables), such as max PID speed, servo update rate, etc.
 
-	Servo_SetSpeed(servo_IR, 10);	// maximum speed!
-	Servo_SetSpeed(servo_claw, 10);	// maximum speed!
+	Servo_SetSpeed(servo_IR, 10);		// maximum speed!
+	Servo_SetSpeed(servo_claw, 10);		// maximum speed!
+	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
 
-	Servo_Rotate(servo_IR, g_IRServoDefault);		// fold back up after start of tele-op
-	Servo_Rotate(servo_claw, g_clawServoExtended);	// keep it straight out after tele-op
+	Servo_Rotate(servo_IR, g_IRServoLowered);		// it gets in the way
+	Servo_Rotate(servo_claw, g_clawServoFolded);	// servo bracket gets bent
+	Servo_Rotate(servo_ramp, g_rampServoDefault);	// stops ramp from deploying
 
-
-	Motor_SetMaxSpeed(g_FullMotorPower);
+	Motor_SetMaxSpeed(g_FullRegulatedPower);
 
 	Motor_ResetEncoder(motor_L);
 	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
-
-	Time_Wait(100);
+	// Wait this long so the claw & IR servos get to update.
+	// The ramp-release servo shouldn't move; the long update time
+	// is to prevent sudden jerks that might release the ramp.
+	Time_Wait(10);
 
 	return;
 }
@@ -61,8 +60,7 @@ task main()
 {
 	initializeRobot();
 
-	// These will be used later and are declared here to save from having to
-	// declare them every single loop.
-
 	waitForStart();
+
+	// ***TEST CODE***
 }

@@ -144,7 +144,7 @@ int Joystick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy1_x1;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joystick.joy1_y1;
+							axisValue = (-1)*joystick.joy1_y1;
 							break;
 					}
 					break;
@@ -155,7 +155,7 @@ int Joystick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy1_x2;
 							break;
 						case AXIS_Y:	//controller 1, joystick L, Y-axis
-							axisValue = joystick.joy1_y2;
+							axisValue = (-1)*joystick.joy1_y2;
 							break;
 					}
 					break;
@@ -172,7 +172,7 @@ int Joystick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy2_x1;
 							break;
 						case AXIS_Y:	//controller 2, joystick L, Y-axis
-							axisValue = joystick.joy2_y1;
+							axisValue = (-1)*joystick.joy2_y1;
 							break;
 					}
 					break;
@@ -183,7 +183,7 @@ int Joystick_Joystick(	JoystickJoystick Joystick,	//best line of code ever
 							axisValue = joystick.joy2_x2;
 							break;
 						case AXIS_Y:	//controller 2, joystick L, Y-axis
-							axisValue = joystick.joy2_y2;
+							axisValue = (-1)*joystick.joy2_y2;
 							break;
 					}
 					break;
@@ -327,14 +327,12 @@ int Math_ToLogarithmic(int input)
 	if (input >= 0)
 	{
 		convertedInput = input;
-		//convertedInput = input*input / 163.84;
-		//convertedInput = input * 100 / 127;
+		//convertedInput = pow( 1.05, (input*100/127) );
 	}
 	else if (input < 0)
 	{
 		convertedInput = input;
-		//convertedInput = (-1)*input*input / 161.29;
-		//convertedInput = input * 100 / 127;
+		//convertedInput = (-1)*pow( 1.05, (abs(input)*100/127) );
 	}
 	return convertedInput;
 }
