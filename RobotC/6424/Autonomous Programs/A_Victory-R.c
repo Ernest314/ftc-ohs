@@ -94,8 +94,7 @@ task main()
 	while (true)
 	{
 		Turn_Left		(lapTime, slavePower, masterPower);
-		//// (Not loaded onto NXT yet.)
-		//PlaySoundFile	("killed.rso");
-		PlaySoundFile	("moo.rso");
+		PlaySoundFile	("killed.rso");
+		//PlaySoundFile	("moo.rso");
 	}
 }
