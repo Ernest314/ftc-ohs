@@ -62,4 +62,15 @@ typedef enum JoystickDirection	//need one more definitive test
 	DIRECTION_FL = 7,
 };
 
+typedef enum SoundNotes
+{
+	NOTE_C4 = 262,
+	NOTE_D4 = 294,
+	NOTE_E4 = 330,
+	NOTE_F4 = 349,
+	NOTE_G4 = 392,
+	NOTE_A4 = 440,
+	NOTE_B4 = 494,
+};
+
 #endif

@@ -116,7 +116,6 @@ task main()
 		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
 		{
 			isLiftState = LIFT_JOYSTICK;
-			//powerLift = Math_ToLogarithmic(joystick.joy2_y1);
 			powerLift = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_L, AXIS_Y, CONTROLLER_2));
 		}
 		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
@@ -255,13 +254,21 @@ task main()
 			// If X is pressed, the MOO shall be released!
 			if ( Joystick_Button(BUTTON_X, CONTROLLER_2)==true )
 			{
-				//StartTask(sub_MOO);
 				PlaySoundFile("moo.rso");
 			}
 			if ( Joystick_Button(BUTTON_Y, CONTROLLER_2)==true )
 			{
-				//StopTask(sub_MOO);
-				sub_CowsWithGuns();
+				//// The following line WILL disable the robot.
+				//// Uncomment at your own risk. It does sound cool though.
+				//sub_CowsWithGuns();
+			}
+			if ( Joystick_Button(BUTTON_START, CONTROLLER_2)==true )
+			{
+				PlaySoundFile("killed.rso");
+			}
+			if ( Joystick_Button(BUTTON_BACK, CONTROLLER_2)==true )
+			{
+				PlaySoundFile("argh.rso");
 			}
 
 		}
