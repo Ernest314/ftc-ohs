@@ -3,10 +3,10 @@
 
 
 
-task sub_PutRingOn()
+void sub_PutRingOn()
 {
-	//do stuff
-	EndTimeSlice();
+	Move_Forward(g_PutRingOnTime, g_FullDrivePower);
+	Lift_Down(50, g_FullLiftPower);
 }
 
 
@@ -17,105 +17,98 @@ task sub_TakeRingOff()
 }
 
 
-// Might add a fine-tune section to this.
-task sub_LiftToTop()
-{
-	//Motor_Target(motor_lift, g_TopLiftAngle);
-	for (int i = 0; i < 2; i++)
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	StopTask(sub_LiftToTop);
-}
+//// Might add a fine-tune section to this.
+//task sub_LiftToTop()
+//{
+//	//Motor_Target(motor_lift, g_TopLiftAngle);
+//	for (int i = 0; i < 2; i++)
+//	{
+//		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, (-1)*g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		Motor_Stop(motor_lift);
+//	}
+//	StopTask(sub_LiftToTop);
+//}
 
 
-task sub_LiftToMiddle()
-{
-	//Motor_Target(motor_lift, g_MiddleLiftAngle);
-	for (int i = 0; i < 2; i++)
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) > g_MiddleLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) < g_MiddleLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	StopTask(sub_LiftToMiddle);
-}
+//task sub_LiftToMiddle()
+//{
+//	//Motor_Target(motor_lift, g_MiddleLiftAngle);
+//	for (int i = 0; i < 2; i++)
+//	{
+//		if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, -1*g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) > g_MiddleLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) < g_MiddleLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		Motor_Stop(motor_lift);
+//	}
+//	StopTask(sub_LiftToMiddle);
+//}
 
 
-// Might add a fine-tune section to this.
-task sub_LiftToBottom()
-{
-	//Motor_Target(motor_lift, g_BottomLiftAngle);
-	for (int i = 0; i < 2; i++)
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) > g_BottomLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) < g_BottomLiftAngle)
-			{
-				Time_Wait(10);
-				EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	StopTask(sub_LiftToBottom);
-}
+//// Might add a fine-tune section to this.
+//task sub_LiftToBottom()
+//{
+//	//Motor_Target(motor_lift, g_BottomLiftAngle);
+//	for (int i = 0; i < 2; i++)
+//	{
+//		if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, -1*g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) > g_BottomLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
+//		{
+//			Motor_SetPower(motor_lift, g_FullDrivePower);
+//			while ( Motor_GetEncoder(motor_lift) < g_BottomLiftAngle)
+//			{
+//				Time_Wait(10);
+//				EndTimeSlice();
+//			}
+//		}
+//		Motor_Stop(motor_lift);
+//	}
+//	StopTask(sub_LiftToBottom);
+//}
 
 
 task sub_WeighRings()
 {
 	// We might not implement this at all. Heh.
-	EndTimeSlice();
-}
-
-
-task sub_DeployRamp()
-{
-	Servo_Rotate(servo_ramp, g_rampServoDeployed);
 	EndTimeSlice();
 }
 
@@ -138,155 +131,105 @@ task sub_MOO()
 
 
 //-----------------------------------------------------------
-void sub_LiftToTopB()
+void sub_LiftToBottom()
 {
-	while ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
+	if (isLiftState == LIFT_BOTTOM)
 	{
-		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
+		if ( abs(g_BottomLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
 		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
+			if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
 			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
+				powerLift = -100;
+				//powerLift = (-1) * g_FullLiftPower;
+			}
+			if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
+			{
+				powerLift = 100;
+				//powerLift = g_FullLiftPower;
 			}
 		}
-		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
+		if ( abs(g_BottomLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
 		{
-			Motor_SetPower(motor_lift, g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
+			if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
 			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
+				powerLift = -20;
+				//powerLift = (-1) * g_FullLiftPower / g_FineTuneFactor;
+			}
+			if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
+			{
+				powerLift = 20;
+				//powerLift = g_FullLiftPower / g_FineTuneFactor;
 			}
 		}
-		Motor_Stop(motor_lift);
 	}
-	while ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower/g_FineTuneFactor);
-			while ( Motor_GetEncoder(motor_lift) > g_TopLiftAngle)
-			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullMotorPower/g_FineTuneFactor);
-			while ( Motor_GetEncoder(motor_lift) < g_TopLiftAngle)
-			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	//StopTask(sub_LiftToTopB);
 }
 
 
-void sub_LiftToMiddleB()
+void sub_LiftToMiddle()
 {
-	while ( abs(g_MiddleLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
+	if (isLiftState == LIFT_MIDDLE)
 	{
-		if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
+		if ( abs(g_MiddleLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
 		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) > g_MiddleLiftAngle)
+			if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
 			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
+				powerLift = (-1) * g_FullLiftPower;
+			}
+			if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
+			{
+				powerLift = g_FullLiftPower;
 			}
 		}
-		if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
+		if ( abs(g_MiddleLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
 		{
-			Motor_SetPower(motor_lift, g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) < g_MiddleLiftAngle)
+			if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
 			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
+				powerLift = (-1) * g_FullLiftPower / g_FineTuneFactor;
+			}
+			if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
+			{
+				powerLift = g_FullLiftPower / g_FineTuneFactor;
 			}
 		}
-		Motor_Stop(motor_lift);
 	}
-	while ( abs(g_MiddleLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_MiddleLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower/g_FineTuneFactor);
-			while ( Motor_GetEncoder(motor_lift) > g_MiddleLiftAngle)
-			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_MiddleLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullMotorPower/g_FineTuneFactor);
-			while ( Motor_GetEncoder(motor_lift) < g_MiddleLiftAngle)
-			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	//StopTask(sub_LiftToMiddleB);
 }
 
 
-void sub_LiftToBottomB()
+void sub_LiftToTop()
 {
-	while ( abs(g_BottomLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
+	if (isLiftState == LIFT_TOP)
 	{
-		if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
+		if ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
 		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) > g_BottomLiftAngle)
+			if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
 			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
+				powerLift = (-1) * g_FullLiftPower;
+			}
+			if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
+			{
+				powerLift = g_FullLiftPower;
 			}
 		}
-		if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
+		if ( abs(g_TopLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
 		{
-			Motor_SetPower(motor_lift, g_FullMotorPower);
-			while ( Motor_GetEncoder(motor_lift) < g_BottomLiftAngle)
+			if ( Motor_GetEncoder(motor_lift)>g_TopLiftAngle )
 			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
+				powerLift = (-1) * g_FullLiftPower / g_FineTuneFactor;
+			}
+			if ( Motor_GetEncoder(motor_lift)<g_TopLiftAngle )
+			{
+				powerLift = g_FullLiftPower / g_FineTuneFactor;
 			}
 		}
-		Motor_Stop(motor_lift);
 	}
-	while ( abs(g_BottomLiftAngle-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
-	{
-		if ( Motor_GetEncoder(motor_lift)>g_BottomLiftAngle )
-		{
-			Motor_SetPower(motor_lift, -1*g_FullMotorPower/g_FineTuneFactor);
-			while ( Motor_GetEncoder(motor_lift) > g_BottomLiftAngle)
-			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
-			}
-		}
-		if ( Motor_GetEncoder(motor_lift)<g_BottomLiftAngle )
-		{
-			Motor_SetPower(motor_lift, g_FullMotorPower/g_FineTuneFactor);
-			while ( Motor_GetEncoder(motor_lift) < g_BottomLiftAngle)
-			{
-				Time_Wait(0.1);
-				//EndTimeSlice();
-			}
-		}
-		Motor_Stop(motor_lift);
-	}
-	//StopTask(sub_LiftToBottomB);
 }
 //-------------------------------------------------------------------------------
+
+
+
+void sub_CowsWithGuns()
+{
+}
 
 
 

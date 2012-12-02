@@ -5,7 +5,7 @@
 
 void Move_Forward(int time, int power=g_FullDrivePower)
 {
-	Motor_Forward(motor_L, power);
+  Motor_Forward(motor_L, power);
 	Motor_Forward(motor_R, power);
 	Time_Wait(time);
 	Motor_Stop(motor_L);

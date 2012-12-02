@@ -14,7 +14,7 @@ const int g_IRthreshold = 10;
 const int g_PutRingOnTime = 10;
 
 // The various positions of the various servos.
-const int g_IRServoLowered		= 0;
+const int g_IRServoLowered  	= 0;
 const int g_IRServoExtended		= 220;
 const int g_clawServoDefault	= 100;
 const int g_clawServoExtended	= 250;
