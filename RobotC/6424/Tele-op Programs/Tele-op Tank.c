@@ -147,7 +147,7 @@ task main()
 					sub_PutRingOn();
 					break;
 				case DIRECTION_R:
-					StartTask(sub_TakeRingOff);
+					sub_TakeRingOff();
 					break;
 			}
 		}
@@ -197,7 +197,7 @@ task main()
 				}
 				else
 				{
-					StartTask(sub_WeighRings);
+					isLiftState = LIFT_FETCH;
 				}
 			}
 
@@ -271,14 +271,16 @@ task main()
 		switch (isLiftState)
 		{
 			case LIFT_BOTTOM:
-				sub_LiftToBottom();
+				sub_LiftToHeight(g_BottomLiftAngle);
 				break;
 			case LIFT_MIDDLE:
-				sub_LiftToMiddle();
+				sub_LiftToHeight(g_MiddleLiftAngle);
 				break;
 			case LIFT_TOP:
-				sub_LiftToTop();
+				sub_LiftToHeight(g_TopLiftAngle);
 				break;
+			case LIFT_FETCH:
+				sub_LiftToHeight(g_FetchLiftAngle);
 		}
 
 

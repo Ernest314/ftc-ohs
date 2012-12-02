@@ -7,6 +7,7 @@ typedef enum LiftState
 	LIFT_BOTTOM = 1,
 	LIFT_MIDDLE = 2,
 	LIFT_TOP = 3,
+	LIFT_FETCH = 4,
 };
 
 typedef enum MotorState

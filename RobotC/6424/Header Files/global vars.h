@@ -59,6 +59,7 @@ const int g_LiftAccuracyFine = 10;
 const int g_TopLiftAngle = 6 *1000;		//TODO
 const int g_MiddleLiftAngle = 5 *1000;	//TODO
 const int g_BottomLiftAngle = 3 *1000;	//TODO
+const int g_FetchLiftAngle = 2 *1000;	//TODO
 
 
 // (CONTROLLER_1):
