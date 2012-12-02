@@ -16,9 +16,9 @@ const int g_PutRingOnTime = 10;
 // The various positions of the various servos.
 const int g_IRServoLowered		= 0;
 const int g_IRServoExtended		= 220;
-const int g_clawServoDefault	= 100;
+const int g_clawServoDefault	= 0;
 const int g_clawServoExtended	= 250;
-const int g_clawServoFolded		= 230;	// (just a guess)
+const int g_clawServoFolded		= 0;	// (just a guess)
 const int g_rampServoDefault	= 0;	// TODO!
 const int g_rampServoDeployed	= 0;	// TODO!
 

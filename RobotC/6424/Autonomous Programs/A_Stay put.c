@@ -64,4 +64,9 @@ task main()
 	waitForStart();
 
 	initializeRobot();
+
+	while (true)
+	{
+		PlaySoundFile("moo.rso");
+	}
 }

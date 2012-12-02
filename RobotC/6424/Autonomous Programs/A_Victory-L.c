@@ -94,7 +94,7 @@ task main()
 	while (true)
 	{
 		Turn_Right		(lapTime, masterPower, slavePower);
-		PlaySoundFile	("killed.rso");
-		//PlaySoundFile	("moo.rso");
+		//PlaySoundFile	("killed.rso");
+		PlaySoundFile	("moo.rso");
 	}
 }

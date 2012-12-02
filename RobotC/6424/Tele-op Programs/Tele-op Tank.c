@@ -33,7 +33,7 @@ void initializeRobot()
 	// Sensors are config'ed and setup by RobotC (need to stabalize).
 
 	Servo_SetSpeed(servo_IR, 10);		// maximum speed!
-	Servo_SetSpeed(servo_claw, 40);		// maximum speed!
+	Servo_SetSpeed(servo_claw, 40);
 	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
 
 	Servo_Rotate(servo_IR, g_IRServoLowered);		// it gets in the way
@@ -258,19 +258,28 @@ task main()
 			{
 				PlaySoundFile("moo.rso");
 			}
-			if ( Joystick_Button(BUTTON_Y, CONTROLLER_2)==true )
+			//// Less checking (minor optimization). Uncomment at your own risk.
+			//if ( Joystick_Button(BUTTON_Y, CONTROLLER_2)==true )
+			//{
+			//	// The following line WILL disable the robot.
+			//	// Uncomment at your own risk. It does sound cool though.
+			//	sub_CowsWithGuns();
+			//}
+			//if ( Joystick_Button(BUTTON_START, CONTROLLER_2)==true )
+			//{
+			//	PlaySoundFile("killed.rso");
+			//}
+			//if ( Joystick_Button(BUTTON_BACK, CONTROLLER_2)==true )
+			//{
+			//	PlaySoundFile("argh.rso");
+			//}
+			if ( Joystick_Button(BUTTON_RT, CONTROLLER_2)==true )
 			{
-				//// The following line WILL disable the robot.
-				//// Uncomment at your own risk. It does sound cool though.
-				//sub_CowsWithGuns();
+				Servo_Rotate(servo_IR, g_IRServoExtended);
 			}
-			if ( Joystick_Button(BUTTON_START, CONTROLLER_2)==true )
+			if ( Joystick_Button(BUTTON_LT, CONTROLLER_2)==true )
 			{
-				PlaySoundFile("killed.rso");
-			}
-			if ( Joystick_Button(BUTTON_BACK, CONTROLLER_2)==true )
-			{
-				PlaySoundFile("argh.rso");
+				Servo_Rotate(servo_IR, g_IRServoLowered);
 			}
 
 		}

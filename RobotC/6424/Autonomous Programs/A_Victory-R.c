@@ -1,12 +1,13 @@
 #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
+#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
 #pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_2,     motor_G,       tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C1_1,    servo_IR,             tServoStandard)
@@ -37,7 +38,7 @@ void initializeRobot()
 	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
 
 	Servo_Rotate(servo_IR, g_IRServoExtended);		// will fold back up in tele-op
-	Servo_Rotate(servo_claw, g_clawServoExtended);	// will be folded in tele-op
+	//Servo_Rotate(servo_claw, g_clawServoExtended);	// will be folded in tele-op
 	Servo_Rotate(servo_ramp, g_rampServoDefault);	// stops ramp from deploying
 
 	Motor_SetMaxSpeed(g_FullRegulatedPower);
@@ -72,18 +73,18 @@ task main()
 	// ...drives forward to get in position to lap.
 	const int forwardTimeA	= 50;
 	// ...turns 90 deg to be parallel to the wall.
-	const int turnTimeA		= 110;
+	const int turnTimeA		= 60;
 	// ...drives forward to be in the right spot to pass every time.
-	const int forwardTimeB	= 50;
+	const int forwardTimeB	= 80;
 	// ...needs to complete a single lap (to the same spot as above).
-	const int lapTime		= 1000;
+	const int lapTime		= 700;
 
 
 
 	// Power of the motor on outer side of the turn.
 	const int masterPower	= 100;
 	// Power of the motor on inner side of the turn.
-	const int slavePower	= masterPower*0.5;
+	const int slavePower	= masterPower*0.4;
 
 
 
@@ -91,10 +92,10 @@ task main()
 	Turn_Right		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeB, g_AccurateMotorPower);
 
-	while (true)
+	//while (true)
 	{
-		Turn_Left		(lapTime, slavePower, masterPower);
-		PlaySoundFile	("killed.rso");
-		//PlaySoundFile	("moo.rso");
+		Turn_Left		(lapTime, (-1)*slavePower, masterPower);
+		//PlaySoundFile	("killed.rso");
+		PlaySoundFile	("moo.rso");
 	}
 }

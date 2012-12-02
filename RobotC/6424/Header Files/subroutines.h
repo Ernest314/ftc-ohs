@@ -56,48 +56,48 @@ void sub_TakeRingOff()
 
 void sub_CowsWithGuns()
 {
-	PlayTone(NOTE_A3, 195);		Time_Wait(200);
-	PlayTone(NOTE_A3, 195);		Time_Wait(200);
+	PlayTone(NOTE_A3, 19);		Time_Wait(20);
+	PlayTone(NOTE_A3, 19);		Time_Wait(20);
 
-	PlayTone(NOTE_F4, 390);		Time_Wait(400);
-	PlayTone(NOTE_F4, 780);		Time_Wait(800);
-	PlayTone(NOTE_G4, 195);		Time_Wait(200);
-	PlayTone(NOTE_F4, 195);		Time_Wait(200);
+	PlayTone(NOTE_F4, 39);		Time_Wait(40);
+	PlayTone(NOTE_F4, 78);		Time_Wait(80);
+	PlayTone(NOTE_G4, 19);		Time_Wait(20);
+	PlayTone(NOTE_F4, 19);		Time_Wait(20);
 
-	PlayTone(NOTE_E4, 390);		Time_Wait(400);
-	PlayTone(NOTE_C4, 780);		Time_Wait(800);
-	PlayTone(NOTE_D4, 390);		Time_Wait(400);
+	PlayTone(NOTE_E4, 39);		Time_Wait(40);
+	PlayTone(NOTE_C4, 78);		Time_Wait(80);
+	PlayTone(NOTE_D4, 39);		Time_Wait(40);
 
-	PlayTone(NOTE_E4, 585);		Time_Wait(600);
-	PlayTone(NOTE_G3s, 195);	Time_Wait(200);
-	PlayTone(NOTE_G3s, 390);	Time_Wait(400);
-	PlayTone(NOTE_G3s, 390);	Time_Wait(400);
+	PlayTone(NOTE_E4, 59);		Time_Wait(60);
+	PlayTone(NOTE_G3s, 19);		Time_Wait(20);
+	PlayTone(NOTE_G3s, 39);		Time_Wait(40);
+	PlayTone(NOTE_G3s, 39);		Time_Wait(40);
 
-	PlayTone(NOTE_A3, 1170);	Time_Wait(1200);
+	PlayTone(NOTE_A3, 117);		Time_Wait(120);
 
 
-	PlayTone(NOTE_A3, 195);		Time_Wait(200);
-	PlayTone(NOTE_A3, 195);		Time_Wait(200);
+	PlayTone(NOTE_A3, 19);		Time_Wait(20);
+	PlayTone(NOTE_A3, 19);		Time_Wait(20);
 
-	PlayTone(NOTE_F4, 390);		Time_Wait(400);
-	PlayTone(NOTE_F4, 780);		Time_Wait(800);
-	PlayTone(NOTE_G4, 195);		Time_Wait(200);
-	PlayTone(NOTE_F4, 195);		Time_Wait(200);
+	PlayTone(NOTE_F4, 39);		Time_Wait(40);
+	PlayTone(NOTE_F4, 78);		Time_Wait(80);
+	PlayTone(NOTE_G4, 19);		Time_Wait(20);
+	PlayTone(NOTE_F4, 19);		Time_Wait(20);
 
-	PlayTone(NOTE_E4, 195);		Time_Wait(200);
-	PlayTone(NOTE_D4, 195);		Time_Wait(200);
-	PlayTone(NOTE_C4, 780);		Time_Wait(800);
-	PlayTone(NOTE_D4, 390);		Time_Wait(400);
+	PlayTone(NOTE_E4, 19);		Time_Wait(20);
+	PlayTone(NOTE_D4, 19);		Time_Wait(20);
+	PlayTone(NOTE_C4, 78);		Time_Wait(80);
+	PlayTone(NOTE_D4, 39);		Time_Wait(40);
 
-	PlayTone(NOTE_E4, 780);		Time_Wait(800);
-	PlayTone(NOTE_G4s, 780);	Time_Wait(800);
+	PlayTone(NOTE_E4, 78);		Time_Wait(80);
+	PlayTone(NOTE_G4s, 78);		Time_Wait(80);
 
-	PlayTone(NOTE_B4, 780); 	Time_Wait(800);
-	PlayTone(NOTE_REST, 390);	Time_Wait(400);
-	PlayTone(NOTE_G3s, 195);	Time_Wait(200);
-	PlayTone(NOTE_G3s, 195);	Time_Wait(200);
+	PlayTone(NOTE_B4, 78); 		Time_Wait(80);
+	PlayTone(NOTE_REST, 39);	Time_Wait(40);
+	PlayTone(NOTE_G3s, 19);		Time_Wait(20);
+	PlayTone(NOTE_G3s, 19);		Time_Wait(20);
 
-	PlayTone(NOTE_A3, 390);		Time_Wait(400);
+	PlayTone(NOTE_A3, 39);		Time_Wait(40);
 }
 
 
