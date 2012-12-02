@@ -47,11 +47,11 @@ void sub_TakeRingOff()
 }
 
 
-task sub_WeighRings()
-{
-	// We might not implement this at all. Heh.
-	EndTimeSlice();
-}
+//// Doesn't seem like we're using this. We still might, though.
+//task sub_WeighRings()
+//{
+//	EndTimeSlice();
+//}
 
 
 void sub_CowsWithGuns()
@@ -70,9 +70,9 @@ void sub_CowsWithGuns()
 	PlayTone(NOTE_D4, 390);		Time_Wait(400);
 
 	PlayTone(NOTE_E4, 585);		Time_Wait(600);
-	PlayTone(208, 195);			Time_Wait(200);	// G#3
-	PlayTone(208, 390);			Time_Wait(400);	// G#3
-	PlayTone(208, 390);			Time_Wait(400);	// G#3
+	PlayTone(NOTE_G3s, 195);	Time_Wait(200);
+	PlayTone(NOTE_G3s, 390);	Time_Wait(400);
+	PlayTone(NOTE_G3s, 390);	Time_Wait(400);
 
 	PlayTone(NOTE_A3, 1170);	Time_Wait(1200);
 
@@ -91,14 +91,14 @@ void sub_CowsWithGuns()
 	PlayTone(NOTE_D4, 390);		Time_Wait(400);
 
 	PlayTone(NOTE_E4, 780);		Time_Wait(800);
-	PlayTone(415, 780);			Time_Wait(800);	// G#4
+	PlayTone(NOTE_G4s, 780);	Time_Wait(800);
 
 	PlayTone(NOTE_B4, 780); 	Time_Wait(800);
 	PlayTone(NOTE_REST, 390);	Time_Wait(400);
-	PlayTone(208, 195);			Time_Wait(200);	// G#3
-	PlayTone(208, 195);			Time_Wait(200);	// G#3
+	PlayTone(NOTE_G3s, 195);	Time_Wait(200);
+	PlayTone(NOTE_G3s, 195);	Time_Wait(200);
 
-	PlayTone(NOTE_A4, 390);		Time_Wait(400);
+	PlayTone(NOTE_A3, 390);		Time_Wait(400);
 }
 
 
