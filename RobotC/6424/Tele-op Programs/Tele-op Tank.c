@@ -116,7 +116,9 @@ task main()
 		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
 		{
 			isLiftState = LIFT_JOYSTICK;
-			powerLift = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_L, AXIS_Y, CONTROLLER_2));
+			powerLift =
+				Math_ToLogarithmic
+					(Joystick_Joystick(JOYSTICK_L, AXIS_Y, CONTROLLER_2));
 		}
 		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
 				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
