@@ -56,49 +56,49 @@ task sub_WeighRings()
 
 void sub_CowsWithGuns()
 {
-	PlayTone(220, 195);	Time_Wait(200);
-	PlayTone(220, 195);	Time_Wait(200);
+	PlayTone(NOTE_A3, 195);		Time_Wait(200);
+	PlayTone(NOTE_A3, 195);		Time_Wait(200);
 
-	PlayTone(349, 390);	Time_Wait(400);
-	PlayTone(349, 780);	Time_Wait(800);
-	PlayTone(392, 195);	Time_Wait(200);
-	PlayTone(349, 195);	Time_Wait(200);
+	PlayTone(NOTE_F4, 390);		Time_Wait(400);
+	PlayTone(NOTE_F4, 780);		Time_Wait(800);
+	PlayTone(NOTE_G4, 195);		Time_Wait(200);
+	PlayTone(NOTE_F4, 195);		Time_Wait(200);
 
-	PlayTone(330, 195);	Time_Wait(200);
-	PlayTone(294, 195);	Time_Wait(200);
-	PlayTone(262, 780);	Time_Wait(800);
-	PlayTone(294, 390);	Time_Wait(400);
+	PlayTone(NOTE_E4, 195);		Time_Wait(200);
+	PlayTone(NOTE_D4, 195);		Time_Wait(200);
+	PlayTone(NOTE_C4, 780);		Time_Wait(800);
+	PlayTone(NOTE_D4, 390);		Time_Wait(400);
 
-	PlayTone(330, 585);	Time_Wait(600);
-	PlayTone(208, 195);	Time_Wait(200);
-	PlayTone(208, 390);	Time_Wait(400);
-	PlayTone(208, 390);	Time_Wait(400);
+	PlayTone(NOTE_E4, 585);		Time_Wait(600);
+	PlayTone(208, 195);			Time_Wait(200);	// G#3
+	PlayTone(208, 390);			Time_Wait(400);	// G#3
+	PlayTone(208, 390);			Time_Wait(400);	// G#3
 
-	PlayTone(220, 1170);Time_Wait(1200);
+	PlayTone(NOTE_A3, 1170);	Time_Wait(1200);
 
 
-	PlayTone(220, 195);	Time_Wait(200);
-	PlayTone(220, 195);	Time_Wait(200);
+	PlayTone(NOTE_A3, 195);		Time_Wait(200);
+	PlayTone(NOTE_A3, 195);		Time_Wait(200);
 
-	PlayTone(349, 390);	Time_Wait(400);
-	PlayTone(349, 780);	Time_Wait(800);
-	PlayTone(392, 195);	Time_Wait(200);
-	PlayTone(349, 195);	Time_Wait(200);
+	PlayTone(NOTE_F4, 390);		Time_Wait(400);
+	PlayTone(NOTE_F4, 780);		Time_Wait(800);
+	PlayTone(NOTE_G4, 195);		Time_Wait(200);
+	PlayTone(NOTE_F4, 195);		Time_Wait(200);
 
-	PlayTone(330, 195);	Time_Wait(200);
-	PlayTone(294, 195);	Time_Wait(200);
-	PlayTone(262, 780);	Time_Wait(800);
-	PlayTone(294, 390);	Time_Wait(400);
+	PlayTone(NOTE_E4, 195);		Time_Wait(200);
+	PlayTone(NOTE_D4, 195);		Time_Wait(200);
+	PlayTone(NOTE_C4, 780);		Time_Wait(800);
+	PlayTone(NOTE_D4, 390);		Time_Wait(400);
 
-	PlayTone(330, 780);	Time_Wait(800);
-	PlayTone(415, 780);	Time_Wait(800);
+	PlayTone(NOTE_E4, 780);		Time_Wait(800);
+	PlayTone(415, 780);			Time_Wait(800);	// G#4
 
-	PlayTone(494, 780); Time_Wait(800);
-	PlayTone(0, 390);	Time_Wait(400);
-	PlayTone(208, 195);	Time_Wait(200);
-	PlayTone(208, 195);	Time_Wait(200);
+	PlayTone(NOTE_B4, 780); 	Time_Wait(800);
+	PlayTone(NOTE_REST, 390);	Time_Wait(400);
+	PlayTone(208, 195);			Time_Wait(200);	// G#3
+	PlayTone(208, 195);			Time_Wait(200);	// G#3
 
-	PlayTone(220, 390);	Time_Wait(400);
+	PlayTone(NOTE_A4, 390);		Time_Wait(400);
 }
 
 

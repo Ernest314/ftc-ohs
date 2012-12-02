@@ -65,6 +65,8 @@ typedef enum JoystickDirection	//needs one more definitive test
 // These frequencies are all in hertz, rounded to the nearest int.
 typedef enum SoundNotes
 {
+	NOTE_REST = 0,
+
 	NOTE_C3 = 131,	NOTE_C4 = 262,	NOTE_C5 = 523,
 	NOTE_D3 = 147,	NOTE_D4 = 294,	NOTE_D5 = 587,
 	NOTE_E3 = 165,	NOTE_E4 = 330,	NOTE_E5 = 659,
