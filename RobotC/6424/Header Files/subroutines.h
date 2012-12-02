@@ -64,8 +64,7 @@ void sub_CowsWithGuns()
 	PlayTone(NOTE_G4, 195);		Time_Wait(200);
 	PlayTone(NOTE_F4, 195);		Time_Wait(200);
 
-	PlayTone(NOTE_E4, 195);		Time_Wait(200);
-	PlayTone(NOTE_D4, 195);		Time_Wait(200);
+	PlayTone(NOTE_E4, 390);		Time_Wait(400);
 	PlayTone(NOTE_C4, 780);		Time_Wait(800);
 	PlayTone(NOTE_D4, 390);		Time_Wait(400);
 
