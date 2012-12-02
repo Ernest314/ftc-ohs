@@ -7,7 +7,7 @@
 const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
 
 // The threshold for IR values to count as detected.
-const int g_IRthreshold = 10;
+const int g_IRthreshold = 5;
 
 
 // Time to drive forward to put a ring on.

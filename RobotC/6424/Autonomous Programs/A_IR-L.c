@@ -1,12 +1,13 @@
 #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
+#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
 #pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, encoder)
-#pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
+#pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C3_2,     motor_G,       tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C1_1,    servo_IR,             tServoStandard)
@@ -37,7 +38,7 @@ void initializeRobot()
 	HTIRS2setDSPMode(infrared, g_IRsensorMode);
 
 	Servo_SetSpeed(servo_IR, 10);		// maximum speed!
-	Servo_SetSpeed(servo_claw, 10);		// maximum speed!
+	Servo_SetSpeed(servo_claw, 40);		// maximum speed!
 	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
 
 	Servo_Rotate(servo_IR, g_IRServoExtended);		// will fold back up in tele-op
@@ -84,15 +85,15 @@ task main()
 	const int forwardTimeAA	= 25;
 	const int turnTimeA 	= 50;
 
-	const int forwardTimeA 	= 170;
-	const int turnTimeB 	= 110;
+	const int forwardTimeA 	= 178;
+	const int turnTimeB 	= 128;
 	const int forwardTimeB 	= 100;
 	const int liftTimeB 	= 45;
 
 	const int forwardTimeCA	= 110;	//TODO
-	const int forwardTimeCB = 40;	//TODO
-	const int turnTimeD 	= 152;
-	const int forwardTimeD 	= 110;
+	const int forwardTimeCB = 39;	//TODO
+	const int turnTimeD 	= 165;
+	const int forwardTimeD 	= 140;
 	const int liftTimeD 	= 135;
 
 	const int forwardTimeE 	= 95;	//TODO
@@ -125,6 +126,7 @@ task main()
 	Move_Forward	(forwardTimeAA, g_AccurateMotorPower);
 	Turn_Left		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	Servo_Rotate	(servo_claw, g_clawServoDefault);
 
 	Time_Wait(50);
 	HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
@@ -134,6 +136,8 @@ task main()
 		Turn_Right		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
 		Lift_Up			(liftTimeB, g_AccurateMotorPower);
 		Move_Forward	(forwardTimeB, g_AccurateMotorPower);
+
+		Servo_Rotate	(servo_claw, g_clawServoDefault);
 
 		Lift_Down		(liftTimeG, g_AccurateMotorPower);
 		Move_Backward	(backwardTimeG, g_AccurateMotorPower);
@@ -175,10 +179,10 @@ task main()
 			Move_Forward	(forwardTimeI, g_AccurateMotorPower);
 		}
 	}
-	Move_Forward	(forwardTimeJ, g_AccurateMotorPower);
-	Turn_Right		(turnTimeK, g_AccurateMotorPower, g_AccurateMotorPower);
-	Lift_Up			(liftTimeK, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeK, g_AccurateMotorPower);
+	//Move_Forward	(forwardTimeJ, g_AccurateMotorPower);
+	//Turn_Right		(turnTimeK, g_AccurateMotorPower, g_AccurateMotorPower);
+	//Lift_Up			(liftTimeK, g_AccurateMotorPower);
+	//Move_Forward	(forwardTimeK, g_AccurateMotorPower);
 
 
 
