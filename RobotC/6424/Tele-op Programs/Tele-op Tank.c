@@ -1,4 +1,5 @@
-#pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
+ #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
+#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
@@ -7,7 +8,7 @@
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, encoder)
 #pragma config(Motor,  mtr_S1_C2_2,     motor_R,       tmotorTetrix, PIDControl, reversed, encoder)
-#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, encoder)
+#pragma config(Motor,  mtr_S1_C3_1,     motor_lift,    tmotorTetrix, PIDControl, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C3_2,     motor_G,       tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C1_1,    servo_IR,             tServoStandard)
 #pragma config(Servo,  srvo_S1_C1_2,    servo_claw,           tServoStandard)
@@ -120,6 +121,13 @@ task main()
 				Math_ToLogarithmic
 					(Joystick_Joystick(JOYSTICK_L, AXIS_Y, CONTROLLER_2));
 		}
+		if ( abs(joystick.joy2_y2)>g_JoystickThreshold )
+		{
+			isLiftState = LIFT_JOYSTICK;
+			powerLift =
+				Math_ToLogarithmic
+					(Joystick_Joystick(JOYSTICK_R, AXIS_Y, CONTROLLER_2)/g_FineTuneFactor);
+		}
 		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
 				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
 		{
@@ -137,11 +145,11 @@ task main()
 				// Operate lift at full power if F/B.
 				case DIRECTION_F:
 					isLiftState = LIFT_JOYSTICK;
-					powerLift = g_FullLiftPower;
+					powerLift = (-1)*g_FullLiftPower;
 					break;
 				case DIRECTION_B:
 					isLiftState = LIFT_JOYSTICK;
-					powerLift = (-1)*g_FullLiftPower;
+					powerLift = g_FullLiftPower;
 					break;
 
 				case DIRECTION_L:
@@ -196,9 +204,9 @@ task main()
 				{
 					Servo_Rotate(servo_ramp, g_rampServoDeployed);
 				}
-				else
+				else if ( Joystick_Button(BUTTON_JOYL) == true )
 				{
-					isLiftState = LIFT_FETCH;
+					Servo_Rotate(servo_ramp, g_rampServoDefault);
 				}
 			}
 
@@ -206,12 +214,12 @@ task main()
 			if ( Joystick_Button(BUTTON_RT)==true )
 			{
 				isLiftState = LIFT_JOYSTICK;
-				powerLift = g_FullLiftPower/g_FineTuneFactor;
+				powerLift = (-1)*g_FullLiftPower/g_FineTuneFactor;
 			}
 			if ( Joystick_Button(BUTTON_LT)==true )
 			{
 				isLiftState = LIFT_JOYSTICK;
-				powerLift = (-1)*g_FullLiftPower/g_FineTuneFactor;
+				powerLift = g_FullLiftPower/g_FineTuneFactor;
 			}
 
 		}
@@ -253,11 +261,16 @@ task main()
 		//if ( (g_ControllerMaskB & joystick.joy2_Buttons) != false )
 		{
 
-			// If X is pressed, the MOO shall be released!
-			if ( Joystick_Button(BUTTON_X, CONTROLLER_2)==true )
+			// If RT and START are pressed at the same time, release the RAMP!
+			if ( Joystick_Button(BUTTON_RT, CONTROLLER_2) && Joystick_Button(BUTTON_START, CONTROLLER_2) ==true )
 			{
-				PlaySoundFile("moo.rso");
+				Servo_Rotate(servo_ramp, g_rampServoDeployed);
 			}
+			if ( Joystick_Button(BUTTON_RB, CONTROLLER_2) && Joystick_Button(BUTTON_START, CONTROLLER_2) ==true )
+			{
+				Servo_Rotate(servo_ramp, g_rampServoDefault);
+			}
+
 			//// Less checking (minor optimization). Uncomment at your own risk.
 			//if ( Joystick_Button(BUTTON_Y, CONTROLLER_2)==true )
 			//{
@@ -273,13 +286,13 @@ task main()
 			//{
 			//	PlaySoundFile("argh.rso");
 			//}
-			if ( Joystick_Button(BUTTON_RT, CONTROLLER_2)==true )
-			{
-				Servo_Rotate(servo_IR, g_IRServoExtended);
-			}
 			if ( Joystick_Button(BUTTON_LT, CONTROLLER_2)==true )
 			{
 				Servo_Rotate(servo_IR, g_IRServoLowered);
+			}
+			if ( Joystick_Button(BUTTON_LB, CONTROLLER_2)==true )
+			{
+				Servo_Rotate(servo_IR, g_IRServoExtended);
 			}
 
 		}
