@@ -1,9 +1,9 @@
- #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
+#pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
-#pragma config(Motor,  motorA,          motor_popcorn, tmotorNXT, openLoop)
+#pragma config(Motor,  motorA,          motor_A,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, encoder)
@@ -66,12 +66,9 @@ task main()
 	// declare them every single loop.
 	int powerL = 0;
 	int powerR = 0;
-	int powerPopcorn = 0;
 	//// Not implemented yet. We'll implement when optimizing for speed.
 	//MotorState isMotorStateL = MOTOR_JOYSTICK;
 	//MotorState isMotorStateR = MOTOR_JOYSTICK;
-
-
 
 	waitForStart();
 
@@ -81,27 +78,17 @@ task main()
 
 	while (true)
 	{
+		// For a detailed explanation of this loop, see the end of this block.
+		// The commenting has been moved there for ease of coding (scrolling).
+
 		// Currently does (at least) 7 checks and 3 assignments per loop.
 		Joystick_UpdateData();
-
-
 
 		// These should be zeroed after every loop. In the case that there
 		// isn't input, the motors won't keep moving at the last speed it had.
 		powerL = 0;
 		powerR = 0;
 		powerLift = 0;
-		powerPopcorn = 0;
-
-		// POPCORN!!! (This comes first, obviously.)
-		if ( Joystick_Button(BUTTON_B, CONTROLLER_2)==true )
-		{
-			powerPopcorn = g_FullDrivePower;
-		}
-		else if ( Joystick_Button(BUTTON_A, CONTROLLER_2)==true )
-		{
-			powerPopcorn = (-1)*g_FullDrivePower;
-		}
 
 
 
@@ -271,21 +258,7 @@ task main()
 				Servo_Rotate(servo_ramp, g_rampServoDefault);
 			}
 
-			//// Less checking (minor optimization). Uncomment at your own risk.
-			//if ( Joystick_Button(BUTTON_Y, CONTROLLER_2)==true )
-			//{
-			//	// The following line WILL disable the robot.
-			//	// Uncomment at your own risk. It does sound cool though.
-			//	sub_CowsWithGuns();
-			//}
-			//if ( Joystick_Button(BUTTON_START, CONTROLLER_2)==true )
-			//{
-			//	PlaySoundFile("killed.rso");
-			//}
-			//if ( Joystick_Button(BUTTON_BACK, CONTROLLER_2)==true )
-			//{
-			//	PlaySoundFile("argh.rso");
-			//}
+
 			if ( Joystick_Button(BUTTON_LT, CONTROLLER_2)==true )
 			{
 				Servo_Rotate(servo_IR, g_IRServoLowered);
@@ -323,7 +296,6 @@ task main()
 		Motor_SetPower(motor_L, powerL);
 		Motor_SetPower(motor_R, powerR);
 		Motor_SetPower(motor_lift, powerLift);
-		Motor_SetPower(motor_popcorn, powerPopcorn);
 
 
 
