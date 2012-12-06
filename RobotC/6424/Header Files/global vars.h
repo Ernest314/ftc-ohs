@@ -55,6 +55,9 @@ const int g_LiftAccuracyRough = 50;
 const int g_LiftAccuracyFine = 10;
 
 
+// Tolerance for lift (so that lift can still put rings on; for PID).
+const int g_LiftTolerance = 10;
+
 // These angles are added onto the current encoder count of the
 // lift motor (the "current" value varies at startup).
 const int g_TopLiftAngle = 6 *1000;		//TODO
