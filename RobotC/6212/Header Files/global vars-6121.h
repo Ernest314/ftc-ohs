@@ -3,25 +3,6 @@
 
 
 
-// The mode the IR sensor is set at.
-const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
-
-// The threshold for IR values to count as detected.
-const int g_IRthreshold = 10;
-
-
-// Time to drive forward to put a ring on.
-const int g_PutRingOnTime = 10;
-
-// The various positions of the various servos.
-const int g_IRServoLowered  	= 0;
-const int g_IRServoExtended		= 220;
-const int g_clawServoDefault	= 100;
-const int g_clawServoExtended	= 250;
-const int g_clawServoFolded		= 230;	// (just a guess)
-const int g_rampServoDefault	= 0;	// TODO!
-const int g_rampServoDeployed	= 0;	// TODO!
-
 
 // The threshold for joystick values to count (eliminates humming).
 // The highest we've ever recorded is +-7.
@@ -29,7 +10,6 @@ const int g_JoystickThreshold = 10;
 
 
 int powerLift = 0;
-LiftState isLiftState = LIFT_JOYSTICK;
 
 
 // The factor to divide by when fine-tuning motors.
