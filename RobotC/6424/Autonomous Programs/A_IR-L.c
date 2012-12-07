@@ -81,28 +81,35 @@ task main()
 
 	Servo_Rotate(servo_ramp, g_rampServoHold);
 
+	Time_Wait(100);
+	//Time_Wait(1500);
+
 
 
 	// The amount of time the robot...
-	const int forwardTimeAA	= 25;
+	const int forwardTimeAA	= 15;
 	const int turnTimeA 	= 45;
 
 	const int forwardTimeA 	= 170;
+	const int liftTimeB 	= 45;
 	const int turnTimeB 	= 95;
 	const int forwardTimeB 	= 100;
-	const int liftTimeB 	= 45;
 
-	const int forwardTimeCA	= 110;	//TODO
-	const int forwardTimeCB = 39;	//TODO
-	const int turnTimeD 	= 165;
-	const int forwardTimeD 	= 140;
-	const int liftTimeD 	= 135;
+	const int turnTimeCA	= 40;
+	const int forwardTimeC	= 100;
+	const int turnTimeCB	= 40;
+	const int liftTimeD		= 90;
+	const int turnTimeD		= 80;
+	const int forwardTimeD	= 150;
 
-	const int forwardTimeE 	= 95;	//TODO
-	const int turnTimeF 	= 112;
-	const int forwardTimeF 	= 80;
-	const int liftTimeF 	= 47;
+	const int turnTimeEA	= 40;
+	const int forwardTimeE	= 100;
+	const int turnTimeEB	= 40;
+	const int liftTimeF		= 45;
+	const int turnTimeF		= 80;
+	const int forwardTimeF	= 100;
 
+	//^^^DONE----->
 	const int liftTimeG		= 30;	//TODO
 	const int backwardTimeG	= 100;	//TODO
 	const int turnTimeG		= 70;	//TODO
@@ -139,20 +146,20 @@ task main()
 		Lift_Up			(liftTimeB, g_AccurateMotorPower);
 		Move_Forward	(forwardTimeB, g_AccurateMotorPower);
 
-		Servo_Rotate	(servo_claw, g_clawServoDefault);
-
 		Lift_Down		(liftTimeG, g_AccurateMotorPower);
-		Move_Backward	(backwardTimeG, g_AccurateMotorPower);
-		Turn_Right		(turnTimeG, g_AccurateMotorPower, g_AccurateMotorPower);
+		//Move_Backward	(backwardTimeG, g_AccurateMotorPower);
+		//Turn_Right		(turnTimeG, g_AccurateMotorPower, g_AccurateMotorPower);
 
-		Move_Forward	(forwardTimeG, g_AccurateMotorPower);
+		//Move_Forward	(forwardTimeG, g_AccurateMotorPower);
 	}
 	else
 	{
-		Move_Forward	(forwardTimeCA, g_AccurateMotorPower);
+		Turn_Left		(turnTimeCA, g_AccurateMotorPower, g_AccurateMotorPower);
+		Move_Forward	(forwardTimeC, g_AccurateMotorPower);
+		Turn_Right		(turnTimeCB, g_AccurateMotorPower, g_AccurateMotorPower);
+
 		Time_Wait(50);
 		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-		Move_Forward	(forwardTimeCB, g_AccurateMotorPower);
 
 		if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 		{
@@ -161,24 +168,26 @@ task main()
 			Move_Forward	(forwardTimeD, g_AccurateMotorPower);
 
 			Lift_Down		(liftTimeH, g_AccurateMotorPower);
-			Move_Backward	(backwardTimeH, g_AccurateMotorPower);
-			Turn_Right		(turnTimeH, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Move_Backward	(backwardTimeH, g_AccurateMotorPower);
+			//Turn_Right		(turnTimeH, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			Move_Forward	(forwardTimeH, g_AccurateMotorPower);
+			//Move_Forward	(forwardTimeH, g_AccurateMotorPower);
 		}
 		else
 		{
+			Turn_Right		(turnTimeEA, g_AccurateMotorPower, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeE, g_AccurateMotorPower);
+			Turn_Left		(turnTimeEB, g_AccurateMotorPower, g_AccurateMotorPower);
 
 			Turn_Right		(turnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
 			Lift_Up			(liftTimeF, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeF, g_AccurateMotorPower);
 
 			Lift_Down		(liftTimeI, g_AccurateMotorPower);
-			Move_Backward	(backwardTimeI, g_AccurateMotorPower);
-			Turn_Right		(turnTimeI, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Move_Backward	(backwardTimeI, g_AccurateMotorPower);
+			//Turn_Right		(turnTimeI, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			Move_Forward	(forwardTimeI, g_AccurateMotorPower);
+			//Move_Forward	(forwardTimeI, g_AccurateMotorPower);
 		}
 	}
 	//Move_Forward	(forwardTimeJ, g_AccurateMotorPower);
