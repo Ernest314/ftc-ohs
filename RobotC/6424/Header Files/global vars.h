@@ -7,7 +7,7 @@
 const tHTIRS2DSPMode g_IRsensorMode = DSP_1200;
 
 // The threshold for IR values to count as detected.
-const int g_IRthreshold = 5;
+const int g_IRthreshold = 30;
 
 
 // Time to drive forward to put a ring on.
@@ -16,9 +16,8 @@ const int g_PutRingOnTime = 10;
 // The various positions of the various servos.
 const int g_IRServoLowered		= 0;
 const int g_IRServoExtended		= 220;
-const int g_clawServoDefault	= 0;
+const int g_clawServoFolded		= 0;
 const int g_clawServoExtended	= 250;
-const int g_clawServoFolded		= 0;	// (just a guess)
 const int g_rampServoDefault	= 50;	// TODO!
 const int g_rampServoHold		= 40;	// TODO!
 const int g_rampServoDeployed	= 15;	// TODO!
