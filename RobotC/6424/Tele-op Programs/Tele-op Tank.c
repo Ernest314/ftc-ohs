@@ -33,7 +33,7 @@ void initializeRobot()
 {
 	// Sensors are config'ed and setup by RobotC (need to stabalize).
 
-	Servo_SetSpeed(servo_IR, 10);		// maximum speed!
+	Servo_SetSpeed(servo_IR, 30);		// maximum speed!
 	Servo_SetSpeed(servo_claw, 40);
 	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
 
