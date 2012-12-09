@@ -36,12 +36,9 @@ LiftState isLiftState = LIFT_JOYSTICK;
 const int g_FineTuneFactor = 4;
 
 
-// The full speed the motors should be PID-regulated at.
+const int g_FullPower = 100;
 const int g_FullRegulatedPower = 80;
-
-// The full speed the drive motors runs at.
 const int g_FullDrivePower = 80;
-// The full speed the lift motor runs at.
 const int g_FullLiftPower = 80;
 
 // The speed motors should ve PID-regulated at for the autonomous period,
