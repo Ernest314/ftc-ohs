@@ -94,8 +94,30 @@ task main()
 
 
 
-		// See if a direction is being pressed, then test for the direction.
-		// `JoystickController` arguments are not passed to increase speed.
+	// CONTROLLER 2 INPUT:--------------------------------------------------||
+
+		// JOYSTICKS INPUT:--------------------------------------------------|
+
+
+		// BUTTONS INPUT:--------------------------------------------------|
+
+
+
+	// CONTROLLER 1 INPUT:--------------------------------------------------||
+
+		// D-PAD INPUT:--------------------------------------------------|
+
+
+		// JOYSTICKS INPUT:--------------------------------------------------|
+
+
+		// BUTTONS INPUT:--------------------------------------------------|
+
+
+
+
+		// If D-pad is being pressed, then test for the direction.
+		// `JoystickController` arguments aren't passed (to optimize).
 
 		// Input from CONTROLLER_2 will be used to control the lift in
 		// conjunction with CONTROLLER_1, but shouldn't override the driver,
