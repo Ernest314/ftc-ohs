@@ -4,7 +4,6 @@
 
 
 
-
 /*!@addtogroup HiTechnic
  * @{
  * @defgroup htirs2 IR Seeker V2
@@ -18,33 +17,10 @@
 
 #ifndef __HTIRS2_H__
 #define __HTIRS2_H__
-/** \file hitechnic-irseeker-v2.h
- * \brief HiTechnic IR Seeker V2 driver
- *
- * hitechnic-irseeker-v2.h provides an API for the HiTechnic IR Seeker V2.
- *
- * Changelog:
- * - 0.1: Initial release
- * - 0.2: Added SMUX functions
- * - 0.3: All functions using tIntArray are now pass by reference.<br>
- *        HTIRS2_SMUXData removed
- * - 0.4: Removed all calls to ubyteToInt()<br>
- *        Replaced all functions that used SPORT/MPORT macros
- * - 0.5: Driver renamed to HTIRS2
- *
- * Credits:
- * - Big thanks to HiTechnic for providing me with the hardware necessary to write and test this.
- *
- * License: You may use this code as you wish, provided you give credit where its due.
- *
- * THIS CODE WILL ONLY WORK WITH ROBOTC VERSION 3.54 AND HIGHER.
- * \author Xander Soldaat (xander_at_botbench.com)
- * \date 06 April 2010
- * \version 0.5
- * \example hitechnic-irseeker-v2-test1.c
- * \example hitechnic-irseeker-v2-test2.c
- * \example hitechnic-irseeker-v2-SMUX-test1.c
- */
+// API for HiTechnic IR Seeker V2.
+	// Author:	Xander Soldaat (xander@botbench.com)
+	// Date:	06 April 2010
+	// Version:	0.5
 
 #pragma systemFile
 
@@ -458,8 +434,6 @@ bool HTIRS2readEnhanced(tSensors  link, int &dir, int &strength)
  */
 /* @} */
 /* @} */
-
-
 
 
 
