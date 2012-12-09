@@ -5,6 +5,13 @@
 
 
 
+typedef enum RampState
+{
+	RAMP_HOLD = 0,
+	RAMP_READY = 1,
+	RAMP_DEPLOY = 2,
+};
+
 typedef enum LiftState
 {
 	LIFT_JOYSTICK = 0,

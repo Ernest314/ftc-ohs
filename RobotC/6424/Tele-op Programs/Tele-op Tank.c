@@ -63,6 +63,7 @@ task main()
 	//// Not implemented yet. We'll implement when optimizing for speed.
 	//MotorState isMotorStateL = MOTOR_JOYSTICK;
 	//MotorState isMotorStateR = MOTOR_JOYSTICK;
+	RampState isRampState = RAMP_HOLD;
 
 	waitForStart();
 	initializeRobot();
@@ -94,36 +95,16 @@ task main()
 
 
 
-	// CONTROLLER 2 INPUT:--------------------------------------------------||
+	// CONTROLLER 2 INPUT:==================================================||
 
 		// JOYSTICKS INPUT:--------------------------------------------------|
+		// Input from the two joysticks will control the lift at
+		// different speeds (fast for R, slow for L). These will
+		// not override the input from the primary driver.
+			// This is because the input from the primary driver is
+			// processed last, therefore getting "the last say".
 
-
-		// BUTTONS INPUT:--------------------------------------------------|
-
-
-
-	// CONTROLLER 1 INPUT:--------------------------------------------------||
-
-		// D-PAD INPUT:--------------------------------------------------|
-
-
-		// JOYSTICKS INPUT:--------------------------------------------------|
-
-
-		// BUTTONS INPUT:--------------------------------------------------|
-
-
-
-
-		// If D-pad is being pressed, then test for the direction.
-		// `JoystickController` arguments aren't passed (to optimize).
-
-		// Input from CONTROLLER_2 will be used to control the lift in
-		// conjunction with CONTROLLER_1, but shouldn't override the driver,
-		// since driver #1's input is processed last.
-
-		// This is the code for CONTROLLER_2:
+		// The signals are only processed if it is above a threshold.
 		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
 		{
 			isLiftState = LIFT_JOYSTICK;
@@ -136,8 +117,66 @@ task main()
 			isLiftState = LIFT_JOYSTICK;
 			powerLift =
 				Math_ToLogarithmic
-					(Joystick_Joystick(JOYSTICK_R, AXIS_Y, CONTROLLER_2)/g_FineTuneFactor);
+					(Joystick_Joystick(JOYSTICK_R, AXIS_Y, CONTROLLER_2)
+						/g_FineTuneFactor);
 		}
+
+
+		// BUTTONS INPUT:--------------------------------------------------|
+		// For a detailed explanation of masking the buttons' input,
+		// see the comments accompanying CONTROLLER_1's buttons.
+
+		// Uncomment the next line and comment the one after if masking.
+		//if ( (g_ControllerMaskB & joystick.joy2_Buttons) != false )
+		if ( joystick.joy2_Buttons != false )
+		{
+			if ( Joystick_Button(BUTTON_LT, CONTROLLER_2)==true )
+			{
+				Servo_Rotate(servo_IR, g_IRServoLowered);
+			}
+			if ( Joystick_Button(BUTTON_LB, CONTROLLER_2)==true )
+			{
+				Servo_Rotate(servo_IR, g_IRServoExtended);
+			}
+			if ( Joystick_Button(BUTTON_RT, CONTROLLER_2)==true )
+			{
+				Servo_Rotate(servo_IR, g_clawServoFolded);
+			}
+			if ( Joystick_Button(BUTTON_RB, CONTROLLER_2)==true )
+			{
+				Servo_Rotate(servo_IR, g_clawServoFolded);
+			}
+
+			// The "RAMP_READY" state needs to become "RAMP_DEPLOY" for
+			// the ramp to deploy. "RAMP_READY" signals to CONTROLLER_1
+			// that CONTROLLER_2 has pressed BUTTON_START already.
+			if ( Joystick_Button(BUTTON_START, CONTROLLER_2)==true )
+			{
+				isRampState = RAMP_READY;
+			}
+		}
+
+
+	// CONTROLLER 1 INPUT:==================================================||
+
+		// D-PAD INPUT:--------------------------------------------------|
+		// Only if D-pad is pressed, test for direction.
+		// Default arguments aren't passed (to optimize).
+
+
+		// JOYSTICKS INPUT:--------------------------------------------------|
+
+
+		// BUTTONS INPUT:--------------------------------------------------|
+
+
+
+
+
+
+
+
+
 		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
 				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
 		{
@@ -262,41 +301,12 @@ task main()
 
 
 
-		// CONTROLLER_2 has the same masking implementation as CONTROLLER_1.
-		// For a detailed explanation of the mechanism, see those comments.
 
-		// CONTROLLER_2 is only tested for button X (currently).
-
-		//if ( joystick.joy2_Buttons != false )
-		//if ( (g_ControllerMaskB & joystick.joy2_Buttons) != false )
-		{
-
-			// If RT and START are pressed at the same time, release the RAMP!
-			if ( Joystick_Button(BUTTON_RT, CONTROLLER_2) && Joystick_Button(BUTTON_START, CONTROLLER_2) ==true )
-			{
-				Servo_Rotate(servo_ramp, g_rampServoDeployed);
-			}
-			if ( Joystick_Button(BUTTON_RB, CONTROLLER_2) && Joystick_Button(BUTTON_START, CONTROLLER_2) ==true )
-			{
-				Servo_Rotate(servo_ramp, g_rampServoDefault);
-			}
-
-
-			if ( Joystick_Button(BUTTON_LT, CONTROLLER_2)==true )
-			{
-				Servo_Rotate(servo_IR, g_IRServoLowered);
-			}
-			if ( Joystick_Button(BUTTON_LB, CONTROLLER_2)==true )
-			{
-				Servo_Rotate(servo_IR, g_IRServoExtended);
-			}
-
-		}
 
 
 
 		// After preliminary processing of the controller data,
-		// the actual motor power assignments happen here.
+		// the actual motor/servo assignments happen here.
 
 		switch (isLiftState)
 		{
@@ -311,6 +321,16 @@ task main()
 				break;
 			case LIFT_FETCH:
 				sub_LiftToHeight(g_FetchLiftAngle);
+		}
+
+		switch (isRampState)
+		{
+			case RAMP_HOLD:
+				Servo_Rotate(servo_ramp, g_rampServoHold);
+				break;
+			case RAMP_DEPLOY:
+				Servo_Rotate(servo_ramp, g_rampServoDeployed);
+				break;
 		}
 
 		Motor_SetPower(motor_L, powerL);
