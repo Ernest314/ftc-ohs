@@ -26,10 +26,11 @@ const int g_rampServoDeployed	= 15;	// TODO!
 
 
 // The threshold for joystick values to count (eliminates humming).
-// The highest we've ever recorded is +-7.
+// The highest we've ever recorded is +/-8.
 const int g_JoystickThreshold = 10;
 
 
+// I'm not sure why we're declaring these here--but it must be important.
 int powerLift = 0;
 LiftState isLiftState = LIFT_JOYSTICK;
 
@@ -37,7 +38,7 @@ LiftState isLiftState = LIFT_JOYSTICK;
 // The factor to divide by when fine-tuning motors.
 const int g_FineTuneFactor = 4;
 
-
+// The various motor-regulation speeds.
 const int g_FullPower = 100;
 const int g_FullRegulatedPower = 80;
 const int g_FullDrivePower = 80;
@@ -46,11 +47,6 @@ const int g_FullLiftPower = 80;
 // The speed motors should ve PID-regulated at for the autonomous period,
 // since the movement needs to be much more accurate.
 const int g_AccurateMotorPower = 65;
-
-
-// Threshold for encoder target thingy.
-const int g_LiftAccuracyRough = 50;
-const int g_LiftAccuracyFine = 10;
 
 
 // Tolerance for lift (so that lift can still put rings on; for PID).
@@ -66,7 +62,7 @@ const int g_FetchLiftAngle = 2 *1000;	//TODO
 
 
 //// We might not use masking at all to increase spped--we're not sure.
-
+//
 //// (CONTROLLER_1):
 //// Mask for the "bitmap" values from the controller for everything
 //// we don't need (other than A/B/X/Y/LT/RT/JOYL/JOYR):
@@ -81,7 +77,7 @@ const int g_FetchLiftAngle = 2 *1000;	//TODO
 //// If it doesn't work, use the commented-out line:
 ////const short g_ControllerMask = 6559;
 //const short g_ControllerMaskA = 3279;	//CONTROLLER_1
-
+//
 //// (CONTROLLER_2):
 //// Masks for the "bitmap" values from the controller for everything
 //// we don't need (other than A/B/X/Y):
