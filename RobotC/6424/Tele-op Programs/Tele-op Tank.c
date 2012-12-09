@@ -56,8 +56,8 @@ void initializeRobot()
 
 task main()
 {
-	// These will be used later and are declared here to save from having to
-	// declare them every single loop.
+	// These will be used every loop, and are declared
+	// here to save from declaring them every loop.
 	int powerL = 0;
 	int powerR = 0;
 	//// Not implemented yet. We'll implement when optimizing for speed.
@@ -65,21 +65,29 @@ task main()
 	//MotorState isMotorStateR = MOTOR_JOYSTICK;
 
 	waitForStart();
-
 	initializeRobot();
 
 
 
-	while (true)
-	{
-		// For a detailed explanation of this loop, see the end of this block.
-		// The commenting has been moved there for ease of coding (scrolling).
+	// At "max capacity", each loop should do 8 checks and
+	// 3 assignments: 2 x (2 joysticks + buttons + 1 D-pad).
+	// The order is:
+		// D-pad
+		// Buttons
+		// Joysticks
+		// D-pad
+		// Buttons
+		// Joysticks
 
-		// Currently does (at least) 7 checks and 3 assignments per loop.
+	// Using a `for` loop (instead of `while`) is more intuitive,
+	// flexible, and makes code more readable (e.g. for indexing).
+
+	for (int i=0; ; i++)	// `int i` is used in many included headers.
+	{
 		Joystick_UpdateData();
 
-		// These should be zeroed after every loop. In the case that there
-		// isn't input, the motors won't keep moving at the last speed it had.
+		// These should be zeroed after every loop, so if there
+		// isn't any input, the motors will have no power.
 		powerL = 0;
 		powerR = 0;
 		powerLift = 0;
@@ -87,7 +95,6 @@ task main()
 
 
 		// See if a direction is being pressed, then test for the direction.
-		// This is inside an `if` statement to optimize speed (less checking).
 		// `JoystickController` arguments are not passed to increase speed.
 
 		// Input from CONTROLLER_2 will be used to control the lift in
@@ -266,6 +273,9 @@ task main()
 
 
 
+		// After preliminary processing of the controller data,
+		// the actual motor power assignments happen here.
+
 		switch (isLiftState)
 		{
 			case LIFT_BOTTOM:
@@ -281,17 +291,8 @@ task main()
 				sub_LiftToHeight(g_FetchLiftAngle);
 		}
 
-
-
-		// Flush the controller input buffer periodically (every 1/4 sec?)
-
-
-
 		Motor_SetPower(motor_L, powerL);
 		Motor_SetPower(motor_R, powerR);
 		Motor_SetPower(motor_lift, powerLift);
-
-
-
 	}
 }
