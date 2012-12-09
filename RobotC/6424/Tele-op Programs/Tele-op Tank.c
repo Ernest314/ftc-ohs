@@ -47,6 +47,8 @@ void initializeRobot()
 	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
+	bFloatDuringInactiveMotorPWM = false;
+
 	// We might not even use this--the operator should have control.
 	// Uncomment the next lines if the robot burns and crashes.
 
