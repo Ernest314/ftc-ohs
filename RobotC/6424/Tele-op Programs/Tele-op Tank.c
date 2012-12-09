@@ -60,7 +60,7 @@ task main()
 	// here to save from declaring them every loop.
 	int powerL = 0;
 	int powerR = 0;
-	//// Not implemented yet. We'll implement when optimizing for speed.
+	//// Not implemented yet. Will implement when adding ring code.
 	//MotorState isMotorStateL = MOTOR_JOYSTICK;
 	//MotorState isMotorStateR = MOTOR_JOYSTICK;
 	RampState isRampState = RAMP_HOLD;
@@ -73,12 +73,11 @@ task main()
 	// At "max capacity", each loop should do 8 checks and
 	// 3 assignments: 2 x (2 joysticks + buttons + 1 D-pad).
 	// The order is:
-		// D-pad
-		// Buttons
+		// (D-pad)
 		// Joysticks
-		// D-pad
 		// Buttons
-		// Joysticks
+
+	// Default arguments are never passed if not needed (to optimize).
 
 	// Using a `for` loop (instead of `while`) is more intuitive,
 	// flexible, and makes code more readable (e.g. for indexing).
@@ -123,10 +122,12 @@ task main()
 
 
 		// BUTTONS INPUT:--------------------------------------------------|
-		// For a detailed explanation of masking the buttons' input,
-		// see the comments accompanying CONTROLLER_1's buttons.
+		// This includes servo controls and the ramp release confirm.
 
 		// Uncomment the next line and comment the one after if masking.
+			// For an explanation of masking the buttons' input,
+			// see the comments accompanying CONTROLLER_1's buttons.
+
 		//if ( (g_ControllerMaskB & joystick.joy2_Buttons) != false )
 		if ( joystick.joy2_Buttons != false )
 		{
@@ -157,35 +158,14 @@ task main()
 		}
 
 
+
 	// CONTROLLER 1 INPUT:==================================================||
 
 		// D-PAD INPUT:--------------------------------------------------|
 		// Only if D-pad is pressed, test for direction.
-		// Default arguments aren't passed (to optimize).
 
-
-		// JOYSTICKS INPUT:--------------------------------------------------|
-
-
-		// BUTTONS INPUT:--------------------------------------------------|
-
-
-
-
-
-
-
-
-
-		if ( (	Joystick_Button(BUTTON_LB, CONTROLLER_2) ||
-				Joystick_Button(BUTTON_RB, CONTROLLER_2)) ==true )
-		{
-			isLiftState = LIFT_JOYSTICK;
-			powerLift /= g_FineTuneFactor;
-		}
-
-		// This is the code for CONTROLLER_1, along with two unimplemented
-		// functions for putting rings on and taking rings off.
+		// Controls lift and has two unimplemented functions
+		// for taking rings off/putting rings on.
 		if ( Joystick_Direction() != DIRECTION_NONE )
 		{
 			switch ( Joystick_Direction() )
@@ -211,6 +191,28 @@ task main()
 		}
 
 
+		// JOYSTICKS INPUT:--------------------------------------------------|
+		// Controls most of the driving. We are using two separate
+		// checks, because combining them into one check will execute
+		// both even if only one joystick is pressed. The linking of
+		// both checks (disjunction) checks both inputs anyways.
+
+		// The signals are only processed if it is above a threshold.
+		if ( abs(Joystick_Joystick(JOYSTICK_L, AXIS_Y)) > g_JoystickThreshold )
+		{
+			powerL = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_L, AXIS_Y));
+		}
+		if ( abs(Joystick_Joystick(JOYSTICK_R, AXIS_Y)) > g_JoystickThreshold )
+		{
+			powerR = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_R, AXIS_Y));
+		}
+
+
+		// BUTTONS INPUT:--------------------------------------------------|
+
+
+
+
 
 		// See if a button (not masked) is being pressed, then react.
 		// This is inside an `if` statement to optimize speed (less checking).
@@ -227,7 +229,7 @@ task main()
 		// Directly using the struct since this is the only possible time to
 		// use it, and this is very low-level anyways.
 
-		//if ( joystick.joy1_Buttons != false )
+		if ( joystick.joy1_Buttons != false )
 		//if ( (g_ControllerMaskA & joystick.joy1_Buttons) != false )
 		{
 
@@ -271,39 +273,20 @@ task main()
 				powerLift = (-1)*g_FullLiftPower/g_FineTuneFactor;
 			}
 
-		}
+			// Last check: if LB/RB is pressed, fine-tune the power level.
+			if ( (Joystick_Button(BUTTON_LB)||Joystick_Button(BUTTON_RB)) ==true )
+			{
+				powerL /= g_FineTuneFactor;
+				powerR /= g_FineTuneFactor;
+			}
 
-
-
-		// L/R motor code. Only triggered when a joystick returns a
-		// value greater than the "drive" threshold (`global vars.h`).
-
-		// Logarithmic control probably won't be implemented anytime soon.
-		// Also need to stop using the `joystick` struct and switch to the
-		// encapsulated version (Joystick_Joystick(...)).
-
-
-
-		// Y-axis code:
-		if ( 	abs(Joystick_Joystick(JOYSTICK_L, AXIS_Y)) > g_JoystickThreshold ||
-				abs(Joystick_Joystick(JOYSTICK_R, AXIS_Y)) > g_JoystickThreshold )
-		{
-			powerL = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_L, AXIS_Y));
-			powerR = Math_ToLogarithmic(Joystick_Joystick(JOYSTICK_R, AXIS_Y));
-		}
-
-		// Last check: if LB/RB is pressed, fine-tune the power level.
-		if ( (Joystick_Button(BUTTON_LB)||Joystick_Button(BUTTON_RB)) ==true )
-		{
-			powerL /= g_FineTuneFactor;
-			powerR /= g_FineTuneFactor;
 		}
 
 
 
 
 
-
+	// FINAL PROCESSING:==================================================||
 
 		// After preliminary processing of the controller data,
 		// the actual motor/servo assignments happen here.
