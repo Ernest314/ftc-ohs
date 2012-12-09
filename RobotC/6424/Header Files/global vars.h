@@ -37,6 +37,8 @@ LiftState isLiftState = LIFT_JOYSTICK;
 
 // The factor to divide by when fine-tuning motors.
 const int g_FineTuneFactor = 4;
+const int g_SlowLiftFactor = 2;
+const int g_SlowDriveFactor = 4;
 
 // The various motor-regulation speeds.
 const int g_FullPower = 100;
