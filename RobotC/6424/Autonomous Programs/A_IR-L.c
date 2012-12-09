@@ -177,23 +177,23 @@ task main()
 
 			//Move_Forward	(forwardTimeH, g_AccurateMotorPower);
 		}
-		else
-		{
-			Move_Forward	(forwardTimeEA, g_AccurateMotorPower);
-			Turn_Right		(turnTimeEA, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeEB, g_AccurateMotorPower);
-			//Turn_Left		(turnTimeEB, g_AccurateMotorPower, g_AccurateMotorPower);
+		//else
+		//{
+		//	Move_Forward	(forwardTimeEA, g_AccurateMotorPower);
+		//	Turn_Right		(turnTimeEA, g_AccurateMotorPower, g_AccurateMotorPower);
+		//	Move_Forward	(forwardTimeEB, g_AccurateMotorPower);
+		//	//Turn_Left		(turnTimeEB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			Turn_Right		(turnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
-			Lift_Up			(liftTimeF, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeF, g_AccurateMotorPower);
+		//	Turn_Right		(turnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
+		//	Lift_Up			(liftTimeF, g_AccurateMotorPower);
+		//	Move_Forward	(forwardTimeF, g_AccurateMotorPower);
 
-			Lift_Down		(liftTimeI, g_AccurateMotorPower);
-			//Move_Backward	(backwardTimeI, g_AccurateMotorPower);
-			//Turn_Right		(turnTimeI, g_AccurateMotorPower, g_AccurateMotorPower);
+		//	Lift_Down		(liftTimeI, g_AccurateMotorPower);
+		//	//Move_Backward	(backwardTimeI, g_AccurateMotorPower);
+		//	//Turn_Right		(turnTimeI, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			//Move_Forward	(forwardTimeI, g_AccurateMotorPower);
-		}
+		//	//Move_Forward	(forwardTimeI, g_AccurateMotorPower);
+		//}
 	}
 	//Move_Forward	(forwardTimeJ, g_AccurateMotorPower);
 	//Turn_Right		(turnTimeK, g_AccurateMotorPower, g_AccurateMotorPower);

@@ -35,7 +35,7 @@ void initializeRobot()
 
 	Servo_SetSpeed(servo_IR, 30);		// maximum speed!
 	Servo_SetSpeed(servo_claw, 40);
-	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
+	Servo_SetSpeed(servo_ramp, 0);	// slowly update so ramp doesn't release.
 
 	Servo_Rotate(servo_IR, g_IRServoLowered);		// it gets in the way
 	Servo_Rotate(servo_claw, g_clawServoFolded);	// servo bracket gets bent
