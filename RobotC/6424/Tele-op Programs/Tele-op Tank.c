@@ -93,9 +93,9 @@ task main()
 
 
 
-	// CONTROLLER 2 INPUT:==================================================||
+	// CONTROLLER 2 INPUT:==================================================||>
 
-		// JOYSTICKS INPUT:--------------------------------------------------|
+		// JOYSTICKS INPUT:--------------------------------------------------|>
 		// Input from the two joysticks will control the lift at
 		// different speeds (fast for R, slow for L). These will
 		// not override the input from the primary driver.
@@ -122,7 +122,7 @@ task main()
 		}
 
 
-		// BUTTONS INPUT:--------------------------------------------------|
+		// BUTTONS INPUT:--------------------------------------------------|>
 		// This includes servo controls and the ramp release confirm.
 
 		// Uncomment the next line and comment the one after if masking.
@@ -158,9 +158,9 @@ task main()
 
 
 
-	// CONTROLLER 1 INPUT:==================================================||
+	// CONTROLLER 1 INPUT:==================================================||>
 
-		// D-PAD INPUT:--------------------------------------------------|
+		// D-PAD INPUT:--------------------------------------------------|>
 		// Only if D-pad is pressed, test for direction.
 
 		// Controls lift and has two unimplemented functions
@@ -190,7 +190,7 @@ task main()
 		}
 
 
-		// JOYSTICKS INPUT:--------------------------------------------------|
+		// JOYSTICKS INPUT:--------------------------------------------------|>
 		// Controls most of the driving. We are using two separate
 		// checks, because combining them into one check will execute
 		// both even if only one joystick is pressed. The linking of
@@ -207,7 +207,7 @@ task main()
 		}
 
 
-		// BUTTONS INPUT:--------------------------------------------------|
+		// BUTTONS INPUT:--------------------------------------------------|>
 		// Everything other than the buttons used might be masked to
 		// (possibly) increase speed.
 		// Reasoning: `&` compares every bit, so we might as well mask,
@@ -275,7 +275,7 @@ task main()
 
 
 
-	// FINAL PROCESSING:==================================================||
+	// FINAL PROCESSING:==================================================||>
 
 		// After preliminary processing of the controller data,
 		// the actual motor/servo assignments happen here.
