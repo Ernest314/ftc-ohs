@@ -63,7 +63,6 @@ task main()
 	//// Not implemented yet. Will implement when adding ring code.
 	//MotorState isMotorStateL = MOTOR_JOYSTICK;
 	//MotorState isMotorStateR = MOTOR_JOYSTICK;
-	RampState isRampState = RAMP_HOLD;
 
 	waitForStart();
 	initializeRobot();
@@ -104,14 +103,16 @@ task main()
 			// processed last, therefore getting "the last say".
 
 		// The signals are only processed if it is above a threshold.
-		if ( abs(joystick.joy2_y1)>g_JoystickThreshold )
+		if ( abs(Joystick_Joystick(JOYSTICK_L, AXIS_Y, CONTROLLER_2))
+					>g_JoystickThreshold )
 		{
 			isLiftState = LIFT_JOYSTICK;
 			powerLift =
 				Math_ToLogarithmic
 					(Joystick_Joystick(JOYSTICK_L, AXIS_Y, CONTROLLER_2));
 		}
-		if ( abs(joystick.joy2_y2)>g_JoystickThreshold )
+		if ( abs(Joystick_Joystick(JOYSTICK_R, AXIS_Y, CONTROLLER_2))
+					>g_JoystickThreshold )
 		{
 			isLiftState = LIFT_JOYSTICK;
 			powerLift =
@@ -127,7 +128,6 @@ task main()
 		// Uncomment the next line and comment the one after if masking.
 			// For an explanation of masking the buttons' input,
 			// see the comments accompanying CONTROLLER_1's buttons.
-
 		//if ( (g_ControllerMaskB & joystick.joy2_Buttons) != false )
 		if ( joystick.joy2_Buttons != false )
 		{
@@ -148,12 +148,11 @@ task main()
 				Servo_Rotate(servo_IR, g_clawServoFolded);
 			}
 
-			// The "RAMP_READY" state needs to become "RAMP_DEPLOY" for
-			// the ramp to deploy. "RAMP_READY" signals to CONTROLLER_1
-			// that CONTROLLER_2 has pressed BUTTON_START already.
-			if ( Joystick_Button(BUTTON_START, CONTROLLER_2)==true )
+			// Both controllers need to press START to deploy ramp.
+			// The code is in CONTROLLER_1's buttons code block.
+			if ( Joystick_Button(BUTTON_BACK, CONTROLLER_2)==true )
 			{
-				isRampState = RAMP_READY;
+				Servo_Rotate(servo_ramp, g_rampServoHold);
 			}
 		}
 
@@ -209,31 +208,22 @@ task main()
 
 
 		// BUTTONS INPUT:--------------------------------------------------|
+		// Everything other than the buttons used might be masked to
+		// (possibly) increase speed.
+		// Reasoning: `&` compares every bit, so we might as well mask,
+		// in case something irrelevant is pressed.
 
+		// A `0` value means no buttons (that we test for) are pressed.
+		// Directly using the struct since this is the only time we
+		// use it, and the code is meant to be low-level anyways.
 
-
-
-
-		// See if a button (not masked) is being pressed, then react.
-		// This is inside an `if` statement to optimize speed (less checking).
-
-		// The argument to this first `if` statement is a masked version
-		// of the "bitmap" of buttons directly from the controller.
-
-		// Everything other than the buttons used are masked off, to increase
-		// processing speed (possibly, just speculation). Reasoning:
-		// `&` compares all bits of the variables, so we might as well mask
-		// everything we won't need, in case something irrelevant is pressed.
-
-		// A `0` value means no buttons (that we are testing for) are pressed.
-		// Directly using the struct since this is the only possible time to
-		// use it, and this is very low-level anyways.
-
-		if ( joystick.joy1_Buttons != false )
+		// Uncomment the next line and comment the one after if masking.
+			// For an explanation of masking the buttons' input,
+			// see the comments accompanying CONTROLLER_1's buttons.
 		//if ( (g_ControllerMaskA & joystick.joy1_Buttons) != false )
+		if ( joystick.joy1_Buttons != false )
 		{
-
-			// Buttons Y/B/A will control lift height.
+			// Buttons Y/B/A/X will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
 				isLiftState = LIFT_TOP;
@@ -246,22 +236,12 @@ task main()
 			{
 				isLiftState = LIFT_BOTTOM;
 			}
-
-			// If only X is pressed, weigh the ring.
-			// If JOYR is pressed as well, deploy ramp.
 			if ( Joystick_Button(BUTTON_X)==true )
 			{
-				if ( Joystick_Button(BUTTON_JOYR) == true )
-				{
-					Servo_Rotate(servo_ramp, g_rampServoDeployed);
-				}
-				else if ( Joystick_Button(BUTTON_JOYL) == true )
-				{
-					Servo_Rotate(servo_ramp, g_rampServoDefault);
-				}
+				isLiftState = LIFT_FETCH;
 			}
 
-			// Buttons LT/RT will fine-tune the lift.
+			// Buttons LT/RT fine-tune the lift.
 			if ( Joystick_Button(BUTTON_RT)==true )
 			{
 				isLiftState = LIFT_JOYSTICK;
@@ -273,16 +253,25 @@ task main()
 				powerLift = (-1)*g_FullLiftPower/g_FineTuneFactor;
 			}
 
-			// Last check: if LB/RB is pressed, fine-tune the power level.
-			if ( (Joystick_Button(BUTTON_LB)||Joystick_Button(BUTTON_RB)) ==true )
+			// If LB/RB is pressed, fine-tune the motors.
+			if ( (Joystick_Button(BUTTON_LB)||
+					Joystick_Button(BUTTON_RB)) ==true )
 			{
 				powerL /= g_FineTuneFactor;
 				powerR /= g_FineTuneFactor;
 			}
 
+			// Both controllers need to press START to deploy ramp.
+			if ( (Joystick_Button(BUTTON_START)&&
+					Joystick_Button(BUTTON_START, CONTROLLER_2))==true )
+			{
+				Servo_Rotate(servo_ramp, g_rampServoDeployed);
+			}
+			if ( Joystick_Button(BUTTON_BACK)==true )
+			{
+				Servo_Rotate(servo_ramp, g_rampServoHold);
+			}
 		}
-
-
 
 
 
@@ -304,16 +293,6 @@ task main()
 				break;
 			case LIFT_FETCH:
 				sub_LiftToHeight(g_FetchLiftAngle);
-		}
-
-		switch (isRampState)
-		{
-			case RAMP_HOLD:
-				Servo_Rotate(servo_ramp, g_rampServoHold);
-				break;
-			case RAMP_DEPLOY:
-				Servo_Rotate(servo_ramp, g_rampServoDeployed);
-				break;
 		}
 
 		Motor_SetPower(motor_L, powerL);
