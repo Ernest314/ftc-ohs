@@ -327,12 +327,10 @@ int Math_ToLogarithmic(int input)
 	if (input >= 0)
 	{
 		convertedInput = input;
-		//convertedInput = pow( 1.05, (input*100/127) );
 	}
 	else if (input < 0)
 	{
 		convertedInput = input;
-		//convertedInput = (-1)*pow( 1.05, (abs(input)*100/127) );
 	}
 	return convertedInput;
 }

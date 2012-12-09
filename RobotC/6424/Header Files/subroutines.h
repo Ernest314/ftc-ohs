@@ -5,32 +5,7 @@
 
 void sub_LiftToHeight(int height)
 {
-	if ( abs(height-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyRough )
-	{
-		if ( Motor_GetEncoder(motor_lift)>height )
-		{
-			powerLift = -100;
-			//powerLift = (-1) * g_FullLiftPower;
-		}
-		if ( Motor_GetEncoder(motor_lift)<height )
-		{
-			powerLift = 100;
-			//powerLift = g_FullLiftPower;
-		}
-	}
-	if ( abs(height-Motor_GetEncoder(motor_lift)) > g_LiftAccuracyFine )
-	{
-		if ( Motor_GetEncoder(motor_lift)>height )
-		{
-			powerLift = -20;
-			//powerLift = (-1) * g_FullLiftPower / g_FineTuneFactor;
-		}
-		if ( Motor_GetEncoder(motor_lift)<height )
-		{
-			powerLift = 20;
-			//powerLift = g_FullLiftPower / g_FineTuneFactor;
-		}
-	}
+	// Implement PID control HERE. :D
 }
 
 
@@ -45,13 +20,6 @@ void sub_TakeRingOff()
 {
 	Lift_Up(20, g_AccurateMotorPower);
 }
-
-
-//// Doesn't seem like we're using this. We still might, though.
-//task sub_WeighRings()
-//{
-//	EndTimeSlice();
-//}
 
 
 void sub_CowsWithGuns()
