@@ -37,8 +37,8 @@ void initializeRobot()
 	// initialize third-party sensors automatically.
 	HTIRS2setDSPMode(infrared, g_IRsensorMode);
 
-	Servo_SetSpeed(servo_IR, 10);		// maximum speed!
-	Servo_SetSpeed(servo_claw, 40);		// maximum speed!
+	Servo_SetSpeed(servo_IR, 30);		// maximum speed!
+	Servo_SetSpeed(servo_claw, 20);		// maximum speed!
 	Servo_SetSpeed(servo_ramp, 100);	// slowly update so ramp doesn't release.
 
 	Servo_Rotate(servo_IR, g_IRServoExtended);		// will fold back up in tele-op
@@ -90,21 +90,23 @@ task main()
 	const int forwardTimeAA	= 25;
 	const int turnTimeA 	= 45;
 
-	const int forwardTimeA 	= 164;
-	const int liftTimeB 	= 45;
-	const int turnTimeB 	= 95;
-	const int forwardTimeB 	= 100;
+	const int forwardTimeA 	= 155;
+	const int forwardTimeBA	= 21;
+	const int liftTimeB 	= 56;
+	const int turnTimeB 	= 94;
+	const int forwardTimeBB	= 90;
 
 	const int turnTimeCA	= 54;
-	const int forwardTimeCA	= 150;
-	const int turnTimeCB	= 52;
-	const int forwardTimeCB	= 50;
-	const int liftTimeD		= 135;
+	const int forwardTimeCA	= 160;
+	const int turnTimeCB	= 48;
+	const int forwardTimeCB	= 30;
+	const int liftTimeD		= 143;
 	const int turnTimeD		= 105;
-	const int forwardTimeD	= 230;
+	const int forwardTimeD	= 218;
 
+	const int forwardTimeEA	= 10;
 	const int turnTimeEA	= 40;
-	const int forwardTimeE	= 100;
+	const int forwardTimeEB	= 100;
 	const int turnTimeEB	= 40;
 	const int liftTimeF		= 45;
 	const int turnTimeF		= 80;
@@ -137,14 +139,15 @@ task main()
 	Turn_Left		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
 
-	Time_Wait(50);
+	Time_Wait(100);
 	HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
 
 	if ( (IRdirA+IRdirB+IRdirC+IRdirD+IRdirE) > g_IRthreshold )
 	{
+		Move_Forward	(forwardTimeBA, g_AccurateMotorPower);
 		Turn_Right		(turnTimeB, g_AccurateMotorPower, g_AccurateMotorPower);
 		Lift_Up			(liftTimeB, g_AccurateMotorPower);
-		Move_Forward	(forwardTimeB, g_AccurateMotorPower);
+		Move_Forward	(forwardTimeBB, g_AccurateMotorPower);
 
 		Lift_Down		(liftTimeG, g_AccurateMotorPower);
 		//Move_Backward	(backwardTimeG, g_AccurateMotorPower);
@@ -158,7 +161,7 @@ task main()
 		Move_Forward	(forwardTimeCA, g_AccurateMotorPower);
 		Turn_Right		(turnTimeCB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-		Time_Wait(50);
+		Time_Wait(100);
 		HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
 		Move_Forward	(forwardTimeCB, g_AccurateMotorPower);
 
@@ -174,22 +177,23 @@ task main()
 
 			//Move_Forward	(forwardTimeH, g_AccurateMotorPower);
 		}
-		else
-		{
-			Turn_Right		(turnTimeEA, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeE, g_AccurateMotorPower);
-			//Turn_Left		(turnTimeEB, g_AccurateMotorPower, g_AccurateMotorPower);
+		//else
+		//{
+		//	Move_Forward	(forwardTimeEA, g_AccurateMotorPower);
+		//	Turn_Right		(turnTimeEA, g_AccurateMotorPower, g_AccurateMotorPower);
+		//	Move_Forward	(forwardTimeEB, g_AccurateMotorPower);
+		//	//Turn_Left		(turnTimeEB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			Turn_Right		(turnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
-			Lift_Up			(liftTimeF, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeF, g_AccurateMotorPower);
+		//	Turn_Right		(turnTimeF, g_AccurateMotorPower, g_AccurateMotorPower);
+		//	Lift_Up			(liftTimeF, g_AccurateMotorPower);
+		//	Move_Forward	(forwardTimeF, g_AccurateMotorPower);
 
-			Lift_Down		(liftTimeI, g_AccurateMotorPower);
-			//Move_Backward	(backwardTimeI, g_AccurateMotorPower);
-			//Turn_Right		(turnTimeI, g_AccurateMotorPower, g_AccurateMotorPower);
+		//	Lift_Down		(liftTimeI, g_AccurateMotorPower);
+		//	//Move_Backward	(backwardTimeI, g_AccurateMotorPower);
+		//	//Turn_Right		(turnTimeI, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			//Move_Forward	(forwardTimeI, g_AccurateMotorPower);
-		}
+		//	//Move_Forward	(forwardTimeI, g_AccurateMotorPower);
+		//}
 	}
 	//Move_Forward	(forwardTimeJ, g_AccurateMotorPower);
 	//Turn_Right		(turnTimeK, g_AccurateMotorPower, g_AccurateMotorPower);
