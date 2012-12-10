@@ -118,7 +118,7 @@ task main()
 			powerLift =
 				Math_ToLogarithmic
 					(Joystick_Joystick(JOYSTICK_R, AXIS_Y, CONTROLLER_2)
-						/g_FineTuneFactor);
+						/g_SlowLiftFactor);
 		}
 
 
@@ -173,11 +173,11 @@ task main()
 				// Operate lift at full power if F/B.
 				case DIRECTION_F:
 					isLiftState = LIFT_JOYSTICK;
-					powerLift = g_FullLiftPower;
+					powerLift = g_FullLiftPower/g_SlowLiftFactor;
 					break;
 				case DIRECTION_B:
 					isLiftState = LIFT_JOYSTICK;
-					powerLift = (-1)*g_FullLiftPower;
+					powerLift = (-1)*g_FullLiftPower/g_SlowLiftFactor;
 					break;
 
 				case DIRECTION_L:
@@ -245,20 +245,20 @@ task main()
 			if ( Joystick_Button(BUTTON_RT)==true )
 			{
 				isLiftState = LIFT_JOYSTICK;
-				powerLift = g_FullLiftPower/g_FineTuneFactor;
+				powerLift = g_FullLiftPower;
 			}
 			if ( Joystick_Button(BUTTON_LT)==true )
 			{
 				isLiftState = LIFT_JOYSTICK;
-				powerLift = (-1)*g_FullLiftPower/g_FineTuneFactor;
+				powerLift = (-1)*g_FullLiftPower;
 			}
 
 			// If LB/RB is pressed, fine-tune the motors.
 			if ( (Joystick_Button(BUTTON_LB)||
 					Joystick_Button(BUTTON_RB)) ==true )
 			{
-				powerL /= g_FineTuneFactor;
-				powerR /= g_FineTuneFactor;
+				powerL /= g_SlowDriveFactor;
+				powerR /= g_SlowDriveFactor;
 			}
 
 			// Both controllers need to press START to deploy ramp.
