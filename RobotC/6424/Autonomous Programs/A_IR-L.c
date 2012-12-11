@@ -64,6 +64,152 @@ void initializeRobot()
 
 
 
+task main()
+{
+	// The IR signal strengh in all 5 directions.
+
+	int IRdirA = 0;
+	int IRdirB = 0;
+	int IRdirC = 0;
+	int IRdirD = 0;
+	int IRdirE = 0;
+
+	typedef enum PegIR
+	{
+		PEG_I = 0,
+		PEG_II = 1,
+		PEG_III = 2,
+	};
+	PegIR isPeg = PEG_II;
+
+	waitForStart();
+	initializeRobot();
+
+
+
+	// For a better description of the below numbers,
+	// see the page in Engineering Notebook describing
+	// this program (it's labeled clearly).
+	const int forwardTimeA		= 140;
+	const int turnTimeA			= 40;
+	const int forwardTimeB		= 140;
+	const int backTimeA			= 80;
+
+	//Peg 1 Stuff
+	const int turnTimeIA		= 90;
+	const int forwardTimeIA		= 50;
+	const int turnTimeIB		= 90;
+	const int liftTimeIA		= 30;
+	const int forwardTimeIB		= 50;
+	const int liftTimeIB		= 30;
+	//Peg 2 Stuff
+	const int turnTimeIIA		= 90;
+	const int forwardTimeIIA	= 50;
+	const int turnTimeIIB		= 50;
+	const int liftTimeIIA		= 60;
+	const int forwardTimeIIB	= 50;
+	const int liftTimeIIB		= 60;
+	//Peg 3 Stuff
+	const int turnTimeIIIA		= 90;
+	const int forwardTimeIIIA	= 50;
+	const int turnTimeIIIB		= 90;
+	const int liftTimeIIIA		= 30;
+	const int forwardTimeIIIB	= 50;
+	const int liftTimeIIIB		= 30;
+
+
+
+	Time_Wait(100);
+	Servo_Rotate(servo_ramp, g_rampServoHold);
+	Servo_Rotate(servo_claw, g_clawServoFolded);
+	//Time_Wait(1000);
+
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	Turn_Left 		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeB, g_AccurateMotorPower);
+
+	Time_Wait(100);
+	HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+
+	if ( (IRdirA+IRdirB) > g_IRthreshold )
+		isPeg = PEG_III;
+	if ( (IRdirE+IRdirD) > g_IRthreshold )
+		isPeg = PEG_I;
+	if ( IRdirC > (IRdirA+IRdirB+IRdirD+IRdirE) )
+		isPeg = PEG_II;
+
+	switch (isPeg)
+	{
+		case PEG_I:
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
+
+			Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
+			Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
+
+			Lift_Up			(liftTimeIA, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
+			Lift_Down		(liftTimeIB, g_AccurateMotorPower);
+			break;
+		case PEG_II:
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
+
+			Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
+			Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+
+			Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
+			Lift_Down		(liftTimeIIB, g_AccurateMotorPower);
+			break;
+		case PEG_III:
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
+
+			Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
+			Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+
+			Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
+			Lift_Down		(liftTimeIIIB, g_AccurateMotorPower);
+			break;
+	}
+
+	while (true)
+	{
+		PlaySoundFile("moo.rso");
+		while(bSoundActive == true)
+		{
+			Time_Wait(1);
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //task main()
 //{
 //	// The IR signal strengh in all 5 directions.
@@ -208,140 +354,3 @@ void initializeRobot()
 //		}
 //	}
 //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-task main()
-{
-	// The IR signal strengh in all 5 directions.
-
-	int IRdirA = 0;
-	int IRdirB = 0;
-	int IRdirC = 0;
-	int IRdirD = 0;
-	int IRdirE = 0;
-
-	typedef enum PegIR
-	{
-		PEG_I = 0,
-		PEG_II = 1,
-		PEG_III = 2,
-	};
-	PegIR isPeg = PEG_II;
-
-	waitForStart();
-	initializeRobot();
-
-
-
-	const int forwardTimeA		= 140;
-	const int turnTimeA			= 40;
-	const int forwardTimeB		= 140;
-	const int backTimeA			= 80;
-//Peg 1 Stuff
-	const int turnTimeIA		= 90;
-	const int forwardTimeIA		= 50;
-	const int turnTimeIB		= 90;
-	const int liftTimeIA		= 30;
-	const int forwardTimeIB		= 50;
-	const int liftTimeIB		= 30;
-//Peg 2 Stuff
-	const int turnTimeIIA		= 90;
-	const int forwardTimeIIA	= 50;
-	const int turnTimeIIB		= 50;
-	const int liftTimeIIA		= 60;
-	const int forwardTimeIIB	= 50;
-	const int liftTimeIIB		= 60;
-//Peg 3 Stuff
-	const int turnTimeIIIA		= 90;
-	const int forwardTimeIIIA	= 50;
-	const int turnTimeIIIB		= 90;
-	const int liftTimeIIIA		= 30;
-	const int forwardTimeIIIB	= 50;
-	const int liftTimeIIIB		= 30;
-
-
-
-	Time_Wait(100);
-	Servo_Rotate(servo_ramp, g_rampServoHold);
-	Servo_Rotate(servo_claw, g_clawServoFolded);
-	//Time_Wait(1000);
-
-	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
-	Turn_Left 		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
-	Move_Forward	(forwardTimeB, g_AccurateMotorPower);
-
-	Time_Wait(100);
-	HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
-
-	if ( (IRdirA+IRdirB) > g_IRthreshold )
-		isPeg = PEG_III;
-	if ( (IRdirE+IRdirD) > g_IRthreshold )
-		isPeg = PEG_I;
-	if ( IRdirC > (IRdirA+IRdirB+IRdirD+IRdirE) )
-		isPeg = PEG_II;
-
-	switch (isPeg)
-	{
-		case PEG_I:
-			Move_Backward	(backTimeA, g_AccurateMotorPower);
-
-			Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
-			Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
-
-			Lift_Up			(liftTimeIA, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
-			Lift_Down		(liftTimeIB, g_AccurateMotorPower);
-			break;
-		case PEG_II:
-			Move_Backward	(backTimeA, g_AccurateMotorPower);
-
-			Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
-			Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
-
-			Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
-			Lift_Down		(liftTimeIIB, g_AccurateMotorPower);
-			break;
-		case PEG_III:
-			Move_Backward	(backTimeA, g_AccurateMotorPower);
-
-			Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
-			Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
-
-			Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
-			Lift_Down		(liftTimeIIIB, g_AccurateMotorPower);
-			break;
-	}
-
-	while (true)
-	{
-		PlaySoundFile("moo.rso");
-		while(bSoundActive == true)
-		{
-			Time_Wait(1);
-		}
-	}
-
-}
