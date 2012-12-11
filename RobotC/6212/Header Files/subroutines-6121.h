@@ -1,7 +1,5 @@
-#ifndef HIGH_LEVEL_FUNCTIONS_H
-#define HIGH_LEVEL_FUNCTIONS_H
-
-
+#ifndef SUBROUTINES_H
+#define SUBROUTINES_H
 
 void Move_Forward(int time, int power=g_FullDrivePower)
 {
@@ -39,21 +37,5 @@ void Turn_Left(int time, int steerL, int steerR)
 	Motor_Stop(motor_L);
 	Motor_Stop(motor_R);
 }
-
-void Lift_Up(int time, int power)
-{
-	Motor_Forward(motor_lift, power);
-	Time_Wait(time);
-	Motor_Stop(motor_lift);
-}
-
-void Lift_Down(int time, int power)
-{
-	Motor_Forward(motor_lift, (-1) * power);
-	Time_Wait(time);
-	Motor_Stop(motor_lift);
-}
-
-
 
 #endif
