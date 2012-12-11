@@ -51,13 +51,13 @@ void initializeRobot()
 	Motor_ResetEncoder(motor_R);
 	Motor_ResetEncoder(motor_lift);
 
-	// Wait this long so the claw & IR servos get to update.
-	// The ramp-release servo shouldn't move; the long update time
-	// is to prevent sudden jerks that might release the ramp.
-	// We don't need to wait for the IR sensor to stabalize since
-	// the robot doesn't read from it until it's at the first column,
-	// which should be ample time for RobotC to setup the sensor.
-	Time_Wait(10);
+	//// Wait this long so the claw & IR servos get to update.
+	//// The ramp-release servo shouldn't move; the long update time
+	//// is to prevent sudden jerks that might release the ramp.
+	//// We don't need to wait for the IR sensor to stabalize since
+	//// the robot doesn't read from it until it's at the first column,
+	//// which should be ample time for RobotC to setup the sensor.
+	//Time_Wait(10);
 
 	return;
 }
@@ -251,9 +251,10 @@ task main()
 
 
 
-	const int forwardTimeA		= 10;
+	const int forwardTimeA		= 140;
 	const int turnTimeA			= 40;
-	const int forwardTimeB		= 200;
+	const int forwardTimeB		= 140;
+	const int backTimeA			= 80;
 //Peg 1 Stuff
 	const int turnTimeIA		= 90;
 	const int forwardTimeIA		= 50;
@@ -262,8 +263,11 @@ task main()
 	const int forwardTimeIB		= 50;
 	const int liftTimeIB		= 30;
 //Peg 2 Stuff
-	const int liftTimeIIA		= 60;
+	const int turnTimeIIA		= 90;
 	const int forwardTimeIIA	= 50;
+	const int turnTimeIIB		= 50;
+	const int liftTimeIIA		= 60;
+	const int forwardTimeIIB	= 50;
 	const int liftTimeIIB		= 60;
 //Peg 3 Stuff
 	const int turnTimeIIIA		= 90;
@@ -285,32 +289,46 @@ task main()
 	Move_Forward	(forwardTimeB, g_AccurateMotorPower);
 
 	Time_Wait(100);
-	HTIRS2readAllDCStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+	HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
 
-	if ( (IRdirA+IRdirB) > (IRdirD+IRdirE) )
+	if ( (IRdirA+IRdirB) > g_IRthreshold )
 		isPeg = PEG_III;
-	if ( (IRdirE+IRdirD) > (IRdirB+IRdirA) )
+	if ( (IRdirE+IRdirD) > g_IRthreshold )
 		isPeg = PEG_I;
+	if ( IRdirC > (IRdirA+IRdirB+IRdirD+IRdirE) )
+		isPeg = PEG_II;
 
 	switch (isPeg)
 	{
 		case PEG_I:
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
+
 			Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
 			Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
+
 			Lift_Up			(liftTimeIA, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
 			Lift_Down		(liftTimeIB, g_AccurateMotorPower);
 			break;
 		case PEG_II:
-			Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
+
+			Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
+			Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+
+			Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
 			Lift_Down		(liftTimeIIB, g_AccurateMotorPower);
 			break;
 		case PEG_III:
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
+
 			Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
 			Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+
 			Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
 			Lift_Down		(liftTimeIIIB, g_AccurateMotorPower);
