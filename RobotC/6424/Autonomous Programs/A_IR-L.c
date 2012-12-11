@@ -87,14 +87,15 @@ task main()
 
 
 
-	// For a better description of the below numbers,
-	// see the page in Engineering Notebook describing
-	// this program (it's labeled clearly).
-	const int forwardTimeA		= 140;
-	const int turnTimeA			= 40;
-	const int forwardTimeB		= 140;
-	const int backTimeA			= 80;
-
+	// For a better description of the below numbers,                   ________________________
+	// see the page in Engineering Notebook describing                  |+----------------------                                _____   _____   _____   _____    _____
+	// this program (it's labeled clearly).							    ||      Robot										    \ \  \  \ \     \ \      \ \      \ \ 
+	const int forwardTimeA		= 140; //								||	      |												 \ \__\	 \_\__   \ \      \ \      \ \ 
+	const int turnTimeA			= 40;  //                               ||        | Fwd A                            			  \ \  \    \ \   \ \      \ \      \ \ 
+	const int forwardTimeB		= 140; //							    ||        | 											   \_\  \  __\_\   \_\___  _\_\__   _\_\ __
+	const int backTimeA			= 80;  //                               ||   Turn A\ 
+                                       //								||	   	     \ Fwd B                                    								   								||      Back A \																			   //							    ||               										
+									   //								||											
 	//Peg 1 Stuff
 	const int turnTimeIA		= 90;
 	const int forwardTimeIA		= 50;
