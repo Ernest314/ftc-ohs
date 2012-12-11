@@ -141,11 +141,11 @@ task main()
 			}
 			if ( Joystick_Button(BUTTON_RT, CONTROLLER_2)==true )
 			{
-				Servo_Rotate(servo_IR, g_clawServoFolded);
+				Servo_Rotate(servo_claw, g_clawServoFolded);
 			}
 			if ( Joystick_Button(BUTTON_RB, CONTROLLER_2)==true )
 			{
-				Servo_Rotate(servo_IR, g_clawServoFolded);
+				Servo_Rotate(servo_claw, g_clawServoExtended);
 			}
 
 			// Both controllers need to press START to deploy ramp.
