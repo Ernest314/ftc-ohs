@@ -3,7 +3,7 @@
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
-#pragma config(Motor,  motorA,          motor_A,       tmotorNXT, openLoop)
+#pragma config(Motor,  motorA,          motor_ramp,    tmotorNXT, openLoop)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
@@ -148,12 +148,12 @@ task main()
 				Servo_Rotate(servo_claw, g_clawServoExtended);
 			}
 
-			// Both controllers need to press START to deploy ramp.
-			// The code is in CONTROLLER_1's buttons code block.
-			if ( Joystick_Button(BUTTON_BACK, CONTROLLER_2)==true )
-			{
-				Servo_Rotate(servo_ramp, g_rampServoHold);
-			}
+			//// Both controllers need to press START to deploy ramp.
+			//// The code is in CONTROLLER_1's buttons code block.
+			//if ( Joystick_Button(BUTTON_BACK, CONTROLLER_2)==true )
+			//{
+			//	Servo_Rotate(servo_ramp, g_rampServoHold);
+			//}
 		}
 
 
@@ -265,12 +265,21 @@ task main()
 			if ( (Joystick_Button(BUTTON_START)&&
 					Joystick_Button(BUTTON_START, CONTROLLER_2))==true )
 			{
-				Servo_Rotate(servo_ramp, g_rampServoDeployed);
+				//Servo_Rotate(servo_ramp, g_rampServoDeployed);
+				Motor_Target(motor_ramp, g_rampMotorRotation);
+				Motor_SetPower(motor_ramp, 100);
+				//// The above code should work. If the motor doesn't stop
+				//// turning after the specified degrees/rotation (I don't
+				//// know which), use the commented out code below. And
+				//// don't forget to comment out the two lines above.
+				//Motor_SetPower(motor_ramp, 100);
+				//Time_Wait(g_rampMotorTime);
+				//Motor_Stop(motor_ramp);
 			}
-			if ( Joystick_Button(BUTTON_BACK)==true )
-			{
-				Servo_Rotate(servo_ramp, g_rampServoHold);
-			}
+			//if ( Joystick_Button(BUTTON_BACK)==true )
+			//{
+			//	Servo_Rotate(servo_ramp, g_rampServoHold);
+			//}
 		}
 
 
