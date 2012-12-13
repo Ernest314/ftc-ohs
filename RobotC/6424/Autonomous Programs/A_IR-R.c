@@ -128,7 +128,7 @@ task main()
 	//Time_Wait(1000);
 
 	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
-	Turn_Left 		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
+	Turn_Right 		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeB, g_AccurateMotorPower);
 
 	Time_Wait(100);
