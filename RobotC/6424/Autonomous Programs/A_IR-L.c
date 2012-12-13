@@ -83,40 +83,42 @@ task main()
 	PegIR isPeg = PEG_II;
 
 	waitForStart();
-	initializeRobot();
+ 	initializeRobot();
 
 
 
 	// For a better description of the below numbers,                   ________________________
-	// see the page in Engineering Notebook describing                  |+----------------------                                _____   _____   _____   _____    _____
-	// this program (it's labeled clearly).							    ||      Robot										    \ \  \  \ \     \ \      \ \      \ \
-	const int forwardTimeA		= 210; //								||	      |												 \ \__\	 \_\__   \ \      \ \      \ \
-	const int turnTimeA			= 40;  //                               ||        | Fwd A                            			  \ \  \    \ \   \ \      \ \      \ \
-	const int forwardTimeB		= 140; //							    ||        | 											   \_\  \  __\_\   \_\___  _\_\__   _\_\__
-	const int backTimeA			= 80;  //                               ||   Turn A\
-                                       //								||	   	     \ Fwd B                                    								   								||      Back A \																			   //							    ||
+	// see the page in Engineering Notebook describing                  |+----------------------
+	// this program (it's labeled clearly).							    ||      Robot
+	const int forwardTimeA		= 210; //								||	      |
+	const int turnTimeA			= 40;  //                               ||        | Fwd A
+	const int forwardTimeB		= 110; //							    ||        |
+	const int backTimeA			= 140;  //                               ||   Turn A\
+                                       //								||	   	     \ Fwd B
 									   //								||
 	//Peg 1 Stuff
 	const int turnTimeIA		= 90;
-	const int forwardTimeIA		= 45;
-	const int turnTimeIB		= 90;
-	const int liftTimeIA		= 30;
-	const int forwardTimeIB		= 50;
-	const int liftTimeIB		= 30;
+	const int forwardTimeIA		= 68;
+	const int turnTimeIB		= 88;
+	const int liftTimeIA		= 48;
+	const int forwardTimeIB		= 220;
+	const int liftTimeIB		= 48;
 	//Peg 2 Stuff
 	const int turnTimeIIA		= 90;
-	const int forwardTimeIIA	= 60;
+	const int forwardTimeIIA	= 38;
 	const int turnTimeIIB		= 90;
-	const int liftTimeIIA		= 60;
-	const int forwardTimeIIB	= 100;
-	const int liftTimeIIB		= 60;
+	const int liftTimeIIA		= 219;
+	const int forwardTimeIIB	= 220;
+	const int liftTimeIIB       = 50;
+	const int backTimeIIB       = 130;
+	const int liftTimeIIC		= (219-40);
 	//Peg 3 Stuff
-	const int turnTimeIIIA		= 90;
-	const int forwardTimeIIIA	= 50;
-	const int turnTimeIIIB		= 90;
-	const int liftTimeIIIA		= 30;
-	const int forwardTimeIIIB	= 50;
-	const int liftTimeIIIB		= 30;
+	const int turnTimeIIIA		= 87;
+	const int forwardTimeIIIA	= 163;
+	const int turnTimeIIIB		= 85;
+	const int liftTimeIIIA		= 48;
+	const int forwardTimeIIIB	= 219;
+	const int liftTimeIIIB		= 48;
 
 
 
@@ -161,7 +163,9 @@ task main()
 
 			Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
-			Lift_Down		(liftTimeIIB, g_AccurateMotorPower);
+			Lift_Down       (liftTimeIIB, g_AccurateMotorPower);
+			Move_Backward   (backTimeIIB, g_AccurateMotorPower);
+			Lift_Down		(liftTimeIIC, g_AccurateMotorPower);
 			break;
 		case PEG_III:
 			Move_Backward	(backTimeA, g_AccurateMotorPower);
