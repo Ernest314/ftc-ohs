@@ -3,7 +3,7 @@
 
 
 
-void sub_LiftToHeight(int height)
+/* void sub_LiftToHeight(int height)
 {
 	// Version 1 ("Theoretical Form")
 	int Kp = 1;
@@ -17,7 +17,7 @@ void sub_LiftToHeight(int height)
 	presentError = height-Motor_GetEncoder(motor_lift);
 	pastError += dTime*presentError;
 	power_lift = Kp*presentError;
-	
+
 	//// Version 2 ("Standard Form")
 	//int Kp = 1;
 	//int Ti = 1;
@@ -32,7 +32,7 @@ void sub_LiftToHeight(int height)
 	//power_lift = Kp*(presentValue+pastError/Ti);
 }
 
-
+*/
 void sub_PutRingOn()
 {
 	Move_Forward(g_PutRingOnTime, g_FullDrivePower);
