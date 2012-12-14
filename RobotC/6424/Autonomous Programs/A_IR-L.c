@@ -93,7 +93,7 @@ task main()
 	const int forwardTimeA		= 210; //								||	      |
 	const int turnTimeA			= 40;  //                               ||        | Fwd A
 	const int forwardTimeB		= 110; //							    ||        |
-	const int backTimeA			= 140;  //                               ||   Turn A\
+	const int backTimeA			= 140; //                               ||   Turn A\
                                        //								||	   	     \ Fwd B
 									   //								||
 	//Peg 1 Stuff
@@ -108,14 +108,16 @@ task main()
 	const int forwardTimeIIA	= 38;
 	const int turnTimeIIB		= 90;
 	const int liftTimeIIA		= 219;
-	const int forwardTimeIIB	= 220;
+	const int forwardTimeIIB	= 235;
 	const int liftTimeIIB       = 50;
 	const int backTimeIIB       = 130;
 	const int liftTimeIIC		= (219-40);
+
+
 	//Peg 3 Stuff
 	const int turnTimeIIIA		= 87;
 	const int forwardTimeIIIA	= 163;
-	const int turnTimeIIIB		= 85;
+	const int turnTimeIIIB		= 86;
 	const int liftTimeIIIA		= 48;
 	const int forwardTimeIIIB	= 219;
 	const int liftTimeIIIB		= 48;
