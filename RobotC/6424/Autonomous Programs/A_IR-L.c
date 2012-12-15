@@ -91,37 +91,37 @@ task main()
 	// see the page in Engineering Notebook describing                  |+----------------------
 	// this program (it's labeled clearly).							    ||      Robot
 	const int forwardTimeA		= 210; //								||	      |
-	const int turnTimeA			= 40;  //                               ||        | Fwd A
+	const int turnTimeA			= 48;  //                               ||        | Fwd A
 	const int forwardTimeB		= 110; //							    ||        |
 	const int backTimeA			= 140; //                               ||   Turn A\
                                        //								||	   	     \ Fwd B
 									   //								||
 	//Peg 1 Stuff
 	const int turnTimeIA		= 90;
-	const int forwardTimeIA		= 68;
-	const int turnTimeIB		= 88;
-	const int liftTimeIA		= 48;
-	const int forwardTimeIB		= 220;
-	const int liftTimeIB		= 48;
+	const int forwardTimeIA		= 69;
+	const int turnTimeIB		= 99;
+	const int liftTimeIA		= 58;
+	const int forwardTimeIB		= 210;
+	const int liftTimeIB		= 63;
 	//Peg 2 Stuff
 	const int turnTimeIIA		= 90;
-	const int forwardTimeIIA	= 38;
-	const int turnTimeIIB		= 90;
-	const int liftTimeIIA		= 219;
-	const int forwardTimeIIB	= 235;
-	const int liftTimeIIB       = 50;
+	const int forwardTimeIIA	= 40;
+	const int turnTimeIIB		= 91;
+	const int liftTimeIIA		= 143;
+	const int forwardTimeIIB	= 220;
+	const int liftTimeIIB       = 40;
 	const int backTimeIIB       = 130;
-	const int liftTimeIIC		= (219-40);
+	const int liftTimeIIC		= (143-35);
 
 
 	//Peg 3 Stuff
 	const int turnTimeIIIA		= 87;
-	const int forwardTimeIIIA	= 163;
-	const int turnTimeIIIB		= 86;
-	const int liftTimeIIIA		= 48;
-	const int forwardTimeIIIB	= 219;
-	const int liftTimeIIIB		= 48;
-
+	const int forwardTimeIIIA	= 171;
+	const int turnTimeIIIB		= 85;
+	const int liftTimeIIIA		= 58;
+	const int forwardTimeIIIB	= 180;
+	const int liftTimeIIIB		= 63;
+	const int backTimeIIIA      = 200;
 
 
 	Time_Wait(100);
@@ -178,7 +178,8 @@ task main()
 
 			Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
 			Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
-			Lift_Down		(liftTimeIIIB, g_AccurateMotorPower);
+			Lift_Down       (liftTimeIIIB, g_AccurateMotorPower);
+			Move_Backward   (backTimeIIIA, g_AccurateMotorPower);
 			break;
 	}
 

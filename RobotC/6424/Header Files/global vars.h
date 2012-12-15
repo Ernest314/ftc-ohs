@@ -17,7 +17,7 @@ const int g_PutRingOnTime = 10;
 
 // The various positions of the various servos.
 const int g_IRServoLowered		= 0;
-const int g_IRServoExtended		= 220;
+const int g_IRServoExtended		= 240;
 const int g_clawServoFolded		= 0;
 const int g_clawServoExtended	= 100;	// TODO!
 const int g_rampServoDefault	= 50;	// TODO!
@@ -25,7 +25,7 @@ const int g_rampServoHold		= 40;	// TODO!
 const int g_rampServoDeployed	= 15;	// TODO!
 
 const int g_rampMotorRotation	= 10  ;  // TODO!
-const int g_rampMotorTime		= 500;	// TODO!
+const int g_rampMotorTime		= 2500;	// TODO!
 const int g_rampMotorPower      = 255;
 
 // The threshold for joystick values to count (eliminates humming).

@@ -151,11 +151,11 @@ task main()
 			{
 				Servo_Rotate(servo_claw, g_clawServoExtended);
 			}
-			if ( Joystick_Button(BUTTON_START, CONTROLLER_2) && Joystick_Button(BUTTON_START, CONTROLLER_1) )
-		    {
-		    	powerRamp = 100;
-
-		    }
+			//if ( (Joystick_Button(BUTTON_START, CONTROLLER_1)&&
+			//		Joystick_Button(BUTTON_START, CONTROLLER_2))==true )
+			//{
+			//	powerRamp = 100;
+			//}
 			//// Both controllers need to press START to deploy ramp.
 			//// The code is in CONTROLLER_1's buttons code block.
 			//if ( Joystick_Button(BUTTON_BACK, CONTROLLER_2)==true )
@@ -234,19 +234,19 @@ task main()
 			// Buttons Y/B/A/X will control lift height.
 			if ( Joystick_Button(BUTTON_Y)==true )
 			{
-				//isLiftState = LIFT_TOP;
+				isLiftState = LIFT_TOP;
 			}
 			if ( Joystick_Button(BUTTON_B)==true )
 			{
-				//isLiftState = LIFT_MIDDLE;
+				isLiftState = LIFT_MIDDLE;
 			}
 			if ( Joystick_Button(BUTTON_A)==true )
 			{
-				//isLiftState = LIFT_BOTTOM;
+				isLiftState = LIFT_BOTTOM;
 			}
 			if ( Joystick_Button(BUTTON_X)==true )
 			{
-				//isLiftState = LIFT_FETCH;
+				isLiftState = LIFT_FETCH;
 			}
 
 			// Buttons LT/RT fine-tune the lift.
@@ -254,7 +254,7 @@ task main()
 			{
 				isLiftState = LIFT_JOYSTICK;
 				powerLift = g_FullLiftPower;
-			}
+			zsssas rt}
 			if ( Joystick_Button(BUTTON_LT)==true )
 			{
 				isLiftState = LIFT_JOYSTICK;
@@ -270,8 +270,11 @@ task main()
 			}
 
 			// Both controllers need to press START to deploy ramp.
-		    //if ( (Joystick_Button(BUTTON_START)&&
-			//		Joystick_Button(BUTTON_START, CONTROLLER_2))==true )
+		    if ( (Joystick_Button(BUTTON_START)&&
+					Joystick_Button(BUTTON_START, CONTROLLER_2))==true )
+			{
+
+
 		    //{
 				//Servo_Rotate(servo_ramp, g_rampServoDeployed);
 				//Motor_Target(motor_ramp, g_rampMotorRotation);
@@ -280,10 +283,10 @@ task main()
 				//// turning after the specified degrees/rotation (I don't
 				//// know which), use the commented out code below. And
 				//// don't forget to comment out the two lines above.
-				//Motor_SetPower(motor_ramp, 100);
-				//Time_Wait(g_rampMotorTime);
-				//Motor_Stop(motor_ramp);
-			//}
+				Motor_SetPower(motor_ramp, 100);
+				Time_Wait(g_rampMotorTime);
+				Motor_Stop(motor_ramp);
+			}
 			//if ( Joystick_Button(BUTTON_BACK)==true )
 			//{
 			//	Servo_Rotate(servo_ramp, g_rampServoHold);
@@ -300,16 +303,16 @@ task main()
 		switch (isLiftState)
 		{
 			case LIFT_BOTTOM:
-			//	sub_LiftToHeight(g_BottomLiftAngle);
+				sub_LiftToHeight(g_BottomLiftAngle);
 				break;
 			case LIFT_MIDDLE:
-			//	sub_LiftToHeight(g_MiddleLiftAngle);
+			  	sub_LiftToHeight(g_MiddleLiftAngle);
 				break;
 			case LIFT_TOP:
-			//	sub_LiftToHeight(g_TopLiftAngle);
+			    sub_LiftToHeight(g_TopLiftAngle);
 				break;
 			case LIFT_FETCH:
-			//	sub_LiftToHeight(g_FetchLiftAngle);
+			 	sub_LiftToHeight(g_FetchLiftAngle);
 			    break;
 		}
 
