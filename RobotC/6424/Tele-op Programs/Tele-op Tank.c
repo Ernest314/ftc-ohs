@@ -254,7 +254,7 @@ task main()
 			{
 				isLiftState = LIFT_JOYSTICK;
 				powerLift = g_FullLiftPower;
-			zsssas rt}
+			}
 			if ( Joystick_Button(BUTTON_LT)==true )
 			{
 				isLiftState = LIFT_JOYSTICK;

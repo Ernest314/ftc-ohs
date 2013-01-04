@@ -122,9 +122,9 @@ task main()
 	const int liftTimeIIIA		= 51;
 	const int forwardTimeIIIB	= 180;
 	const int liftTimeIIIB		= 58;
-	const int backTimeIIIA      = 200;
-	const int turnTimeIIIC      = 175;
-	const int forwardTimeIIIC   = 200;
+	const int backTimeIIIA      = 100;
+	const int turnTimeIIIC      = 145;
+	const int forwardTimeIIIC   = 270;
 
 	Time_Wait(100);
 	Servo_Rotate(servo_ramp, g_rampServoHold);
