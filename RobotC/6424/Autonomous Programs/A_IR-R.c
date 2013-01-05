@@ -3,7 +3,7 @@
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
-#pragma config(Motor,  motorA,          motor_ramp,    tmotorNXT, openLoop)
+#pragma config(Motor,  motorA,          motor_ramp,    tmotorNXT, PIDControl)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
@@ -93,7 +93,7 @@ task main()
 	const int forwardTimeA		= 210; //								||	      |
 	const int turnTimeA			= 40;  //                               ||        | Fwd A
 	const int forwardTimeB		= 110; //							    ||        |
-	const int backTimeA			= 140;  //                               ||   Turn A\
+	const int backTimeA			= 140; //                               ||   Turn A\
                                        //								||	   	     \ Fwd B
 									   //								||
 	//Peg 1 Stuff

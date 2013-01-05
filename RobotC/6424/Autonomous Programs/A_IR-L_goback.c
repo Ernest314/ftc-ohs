@@ -3,7 +3,7 @@
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
-#pragma config(Motor,  motorA,          motor_ramp,    tmotorNXT, openLoop)
+#pragma config(Motor,  motorA,          motor_ramp,    tmotorNXT, PIDControl)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
@@ -90,7 +90,7 @@ task main()
 	// For a better description of the below numbers,                   ________________________
 	// see the page in Engineering Notebook describing                  |+----------------------
 	// this program (it's labeled clearly).							    ||      Robot
-	const int forwardTimeA		= 210; //								||	      |
+	const int forwardTimeA		= 280; //								||	      |
 	const int turnTimeA			= 48;  //                               ||        | Fwd A
 	const int forwardTimeB		= 110; //							    ||        |
 	const int backTimeA			= 140; //                               ||   Turn A\
@@ -112,7 +112,7 @@ task main()
 	const int forwardTimeIIB	= 220;
 	const int liftTimeIIB       = 40;
 	const int backTimeIIB       = 300;
-	const int liftTimeIIC		= (135-35);
+	const int liftTimeIIC		= 100;
 
 
 	//Peg 3 Stuff

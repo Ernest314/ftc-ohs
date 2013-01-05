@@ -3,7 +3,7 @@
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
-#pragma config(Motor,  motorA,          motor_ramp,    tmotorNXT, openLoop)
+#pragma config(Motor,  motorA,          motor_ramp,    tmotorNXT, PIDControl)
 #pragma config(Motor,  motorB,          motor_B,       tmotorNXT, openLoop)
 #pragma config(Motor,  motorC,          motor_C,       tmotorNXT, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     motor_L,       tmotorTetrix, PIDControl, reversed, encoder)
@@ -90,10 +90,10 @@ task main()
 	// For a better description of the below numbers,                   ________________________
 	// see the page in Engineering Notebook describing                  |+----------------------
 	// this program (it's labeled clearly).							    ||      Robot
-	const int forwardTimeA		= 210; //								||	      |
-	const int turnTimeA			= 48;  //                               ||        | Fwd A
-	const int forwardTimeB		= 110; //							    ||        |
-	const int backTimeA			= 140; //                               ||   Turn A\
+	const int forwardTimeA		= 58;	//								||	      |
+	const int turnTimeA			= 71;	//                              ||        | Fwd A
+	const int forwardTimeB		= 99;	//							    ||        |
+	const int backTimeA			= 90;	//                              ||   Turn A\
                                        //								||	   	     \ Fwd B
 									   //								||
 	//Peg 1 Stuff
@@ -112,7 +112,7 @@ task main()
 	const int forwardTimeIIB	= 220;
 	const int liftTimeIIB       = 40;
 	const int backTimeIIB       = 300;
-	const int liftTimeIIC		= (135-35);
+	const int liftTimeIIC		= 100;
 
 
 	//Peg 3 Stuff
@@ -150,41 +150,41 @@ task main()
 		case PEG_I:
 			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-			Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
-			Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
+			//Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			Lift_Up			(liftTimeIA, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
-			Lift_Down		(liftTimeIB, g_AccurateMotorPower);
-			Move_Backward   (backTimeIA, g_AccurateMotorPower);
+			//Lift_Up			(liftTimeIA, g_AccurateMotorPower);
+			//Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
+			//Lift_Down		(liftTimeIB, g_AccurateMotorPower);
+			//Move_Backward   (backTimeIA, g_AccurateMotorPower);
 			break;
 		case PEG_II:
 			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-			Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
-			Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
+			//Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
-			Lift_Down       (liftTimeIIB, g_AccurateMotorPower);
-			Move_Backward   (backTimeIIB, g_AccurateMotorPower);
-			Lift_Down		(liftTimeIIC, g_AccurateMotorPower);
+			//Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
+			//Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
+			//Lift_Down       (liftTimeIIB, g_AccurateMotorPower);
+			//Move_Backward   (backTimeIIB, g_AccurateMotorPower);
+			//Lift_Down		(liftTimeIIC, g_AccurateMotorPower);
 			break;
 		case PEG_III:
 			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-			Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
-			Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
+			//Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
-			Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
-			Lift_Down       (liftTimeIIIB, g_AccurateMotorPower);
-			Move_Backward   (backTimeIIIA, g_AccurateMotorPower);
-			Turn_Right      (turnTimeIIIC, g_AccurateMotorPower, g_AccurateMotorPower);
-			Move_Forward    (forwardTimeIIIC, g_AccurateMotorPower);
+			//Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
+			//Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
+			//Lift_Down       (liftTimeIIIB, g_AccurateMotorPower);
+			//Move_Backward   (backTimeIIIA, g_AccurateMotorPower);
+			//Turn_Right      (turnTimeIIIC, g_AccurateMotorPower, g_AccurateMotorPower);
+			//Move_Forward    (forwardTimeIIIC, g_AccurateMotorPower);
 			break;
 	}
 
