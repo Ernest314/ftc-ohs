@@ -17,7 +17,7 @@ const int g_FineTuneFactor = 4;
 
 
 // The full speed the motors should be PID-regulated at.
-const int g_FullRegulatedPower = 80;
+const int g_FullRegulatedPower = 100;
 
 // The full speed the drive motors runs at.
 const int g_FullDrivePower = 80;
