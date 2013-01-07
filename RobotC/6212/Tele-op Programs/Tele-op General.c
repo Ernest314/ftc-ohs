@@ -160,14 +160,29 @@ task main()
 		}
 
         // Last check: if LB/RB is pressed, fine-tune the power level.
-		if ( (Joystick_Button(BUTTON_LB)||Joystick_Button(BUTTON_RB)) ==true )
+		if (Joystick_Button(BUTTON_LB) == true)
 		{
 			powerL /= g_FineTuneFactor;
 			powerR /= g_FineTuneFactor;
 		}
+		if(Joystick_Button(BUTTON_RB) == true)
+		{
+			powerL /= g_FineTuneFactor;
+			powerR /= g_FineTuneFactor;
+	  }
+
+	  if (Joystick_Button(BUTTON_RT) == true)
+		{
+			liftPower /= g_FineTuneFactor;
+		}
+		if(Joystick_Button(BUTTON_LT) == true)
+		{
+			liftPower /= g_FineTuneFactor;
+	  }
 
     nxtDisplayTextLine(3, "Left  is %d", powerL);
     nxtDisplayTextLine(4, "Right is %d", powerR);
+    nxtDisplayTextLine(5, "Lift is %d", liftPower);
 
 
 		//TODO: Logarithmic thingy for the joysticks.
@@ -179,6 +194,20 @@ task main()
 		//TODO: Experiment with limiting the amount the motor can go/down.
 		Motor_SetPower(motorLiftL, liftPower);
 		Motor_SetPower(motorLiftR, liftPower);
+
+
+	/* Code to manually set up the lift strings.
+		if (Joystick_Button(BUTTON_X)) {
+			Motor_SetPower(motorLiftL, -50)
+		}else
+			Motor_SetPower(motorLiftL, 0)
+
+		if (Joystick_Button(BUTTON_B)) {
+			Motor_SetPower(motorLiftR, -50)
+		}else
+			Motor_SetPower(motorLiftR, 0)
+	*/
+
 
 	}
 }

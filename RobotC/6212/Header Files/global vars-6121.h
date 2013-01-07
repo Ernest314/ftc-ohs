@@ -9,11 +9,9 @@
 const int g_JoystickThreshold = 10;
 
 
-int powerLift = 0;
-
 
 // The factor to divide by when fine-tuning motors.
-const int g_FineTuneFactor = 4;
+const int g_FineTuneFactor = 2;
 
 
 // The full speed the motors should be PID-regulated at.
