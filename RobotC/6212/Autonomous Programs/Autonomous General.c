@@ -24,11 +24,27 @@
 #include "../Header Files/driver/hitechnic-irseeker-v2.h"
 
 
-void initializeRobot()
-{
-	// Place code here to init servos to starting positions.
-	// Sensors are auto-config'ed and setup by RobotC. They may need to stabilize.
-	return;
+void initializeRobot(){
+	//IR initialization code from example found at http://www.usfirst.org/sites/default/files/uploadedFiles/Robotics_Programs/FTC/FTC_Documents/Using_the_IR_Seeker.pdf
+
+	/*******************initialize the IR sensor*******************/
+	tHTIRS2DSPMode mode = DSP_1200;
+	// attempt to set to DSP mode.
+	if (HTIRS2setDSPMode(HTIRS2, mode) == 0){
+		// unsuccessful at setting the mode.
+		// display error message.
+		eraseDisplay();
+		nxtDisplayCenteredTextLine(0, "ERROR!");
+		nxtDisplayCenteredTextLine(2, "Init failed!");
+		nxtDisplayCenteredTextLine(3, "Connect sensor");
+		nxtDisplayCenteredTextLine(4, "to Port 1.");
+		// make a noise to get their attention.
+		PlaySound(soundBeepBeep);
+		wait10Msec(300);
+		return;
+	}
+
+
 }
 
 
