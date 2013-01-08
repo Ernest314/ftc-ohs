@@ -1,5 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  none,     none)
-#pragma config(Sensor, S2,     sensor_IR,      sensorI2CCustom)
+#pragma config(Sensor, S2,     infrared,      sensorI2CCustom)
 #pragma config(Sensor, S3,     sensor_3,       sensorNone)
 #pragma config(Sensor, S4,     sensor_4,       sensorNone)
 #pragma config(Motor,  motorA,           ,             tmotorNXT, openLoop)
@@ -17,6 +17,8 @@
 #include "../Header Files/low-level functions-6121.h"
 #include "../Header Files/high-level functions-6121.h"
 #include "../Header Files/subroutines-6121.h"
+
+
 
 void initializeRobot()
 {
