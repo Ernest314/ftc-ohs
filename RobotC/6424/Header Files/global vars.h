@@ -40,8 +40,8 @@ LiftState isLiftState = LIFT_JOYSTICK;
 
 // The factor to divide by when fine-tuning motors.
 const int g_FineTuneFactor = 4;
-const int g_SlowLiftFactor = 2;
-const int g_SlowDriveFactor = 4;
+const int g_SlowLiftFactor = 5;
+const int g_SlowDriveFactor = 20;
 
 // The various motor-regulation speeds.
 const int g_FullPower = 100;
@@ -51,7 +51,7 @@ const int g_FullLiftPower = 80;
 
 // The speed motors should ve PID-regulated at for the autonomous period,
 // since the movement needs to be much more accurate.
-const int g_AccurateMotorPower = 40;
+const int g_AccurateMotorPower = 15;
 
 
 // Tolerance for lift (so that lift can still put rings on; for PID).
@@ -65,6 +65,10 @@ const int g_BottomLiftAngle = 3 *1000;	//TODO
 const int g_FetchLiftAngle = 2 *1000;	//TODO
 
 
+
+// I WILL ADD COMMENTS LATER!!!
+const int g_RampDownLength = 20;  //used in autonomous
+const int g_RampDownThreshold = 5;  //used in tele-op
 
 //// We might not use masking at all to increase spped--we're not sure.
 //

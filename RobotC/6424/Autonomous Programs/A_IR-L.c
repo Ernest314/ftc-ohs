@@ -86,19 +86,18 @@ task main()
  	initializeRobot();
 
 
-
 	// For a better description of the below numbers,                   ________________________
 	// see the page in Engineering Notebook describing                  |+----------------------
 	// this program (it's labeled clearly).							    ||      Robot
-	const int forwardTimeA		= 58;	//								||	      |
-	const int turnTimeA			= 71;	//                              ||        | Fwd A
+	const int forwardTimeA		= 71;	//								||	      |
+	const int turnTimeA			= 87;	//                              ||        | Fwd A
 	const int forwardTimeB		= 99;	//							    ||        |
-	const int backTimeA			= 90;	//                              ||   Turn A\
+	const int backTimeA			= 93;	//                              ||   Turn A\
                                        //								||	   	     \ Fwd B
 									   //								||
 	//Peg 1 Stuff
 	const int turnTimeIA		= 90;
-	const int forwardTimeIA		= 69;
+	const int forwardTimeIA		= 71;
 	const int turnTimeIB		= 99;
 	const int liftTimeIA		= 54;
 	const int forwardTimeIB		= 210;
@@ -134,6 +133,8 @@ task main()
 	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
 	Turn_Left 		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
 	Move_Forward	(forwardTimeB, g_AccurateMotorPower);
+
+	//Move_Backward(500, g_AccurateMotorPower);
 
 	Time_Wait(100);
 	HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);

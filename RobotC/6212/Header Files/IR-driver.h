@@ -1,3 +1,9 @@
+#ifndef DRIVERS_H
+#define DRIVERS_H
+
+
+
+
 /*!@addtogroup HiTechnic
  * @{
  * @defgroup htirs2 IR Seeker V2
@@ -6,39 +12,15 @@
  */
 
 /*
- * $Id: hitechnic-irseeker-v2.h 131 2012-12-05 20:08:45Z xander $
+ * $Id: hitechnic-irseeker-v2.h 123 2012-11-02 16:35:15Z xander $
  */
 
 #ifndef __HTIRS2_H__
 #define __HTIRS2_H__
-/** \file hitechnic-irseeker-v2.h
- * \brief HiTechnic IR Seeker V2 driver
- *
- * hitechnic-irseeker-v2.h provides an API for the HiTechnic IR Seeker V2.
- *
- * Changelog:
- * - 0.1: Initial release
- * - 0.2: Added SMUX functions
- * - 0.3: All functions using tIntArray are now pass by reference.<br>
- *        HTIRS2_SMUXData removed
- * - 0.4: Removed all calls to ubyteToInt()<br>
- *        Replaced all functions that used SPORT/MPORT macros
- * - 0.5: Driver renamed to HTIRS2
- *
- * Credits:
- * - Big thanks to HiTechnic for providing me with the hardware necessary to write and test this.
- *
- * License: You may use this code as you wish, provided you give credit where its due.
- *
- * THIS CODE WILL ONLY WORK WITH ROBOTC VERSION 3.55 beta 2 AND HIGHER.
- * \author Xander Soldaat (mightor_at_gmail.com)
- * \date 06 April 2010
- * \version 0.5
- * \example hitechnic-irseeker-v2-test1.c
- * \example hitechnic-irseeker-v2-enhanced-test1.c
- * \example hitechnic-irseeker-v2-SMUX-test1.c
- * \example hitechnic-irseeker-v2-enhanced-SMUX-test1.c
- */
+// API for HiTechnic IR Seeker V2.
+	// Author:	Xander Soldaat (xander@botbench.com)
+	// Date:	06 April 2010
+	// Version:	0.5
 
 #pragma systemFile
 
@@ -89,8 +71,6 @@ int HTIRS2readDCAverage(tMUXSensor muxsensor);
 // ---------------------------- AC Signal processing -----------------------------
 int HTIRS2readACDir(tMUXSensor muxsensor);
 bool HTIRS2readAllACStrength(tMUXSensor muxsensor, int &acS1, int &acS2, int &acS3, int &acS4, int &acS5);
-
-bool HTIRS2readEnhanced(tMUXSensor muxsensor, int &dir, int &strength);
 
 tConfigParams HTIRS2_config = {HTSMUX_CHAN_I2C, 13, 0x10, 0x42}; /*!< Array to hold SMUX config data for sensor */
 #endif // __HTSMUX_SUPPORT__
@@ -447,83 +427,14 @@ bool HTIRS2readEnhanced(tSensors  link, int &dir, int &strength)
   return true;
 }
 
-/**
- * This function calculates the strength and direction based on both the DC and AC
- * signal strengths.
- * @param muxsensor the SMUX sensor port number
- * @param dir direction where the ball is detected, value of 0-9 (0 when no ball is detected)
- * @param strength the strength (and distance) of the ball's IR signal
- * @return true if no error occured, false if it did
- */
-#ifdef __HTSMUX_SUPPORT__
-bool HTIRS2readEnhanced(tMUXSensor muxsensor, int &dir, int &strength)
-{
-  ubyte iMax = 0;
-  long dcSigSum = 0;
-
-  memset(HTIRS2_I2CReply, 0, sizeof(tByteArray));
-
-  if (HTSMUXSensorTypes[muxsensor] != HTSMUXSensorCustom)
-    HTSMUXconfigChannel(muxsensor, HTIRS2_config);
-
-  if (!HTSMUXreadPort(muxsensor, HTIRS2_I2CReply, 13, HTIRS2_DC_DIR)) {
-    return false;
-  }
-
-  // Find the max DC sig strength
-  for (int i = 1; i < 5; i++)
-  {
-    if (HTIRS2_I2CReply[HTIRS2_DC_SSTR1+i] > HTIRS2_I2CReply[HTIRS2_DC_SSTR1+iMax])
-    {
-      iMax = i;
-    }
-  }
-
-  // Calc base DC direction value
-  dir = iMax * 2 + 1;
-  // Set base dcStrength based on max signal and average
-  dcSigSum = HTIRS2_I2CReply[HTIRS2_DC_SSTR1+iMax] + HTIRS2_I2CReply[HTIRS2_DC_SSTR1+5];
-
-  // Check signal strength of neighbouring sensor elements
-  if ((iMax > 0) && (HTIRS2_I2CReply[HTIRS2_DC_SSTR1+iMax - 1] > (ubyte)(HTIRS2_I2CReply[HTIRS2_DC_SSTR1+iMax] / 2)))
-  {
-      dir--;
-      dcSigSum += HTIRS2_I2CReply[HTIRS2_DC_SSTR1+iMax - 1];
-  }
-
-  if ((iMax < 4) && (HTIRS2_I2CReply[HTIRS2_DC_SSTR1+iMax + 1] > (ubyte)(HTIRS2_I2CReply[HTIRS2_DC_SSTR1+iMax] / 2)))
-  {
-      dir++;
-      dcSigSum += HTIRS2_I2CReply[HTIRS2_DC_SSTR1+iMax + 1];
-  }
-
-  // Make DC strength compatible with AC strength.
-  // use: sqrt(dcSigSum*500)
-  strength = sqrt(dcSigSum * 500);
-
-  // Decide if using AC strength
-  if (strength <= 200)
-  {
-    writeDebugStreamLine("switching to AC");
-    // Use AC Dir
-    dir = HTIRS2_I2CReply[HTIRS2_AC_DIR];
-
-    // Sum the sensor elements to get strength
-    if (dir > 0)
-    {
-      strength = HTIRS2_I2CReply[HTIRS2_AC_SSTR1] + HTIRS2_I2CReply[HTIRS2_AC_SSTR2] +
-                 HTIRS2_I2CReply[HTIRS2_AC_SSTR3] + HTIRS2_I2CReply[HTIRS2_AC_SSTR4] +
-                 HTIRS2_I2CReply[HTIRS2_AC_SSTR5];
-    }
-  }
-  return true;
-}
-#endif // __HTSMUX_SUPPORT__
-
 #endif // __HTIRS2_H__
 
 /*
- * $Id: hitechnic-irseeker-v2.h 131 2012-12-05 20:08:45Z xander $
+ * $Id: hitechnic-irseeker-v2.h 123 2012-11-02 16:35:15Z xander $
  */
 /* @} */
 /* @} */
+
+
+
+#endif
