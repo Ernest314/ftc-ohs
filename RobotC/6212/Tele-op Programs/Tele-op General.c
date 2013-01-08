@@ -197,6 +197,20 @@ task main()
 				powerR /= g_SlowDriveFactor;
 			}
 		}
+		if(Joystick_Button(BUTTON_RB) == true)
+		{
+			powerL /= g_FineTuneFactor;
+			powerR /= g_FineTuneFactor;
+	  }
+
+	  if (Joystick_Button(BUTTON_RT) == true)
+		{
+			liftPower /= g_FineTuneFactor;
+		}
+		if(Joystick_Button(BUTTON_LT) == true)
+		{
+			liftPower /= g_FineTuneFactor;
+	  }
 
 
 
