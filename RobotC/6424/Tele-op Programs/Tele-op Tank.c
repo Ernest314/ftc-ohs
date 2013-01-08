@@ -329,7 +329,7 @@ task main()
 		Motor_SetPower(motor_R, powerR);
 		Motor_SetPower(motor_lift, powerLift);
 		Motor_SetPower(motor_ramp, powerRamp);
-		
+
 		powerL_prev = powerL;
 		powerR_prev = powerR;
 	}
