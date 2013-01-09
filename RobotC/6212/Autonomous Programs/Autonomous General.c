@@ -148,13 +148,4 @@ task main()
 			break;
 	}
 
-	while (true)
-	{
-		PlaySoundFile("moo.rso");
-		while(bSoundActive == true)
-		{
-			Time_Wait(1);
-		}
-	}
-
 }
