@@ -60,8 +60,8 @@ task main()
 	// here to save from declaring them every loop.
 	int powerL = 0;
 	int powerR = 0;
-	int powerL_prev = 0;
-	int powerR_prev = 0;
+	//int powerL_prev = 0;
+	//int powerR_prev = 0;
 	int powerRamp = 0;
 	//// Not implemented yet. Will implement when adding ring code.
 	//MotorState isMotorStateL = MOTOR_JOYSTICK;
@@ -283,9 +283,8 @@ task main()
 				//// turning after the specified degrees/rotation (I don't
 				//// know which), use the commented out code below. And
 				//// don't forget to comment out the two lines above.
-				Motor_SetPower(motor_ramp, 100);
-				Time_Wait(g_rampMotorTime);
-				Motor_Stop(motor_ramp);
+				powerRamp = 100;
+
 			}
 			//if ( Joystick_Button(BUTTON_BACK)==true )
 			//{
@@ -316,21 +315,21 @@ task main()
 			    break;
 		}
 
-		if (powerL_prev-powerL > g_RampDownThreshold)
-		{
-			powerL = powerL_prev - g_RampDownThreshold;
-		}
-		if (powerR_prev-powerR > g_RampDownThreshold)
-		{
-			powerR = powerR_prev - g_RampDownThreshold;
-		}
+		//if (powerL_prev-powerL > g_RampDownThreshold)
+		//{
+		//	powerL = powerL_prev - g_RampDownThreshold;
+		//}
+		//if (powerR_prev-powerR > g_RampDownThreshold)
+		//{
+		//	powerR = powerR_prev - g_RampDownThreshold;
+		//}
 
 		Motor_SetPower(motor_L, powerL);
 		Motor_SetPower(motor_R, powerR);
 		Motor_SetPower(motor_lift, powerLift);
 		Motor_SetPower(motor_ramp, powerRamp);
 
-		powerL_prev = powerL;
-		powerR_prev = powerR;
+		//powerL_prev = powerL;
+		//powerR_prev = powerR;
 	}
 }

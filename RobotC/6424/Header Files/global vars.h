@@ -25,7 +25,7 @@ const int g_rampServoHold		= 40;	// TODO!
 const int g_rampServoDeployed	= 15;	// TODO!
 
 const int g_rampMotorRotation	= 10  ;  // TODO!
-const int g_rampMotorTime		= 2500;	// TODO!
+const int g_rampMotorTime		= 10;	// TODO!
 const int g_rampMotorPower      = 255;
 
 // The threshold for joystick values to count (eliminates humming).
@@ -51,7 +51,7 @@ const int g_FullLiftPower = 80;
 
 // The speed motors should ve PID-regulated at for the autonomous period,
 // since the movement needs to be much more accurate.
-const int g_AccurateMotorPower = 15;
+const int g_AccurateMotorPower = 40;
 
 
 // Tolerance for lift (so that lift can still put rings on; for PID).
