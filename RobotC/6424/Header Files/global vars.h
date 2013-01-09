@@ -17,7 +17,7 @@ const int g_PutRingOnTime = 10;
 
 // The various positions of the various servos.
 const int g_IRServoLowered		= 0;
-const int g_IRServoExtended		= 220;
+const int g_IRServoExtended		= 240;
 const int g_clawServoFolded		= 0;
 const int g_clawServoExtended	= 100;	// TODO!
 const int g_rampServoDefault	= 50;	// TODO!
@@ -25,7 +25,7 @@ const int g_rampServoHold		= 40;	// TODO!
 const int g_rampServoDeployed	= 15;	// TODO!
 
 const int g_rampMotorRotation	= 10  ;  // TODO!
-const int g_rampMotorTime		= 500;	// TODO!
+const int g_rampMotorTime		= 10;	// TODO!
 const int g_rampMotorPower      = 255;
 
 // The threshold for joystick values to count (eliminates humming).
@@ -40,8 +40,8 @@ LiftState isLiftState = LIFT_JOYSTICK;
 
 // The factor to divide by when fine-tuning motors.
 const int g_FineTuneFactor = 4;
-const int g_SlowLiftFactor = 2;
-const int g_SlowDriveFactor = 4;
+const int g_SlowLiftFactor = 5;
+const int g_SlowDriveFactor = 20;
 
 // The various motor-regulation speeds.
 const int g_FullPower = 100;
@@ -51,7 +51,7 @@ const int g_FullLiftPower = 80;
 
 // The speed motors should ve PID-regulated at for the autonomous period,
 // since the movement needs to be much more accurate.
-const int g_AccurateMotorPower = 65;
+const int g_AccurateMotorPower = 40;
 
 
 // Tolerance for lift (so that lift can still put rings on; for PID).
@@ -65,6 +65,10 @@ const int g_BottomLiftAngle = 3 *1000;	//TODO
 const int g_FetchLiftAngle = 2 *1000;	//TODO
 
 
+
+// I WILL ADD COMMENTS LATER!!!
+const int g_RampDownLength = 20;  //used in autonomous
+const int g_RampDownThreshold = 5;  //used in tele-op
 
 //// We might not use masking at all to increase spped--we're not sure.
 //
