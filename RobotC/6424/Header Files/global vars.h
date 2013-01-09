@@ -68,7 +68,7 @@ const int g_FetchLiftAngle = 2 *1000;	//TODO
 
 // I WILL ADD COMMENTS LATER!!!
 const int g_RampDownLength = 20;  //used in autonomous
-const int g_RampDownThreshold = 5;  //used in tele-op
+const int g_RampDownThreshold = 10;  //used in tele-op
 
 //// We might not use masking at all to increase spped--we're not sure.
 //
