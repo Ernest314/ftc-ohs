@@ -205,11 +205,11 @@ task main()
 
 	  if (Joystick_Button(BUTTON_RT) == true)
 		{
-			liftPower /= g_FineTuneFactor;
+			powerLift /= g_FineTuneFactor;
 		}
 		if(Joystick_Button(BUTTON_LT) == true)
 		{
-			liftPower /= g_FineTuneFactor;
+			powerLift /= g_FineTuneFactor;
 	  }
 
 
