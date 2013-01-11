@@ -86,43 +86,43 @@ task main()
  	initializeRobot();
 
 
-	// For a better description of the below numbers,                   ________________________
-	// see the page in Engineering Notebook describing                  |+----------------------
-	// this program (it's labeled clearly).							    ||      Robot
-	const int forwardTimeA		= 62;	//								||	      |
-	const int turnTimeA			= 62;	//                              ||        | Fwd A
-	const int forwardTimeB		= 89;	//							    ||        |
-	const int backTimeA			= 53;	//                              ||   Turn A\
-                                       //								||	   	     \ Fwd B
-									   //								||
+	// For a better description of the below numbers,
+ 	// see the page in Engineering Notebook describing
+ 	// this program (it's labeled clearly).
+ 	const int forwardTimeA		= 192;
+	const int turnTimeA			= 41;
+	const int forwardTimeB		= 130;
+	const int backTimeA			= 130;
+
+
 	//Peg 1 Stuff
-	const int turnTimeIA		= 90;
-	const int forwardTimeIA		= 71;
-	const int turnTimeIB		= 99;
-	const int liftTimeIA		= 54;
-	const int forwardTimeIB		= 210;
-	const int liftTimeIB		= 59;
-	const int backTimeIA        = 250;
+	const int turnTimeIA		= 75;
+	const int forwardTimeIA		= 110;
+	const int turnTimeIB		= 90;
+	const int liftTimeIA		= 45;
+	const int forwardTimeIB		= 180;
+	const int liftTimeIB		= 35;
+	const int backTimeIA        = 150;
 	//Peg 2 Stuff
-	const int turnTimeIIA		= 90;
-	const int forwardTimeIIA	= 45;
-	const int turnTimeIIB		= 91;
-	const int liftTimeIIA		= 135;
-	const int forwardTimeIIB	= 220;
+	const int turnTimeIIA		= 75;
+	const int forwardTimeIIA	= 65;
+	const int turnTimeIIB		= 90;
+	const int liftTimeIIA		= 125;
+	const int forwardTimeIIB	= 190;
 	const int liftTimeIIB       = 40;
 	const int backTimeIIB       = 300;
-	const int liftTimeIIC		= 100;
+	const int liftTimeIIC		= 60;
 
 
 	//Peg 3 Stuff
-	const int turnTimeIIIA		= 87;
-	const int forwardTimeIIIA	= 175;
-	const int turnTimeIIIB		= 85;
+	const int turnTimeIIIA		= 70;
+	const int forwardTimeIIIA	= 170;
+	const int turnTimeIIIB		= 92;
 	const int liftTimeIIIA		= 51;
-	const int forwardTimeIIIB	= 180;
-	const int liftTimeIIIB		= 58;
-	const int backTimeIIIA      = 200;
-	const int turnTimeIIIC      = 175;
+	const int forwardTimeIIIB	= 160;
+	const int liftTimeIIIB		= 40;
+	const int backTimeIIIA      = 180;
+	const int turnTimeIIIC      = 110;
 	const int forwardTimeIIIC   = 200;
 
 	Time_Wait(100);
@@ -149,41 +149,41 @@ task main()
 		case PEG_I:
 			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-			//Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			//Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
-			//Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
+			Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			//Lift_Up			(liftTimeIA, g_AccurateMotorPower);
-			//Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
-			//Lift_Down		(liftTimeIB, g_AccurateMotorPower);
-			//Move_Backward   (backTimeIA, g_AccurateMotorPower);
+			Lift_Up			(liftTimeIA, g_AccurateMotorPower);
+		    Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
+			Lift_Down		(liftTimeIB, g_AccurateMotorPower);
+			Move_Backward   (backTimeIA, g_AccurateMotorPower);
 			break;
 		case PEG_II:
 			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-			//Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			//Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
-			//Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
+			Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			//Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
-			//Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
-			//Lift_Down       (liftTimeIIB, g_AccurateMotorPower);
-			//Move_Backward   (backTimeIIB, g_AccurateMotorPower);
-			//Lift_Down		(liftTimeIIC, g_AccurateMotorPower);
+			Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
+			Lift_Down       (liftTimeIIB, g_AccurateMotorPower);
+			Move_Backward   (backTimeIIB, g_AccurateMotorPower);
+			Lift_Down		(liftTimeIIC, g_AccurateMotorPower);
 			break;
 		case PEG_III:
 			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-			//Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
-			//Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
-			//Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
+     		Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
+	        Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-			//Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
-			//Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
-			//Lift_Down       (liftTimeIIIB, g_AccurateMotorPower);
-			//Move_Backward   (backTimeIIIA, g_AccurateMotorPower);
-			//Turn_Right      (turnTimeIIIC, g_AccurateMotorPower, g_AccurateMotorPower);
-			//Move_Forward    (forwardTimeIIIC, g_AccurateMotorPower);
+	        Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
+			Lift_Down       (liftTimeIIIB, g_AccurateMotorPower);
+			Move_Backward   (backTimeIIIA, g_AccurateMotorPower);
+			Turn_Right      (turnTimeIIIC, g_AccurateMotorPower, g_AccurateMotorPower);
+		    Move_Forward    (forwardTimeIIIC, g_AccurateMotorPower);
 			break;
 	}
 

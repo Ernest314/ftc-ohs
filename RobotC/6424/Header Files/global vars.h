@@ -51,7 +51,7 @@ const int g_FullLiftPower = 80;
 
 // The speed motors should ve PID-regulated at for the autonomous period,
 // since the movement needs to be much more accurate.
-const int g_AccurateMotorPower = 40;
+const int g_AccurateMotorPower = 60;
 
 
 // Tolerance for lift (so that lift can still put rings on; for PID).
