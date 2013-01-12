@@ -1,5 +1,4 @@
 #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     infrared,       sensorI2CCustom)
 #pragma config(Sensor, S3,     color,          sensorCOLORFULL)
 #pragma config(Sensor, S4,     ultrasonic,     sensorSONAR)
@@ -89,41 +88,42 @@ task main()
 	// For a better description of the below numbers,
  	// see the page in Engineering Notebook describing
  	// this program (it's labeled clearly).
- 	const int forwardTimeA		= 192;
-	const int turnTimeA			= 41;
+ 	const int forwardTimeA		= 185;
+	const int turnTimeA			= 45;
 	const int forwardTimeB		= 130;
 	const int backTimeA			= 130;
 
 
 	//Peg 1 Stuff
-	const int turnTimeIA		= 75;
+	const int turnTimeIA		= 45;
 	const int forwardTimeIA		= 110;
-	const int turnTimeIB		= 90;
-	const int liftTimeIA		= 45;
+	const int turnTimeIB		= 45;
+	const int liftTimeIA		= 50;
 	const int forwardTimeIB		= 180;
 	const int liftTimeIB		= 35;
 	const int backTimeIA        = 150;
+
 	//Peg 2 Stuff
-	const int turnTimeIIA		= 75;
+	const int turnTimeIIA		= 45;
 	const int forwardTimeIIA	= 65;
-	const int turnTimeIIB		= 90;
-	const int liftTimeIIA		= 125;
-	const int forwardTimeIIB	= 190;
+	const int turnTimeIIB		= 48;
+	const int liftTimeIIA		= 145;
+	const int forwardTimeIIB	= 180;
 	const int liftTimeIIB       = 40;
 	const int backTimeIIB       = 300;
-	const int liftTimeIIC		= 60;
+	const int liftTimeIIC		= 50;
 
 
 	//Peg 3 Stuff
-	const int turnTimeIIIA		= 70;
-	const int forwardTimeIIIA	= 170;
-	const int turnTimeIIIB		= 92;
-	const int liftTimeIIIA		= 51;
-	const int forwardTimeIIIB	= 160;
-	const int liftTimeIIIB		= 40;
+	const int turnTimeIIIA		= 45;
+	const int forwardTimeIIIA	= 166;
+	const int turnTimeIIIB		= 45;
+	const int liftTimeIIIA		= 48;
+	const int forwardTimeIIIB	= 170;
+	const int liftTimeIIIB		= 23;
 	const int backTimeIIIA      = 180;
-	const int turnTimeIIIC      = 110;
-	const int forwardTimeIIIC   = 200;
+	const int turnTimeIIIC      = 20;
+	const int backTimeIIIB      = 150;
 
 	Time_Wait(100);
 	Servo_Rotate(servo_ramp, g_rampServoHold);
@@ -182,8 +182,8 @@ task main()
 			Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
 			Lift_Down       (liftTimeIIIB, g_AccurateMotorPower);
 			Move_Backward   (backTimeIIIA, g_AccurateMotorPower);
-			Turn_Right      (turnTimeIIIC, g_AccurateMotorPower, g_AccurateMotorPower);
-		    Move_Forward    (forwardTimeIIIC, g_AccurateMotorPower);
+			Turn_Left       (turnTimeIIIC, g_AccurateMotorPower, g_AccurateMotorPower);
+		    Move_Backward   (backTimeIIIB, g_AccurateMotorPower);
 			break;
 	}
 
@@ -198,6 +198,54 @@ task main()
 
 }
 
+
+
+
+
+
+
+
+
+
+	//// For a better description of the below numbers,
+ //	// see the page in Engineering Notebook describing
+ //	// this program (it's labeled clearly).
+ //	const int forwardTimeA		= 192;
+	//const int turnTimeA			= 39;
+	//const int forwardTimeB		= 130;
+	//const int backTimeA			= 130;
+
+
+	////Peg 1 Stuff
+	//const int turnTimeIA		= 75;
+	//const int forwardTimeIA		= 110;
+	//const int turnTimeIB		= 87;
+	//const int liftTimeIA		= 50;
+	//const int forwardTimeIB		= 180;
+	//const int liftTimeIB		= 35;
+	//const int backTimeIA        = 150;
+
+	////Peg 2 Stuff
+	//const int turnTimeIIA		= 75;
+	//const int forwardTimeIIA	= 65;
+	//const int turnTimeIIB		= 88;
+	//const int liftTimeIIA		= 130;
+	//const int forwardTimeIIB	= 190;
+	//const int liftTimeIIB       = 40;
+	//const int backTimeIIB       = 300;
+	//const int liftTimeIIC		= 50;
+
+
+	////Peg 3 Stuff
+	//const int turnTimeIIIA		= 70;
+	//const int forwardTimeIIIA	= 166;
+	//const int turnTimeIIIB		= 82;
+	//const int liftTimeIIIA		= 48;
+	//const int forwardTimeIIIB	= 170;
+	//const int liftTimeIIIB		= 23;
+	//const int backTimeIIIA      = 180;
+	//const int turnTimeIIIC      = 20;
+	//const int backTimeIIIB      = 150;
 
 
 
