@@ -80,17 +80,17 @@ void Turn_Left(int angle, int steerL, int steerR)
 	Motor_Stop(motor_R);
 }
 
-void Lift_Up(int time, int power)
+void Lift_Up(int height, int power)
 {
 	Motor_Forward(motor_lift, power);
-	Time_Wait(time);
+	Time_Wait(height);
 	Motor_Stop(motor_lift);
 }
 
-void Lift_Down(int time, int power)
+void Lift_Down(int height, int power)
 {
-	Motor_Forward(motor_lift, (-1) * power);
-	Time_Wait(time);
+	Motor_Reverse(motor_lift, power);
+	Time_Wait(height);
 	Motor_Stop(motor_lift);
 }
 

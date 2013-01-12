@@ -94,107 +94,102 @@ task main()
 	const int backTimeA			= 12	*100;
 
 
-	//Peg 1 Stuff
+	//Peg I Stuff
 	const int turnTimeIA		= 7.0	*100;
-	const int forwardTimeIA		= 110	*100;
+	const int forwardTimeIA		= 20	*100;
 	const int turnTimeIB		= 7.0	*100;
-	const int liftTimeIA		= 50	*100;
-	const int forwardTimeIB		= 180	*100;
-	const int liftTimeIB		= 35	*100;
-	const int backTimeIA        = 150	*100;
+	const int liftTimeIA		= 48;
+	const int forwardTimeIB		= 18	*100;
+	const int liftTimeIB		= 23	*100;
+	const int backTimeIA        = 20	*100;
 
-	//Peg 2 Stuff
+	//Peg II Stuff
 	const int turnTimeIIA		= 7.0	*100;
-	const int forwardTimeIIA	= 65	*100;
+	const int forwardTimeIIA	= 3.0	*100;
 	const int turnTimeIIB		= 7.0	*100;
-	const int liftTimeIIA		= 145	*100;
-	const int forwardTimeIIB	= 180	*100;
-	const int liftTimeIIB       = 40	*100;
-	const int backTimeIIB       = 300	*100;
-	const int liftTimeIIC		= 50	*100;
+	const int liftTimeIIA		= 145;
+	const int forwardTimeIIB	= 18	*100;
+	const int liftTimeIIB       = 40;
+	const int backTimeIIB       = 35	*100;
 
-
-	//Peg 3 Stuff
+	//Peg III Stuff
 	const int turnTimeIIIA		= 7.0	*100;
-	const int forwardTimeIIIA	= 166	*100;
+	const int forwardTimeIIIA	= 3.5	*100;
 	const int turnTimeIIIB		= 7.0	*100;
-	const int liftTimeIIIA		= 48	*100;
-	const int forwardTimeIIIB	= 170	*100;
-	const int liftTimeIIIB		= 23	*100;
-	const int backTimeIIIA      = 180	*100;
-	const int turnTimeIIIC      = 20	*100;
-	const int backTimeIIIB      = 150	*100;
+	const int liftTimeIIIA		= 48;
+	const int forwardTimeIIIB	= 18	*100;
+	const int liftTimeIIIB		= 23;
+	const int backTimeIIIA      = 20	*100;
+
+
 
 	Time_Wait(100);
 	Servo_Rotate(servo_ramp, g_rampServoHold);
 	Servo_Rotate(servo_claw, g_clawServoFolded);
 	//Time_Wait(1000);
 
-	//Move_Forward	(forwardTimeA, g_AccurateMotorPower);
-	//Turn_Left 		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
-	//Move_Forward	(forwardTimeB, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeA, g_AccurateMotorPower);
+	Turn_Left 		(turnTimeA, g_AccurateMotorPower, g_AccurateMotorPower);
+	Move_Forward	(forwardTimeB, g_AccurateMotorPower);
 
-	//Time_Wait(100);
-	//HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
+	Time_Wait(100);
+	HTIRS2readAllACStrength(infrared, IRdirA, IRdirB, IRdirC, IRdirD, IRdirE);
 
-	//if ( (IRdirA+IRdirB) > g_IRthreshold )
-	//	isPeg = PEG_III;
-	//if ( (IRdirE+IRdirD) > g_IRthreshold )
-	//	isPeg = PEG_I;
-	//if ( IRdirC > (IRdirA+IRdirB+IRdirD+IRdirE) )
-	//	isPeg = PEG_II;
+	if ( (IRdirA+IRdirB) > g_IRthreshold )
+		isPeg = PEG_III;
+	if ( (IRdirE+IRdirD) > g_IRthreshold )
+		isPeg = PEG_I;
+	if ( IRdirC > (IRdirA+IRdirB+IRdirD+IRdirE) )
+		isPeg = PEG_II;
 
-	//switch (isPeg)
-	//{
-	//	case PEG_I:
-	//		Move_Backward	(backTimeA, g_AccurateMotorPower);
+	switch (isPeg)
+	{
+		case PEG_I:
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-	//		Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
-	//		Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
-	//		Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			Turn_Right		(turnTimeIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIA, g_AccurateMotorPower);
+			Turn_Left		(turnTimeIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-	//		Lift_Up			(liftTimeIA, g_AccurateMotorPower);
-	//	    Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
-	//		Lift_Down		(liftTimeIB, g_AccurateMotorPower);
-	//		Move_Backward   (backTimeIA, g_AccurateMotorPower);
-	//		break;
-	//	case PEG_II:
-	//		Move_Backward	(backTimeA, g_AccurateMotorPower);
+			Lift_Up			(liftTimeIA, g_AccurateMotorPower);
+		    Move_Forward	(forwardTimeIB, g_AccurateMotorPower);
+			Lift_Down		(liftTimeIB, g_AccurateMotorPower);
+			Move_Backward   (backTimeIA, g_AccurateMotorPower);
+			break;
+		case PEG_II:
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-	//		Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
-	//		Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
-	//		Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			Turn_Left		(turnTimeIIA, g_AccurateMotorPower, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIA, g_AccurateMotorPower);
+			Turn_Right		(turnTimeIIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-	//		Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
-	//		Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
-	//		Lift_Down       (liftTimeIIB, g_AccurateMotorPower);
-	//		Move_Backward   (backTimeIIB, g_AccurateMotorPower);
-	//		Lift_Down		(liftTimeIIC, g_AccurateMotorPower);
-	//		break;
-	//	case PEG_III:
-	//		Move_Backward	(backTimeA, g_AccurateMotorPower);
+			Lift_Up			(liftTimeIIA, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIB, g_AccurateMotorPower);
+			Lift_Down       (liftTimeIIB, g_AccurateMotorPower);
+			Move_Backward   (backTimeIIB, g_AccurateMotorPower);
+			break;
+		case PEG_III:
+			Move_Backward	(backTimeA, g_AccurateMotorPower);
 
-	//		Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
- //    		Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
-	//        Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
+			Turn_Left		(turnTimeIIIA, g_AccurateMotorPower, g_AccurateMotorPower);
+     		Move_Forward	(forwardTimeIIIA, g_AccurateMotorPower);
+	        Turn_Right		(turnTimeIIIB, g_AccurateMotorPower, g_AccurateMotorPower);
 
-	//        Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
-	//		Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
-	//		Lift_Down       (liftTimeIIIB, g_AccurateMotorPower);
-	//		Move_Backward   (backTimeIIIA, g_AccurateMotorPower);
-	//		Turn_Left       (turnTimeIIIC, g_AccurateMotorPower, g_AccurateMotorPower);
-	//	    Move_Backward   (backTimeIIIB, g_AccurateMotorPower);
-	//		break;
-	//}
+	        Lift_Up			(liftTimeIIIA, g_AccurateMotorPower);
+			Move_Forward	(forwardTimeIIIB, g_AccurateMotorPower);
+			Lift_Down       (liftTimeIIIB, g_AccurateMotorPower);
+			Move_Backward   (backTimeIIIA, g_AccurateMotorPower);
+			break;
+	}
 
-	//while (true)
-	//{
-	//	PlaySoundFile("moo.rso");
-	//	while(bSoundActive == true)
-	//	{
-	//		Time_Wait(1);
-	//	}
-	//}
+	while (true)
+	{
+		PlaySoundFile("moo.rso");
+		while(bSoundActive == true)
+		{
+			Time_Wait(1);
+		}
+	}
 
 }
 
